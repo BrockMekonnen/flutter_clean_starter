@@ -10,8 +10,6 @@ environment:
 
 dependencies:
 
-  auto_route: ^3.2.4
-
   flutter_bloc: ^8.0.1
   
   cupertino_icons: ^1.0.2
@@ -37,10 +35,6 @@ dependencies:
   
   dio: ^4.0.4
   
-  http: ^0.13.4
-  
-  shared_preferences: ^2.0.13
-
   hive: ^2.1.0
 
   hive_flutter: ^1.1.0
@@ -49,14 +43,10 @@ dependencies:
 
   flex_color_scheme: ^4.2.0
 
-
-
 dev_dependencies:
 
   flutter_test:
     sdk: flutter
-
-  auto_route_generator: ^3.2.3
 
   build_runner: ^2.1.8
 
@@ -70,7 +60,6 @@ dev_dependencies:
 
   http_mock_adapter: ^0.3.2
 
-  hive_generator: ^1.1.2
 
 # The following section is specific to Flutter.
 flutter:

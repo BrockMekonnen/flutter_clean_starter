@@ -1,11 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '_core/di/get_It.dart' as di;
-
-import 'app.dart';
 
 void main() {
-  di.init();
-  BlocOverrides.runZoned(() => runApp(App()));
+  runApp(const App());
+}
+
+class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Clean Flutter',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: 'Poppins',
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
+            .copyWith(secondary: Colors.purple.shade600),
+      ),
+      home: const Scaffold(
+        body: Center(
+          child: Text('Landing Page'),
+        ),
+      ),
+    );
+  }
 }
