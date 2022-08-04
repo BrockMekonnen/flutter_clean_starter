@@ -1,12 +1,14 @@
-import 'package:clean_flutter/_shared/layout/layout_page.dart';
-import 'package:clean_flutter/modules/home/views/pages/home_page.dart';
+import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../_shared/layout/layout_page.dart';
 import '../../_shared/views/error/error_page.dart';
+import '../../modules/auth/bloc/auth_bloc.dart';
+import '../../modules/home/home.dart';
 import '../../modules/landing/views/page/landing_page.dart';
-import '../../modules/login/views/page/login_page.dart';
-import '../../modules/register/views/page/register_page.dart';
+import '../../modules/login/view/page/login_page.dart';
+import '../../modules/register/register.dart';
 
 const fadeTransitionKey = ValueKey<String>('Layout_Scaffold');
 const layoutKey = ValueKey<String>('Layout_Key');
@@ -18,6 +20,10 @@ const String registerRouteName = 'register';
 const String homeRouteName = 'home';
 
 class AppRouter {
+  final AuthBloc authBloc;
+
+  AppRouter(this.authBloc);
+
   late final router = GoRouter(
     routes: [
       GoRoute(
@@ -62,7 +68,35 @@ class AppRouter {
       key: state.pageKey,
       child: const ErrorPage(),
     ),
+    refreshListenable: GoRouterRefreshStream(authBloc.stream),
+    debugLogDiagnostics: true,
+    redirect: _guard,
   );
+
+  final unAuthScope = [
+    '/login',
+    '/register',
+    '/landing',
+  ];
+
+  String? _guard(GoRouterState state) {
+    debugPrint('authBloc.state: ${authBloc.state}');
+
+    final isUnauthenticated =
+        authBloc.state.status == AuthStatus.unauthenticated;
+    final unAuthRoute = unAuthScope.contains(state.subloc);
+    final loggingIn = state.subloc == '/login';
+    final loginLoc = state.namedLocation(loginRouteName);
+    if (isUnauthenticated && !loggingIn) return unAuthRoute ? null : loginLoc;
+
+    final loggedIn = authBloc.state.status == AuthStatus.authenticated;
+    final homeLoc = state.namedLocation(homeRouteName);
+    if (loggedIn && (loggingIn || unAuthRoute)) {
+      return homeLoc;
+    }
+
+    return null;
+  }
 }
 
 class FadeTransitionPage extends CustomTransitionPage<void> {

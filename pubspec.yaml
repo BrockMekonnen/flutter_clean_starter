@@ -51,6 +51,14 @@ dependencies:
 
     custom_navigation_bar: ^0.8.2
 
+    formz: ^0.4.1
+
+    auth_repository: 
+      path: packages/auth_repository
+
+    user_repository: 
+      path: packages/user_repository
+
 dev_dependencies:
     flutter_test:
         sdk: flutter

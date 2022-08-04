@@ -2,7 +2,6 @@ import 'dart:math' as math;
 
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 typedef NavigationTypeResolver = NavigationType Function(BuildContext context);

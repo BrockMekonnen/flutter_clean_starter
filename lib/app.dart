@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
+import '_core/di/di.dart';
 import '_core/router/router.dart';
 import '_core/theme/app_theme.dart';
+import 'modules/auth/bloc/auth_bloc.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const AppView();
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthBloc>(create: (context) => di()),
+      ],
+      child: const AppView(),
+    );
   }
 }
 
@@ -21,7 +29,8 @@ class AppView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final go = AppRouter();
+    final authBloc = BlocProvider.of<AuthBloc>(context);
+    final go = AppRouter(authBloc);
     return MaterialApp.router(
       title: 'Clean Flutter',
       debugShowCheckedModeBanner: false,
