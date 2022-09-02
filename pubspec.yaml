@@ -51,13 +51,10 @@ dependencies:
 
     custom_navigation_bar: ^0.8.2
 
-    formz: ^0.4.1
+    json_annotation: ^4.6.0
 
-    auth_repository: 
-      path: packages/auth_repository
-
-    user_repository: 
-      path: packages/user_repository
+    adaptive_layout:
+      path: packages/adaptive_layout
 
 dev_dependencies:
     flutter_test:
@@ -72,6 +69,8 @@ dev_dependencies:
     mocktail: ^0.3.0
 
     bloc_test: ^9.0.3
+
+    json_serializable: ^6.3.1
 
     http_mock_adapter: ^0.3.2
 

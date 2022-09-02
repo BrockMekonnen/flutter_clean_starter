@@ -5,8 +5,9 @@ import 'package:responsive_framework/responsive_framework.dart';
 
 import '_core/di/di.dart';
 import '_core/router/router.dart';
-import '_core/theme/app_theme.dart';
-import 'modules/auth/bloc/auth_bloc.dart';
+import '_core/theme/theme.dart';
+import 'features/auth/bloc/auth_bloc.dart';
+
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);

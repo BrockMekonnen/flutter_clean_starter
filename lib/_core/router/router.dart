@@ -1,14 +1,18 @@
-import 'package:auth_repository/auth_repository.dart';
+import 'package:clean_flutter/_shared/layout/utils/nav_items.dart';
+import 'package:clean_flutter/features/alerts/view/page/alerts_page.dart';
+import 'package:clean_flutter/features/bid/view/page/bid_page.dart';
+import 'package:clean_flutter/features/wallet/view/page/wallet_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../_shared/layout/layout_page.dart';
+import '../../_shared/layout/page/layout_page.dart';
 import '../../_shared/views/error/error_page.dart';
-import '../../modules/auth/bloc/auth_bloc.dart';
-import '../../modules/home/home.dart';
-import '../../modules/landing/views/page/landing_page.dart';
-import '../../modules/login/view/page/login_page.dart';
-import '../../modules/register/register.dart';
+import '../../features/auth/bloc/auth_bloc.dart';
+import '../../features/home/view/page/home_page.dart';
+import '../../features/landing/views/page/landing_page.dart';
+import '../../features/login/view/page/login_page.dart';
+import '../../features/register/view/page/register_page.dart';
+import '../../modules/auth/domain/auth_status.dart';
 
 const fadeTransitionKey = ValueKey<String>('Layout_Scaffold');
 const layoutKey = ValueKey<String>('Layout_Key');
@@ -18,6 +22,9 @@ const String landingRouteName = 'landing';
 const String loginRouteName = 'login';
 const String registerRouteName = 'register';
 const String homeRouteName = 'home';
+const String bidRouteName = 'bid';
+const String alertRouteName = 'alert';
+const String walletRouteName = 'wallet';
 
 class AppRouter {
   final AuthBloc authBloc;
@@ -60,7 +67,43 @@ class AppRouter {
         path: '/home',
         pageBuilder: (context, state) => FadeTransitionPage(
           key: fadeTransitionKey,
-          child: const LayoutPage(page: HomePage()),
+          child: const LayoutPage(
+            page: HomePage(),
+            selectedTab: NavigationTab.home,
+          ),
+        ),
+      ),
+      GoRoute(
+        name: bidRouteName,
+        path: '/bids',
+        pageBuilder: (context, state) => FadeTransitionPage(
+          key: fadeTransitionKey,
+          child: const LayoutPage(
+            page: BidPage(),
+            selectedTab: NavigationTab.bids,
+          ),
+        ),
+      ),
+      GoRoute(
+        name: walletRouteName,
+        path: '/wallet',
+        pageBuilder: (context, state) => FadeTransitionPage(
+          key: fadeTransitionKey,
+          child: const LayoutPage(
+            page: WalletPage(),
+            selectedTab: NavigationTab.wallet,
+          ),
+        ),
+      ),
+      GoRoute(
+        name: alertRouteName,
+        path: '/alerts',
+        pageBuilder: (context, state) => FadeTransitionPage(
+          key: fadeTransitionKey,
+          child: const LayoutPage(
+            page: AlertPage(),
+            selectedTab: NavigationTab.alerts,
+          ),
         ),
       ),
     ],
@@ -80,7 +123,7 @@ class AppRouter {
   ];
 
   String? _guard(GoRouterState state) {
-    debugPrint('authBloc.state: ${authBloc.state}');
+    // debugPrint('authBloc.state: ${authBloc.state}');
 
     final isUnauthenticated =
         authBloc.state.status == AuthStatus.unauthenticated;
