@@ -14,7 +14,6 @@ class RemoteUser extends User {
       required this.lastName,
       required this.phone,
       required this.email,
-      required this.gender,
       required this.roles})
       : super(
             id: id,
@@ -22,7 +21,6 @@ class RemoteUser extends User {
             lastName: lastName,
             phone: phone,
             email: email,
-            gender: gender,
             roles: roles);
 
   static parseId(objectId) => objectId['value'];
@@ -45,10 +43,6 @@ class RemoteUser extends User {
   @override
   @JsonKey(name: 'email')
   final String email;
-
-  @override
-  @JsonKey(name: 'gender')
-  final String gender;
 
   @override
   @JsonKey(name: 'roles')

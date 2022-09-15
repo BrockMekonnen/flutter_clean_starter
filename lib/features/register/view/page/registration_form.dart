@@ -15,6 +15,7 @@ class RegistrationForm extends StatefulWidget {
 
 class _RegistrationFormState extends State<RegistrationForm> {
   final _formKey = GlobalKey<FormBuilderState>();
+  bool _isPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -75,29 +76,42 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     ? ResponsiveRowColumnType.COLUMN
                     : ResponsiveRowColumnType.ROW,
                 children: [
-                  const ResponsiveRowColumnItem(
+                  ResponsiveRowColumnItem(
                     rowFlex: 1,
-                    child: PasswordField(),
+                    child: PasswordField(
+                      isPasswordVisible: _isPasswordVisible,
+                    ),
                   ),
                   ResponsiveRowColumnItem(
                     rowFlex: 1,
-                    child: ConfirmPasswordField(formKey: _formKey),
+                    child: ConfirmPasswordField(
+                      formKey: _formKey,
+                      isPasswordVisible: _isPasswordVisible,
+                    ),
                   ),
                 ],
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 8),
               Row(
                 children: [
                   Checkbox(
-                    value: false,
+                    value: _isPasswordVisible,
                     onChanged: (value) {
                       setState(() {
-                        // _passwordVisible = value ?? false;
+                        _isPasswordVisible = value ?? false;
                       });
                     },
                   ),
-                  const Text('Show Password')
+                  const Text(
+                    'Show Password',
+                    style: TextStyle(fontSize: 12),
+                  )
                 ],
+              ),
+              const SizedBox(height: 24),
+              FormBuilderCheckbox(
+                name: 'isTermAndConditionAgreed',
+                title: const Text('I Agree to Term and Condition'),
               ),
               const SizedBox(height: 30),
               SignUpButton(formKey: _formKey),

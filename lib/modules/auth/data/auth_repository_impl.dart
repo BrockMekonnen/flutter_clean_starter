@@ -4,20 +4,23 @@ import 'package:dio/dio.dart';
 import 'package:hive/hive.dart';
 
 import '../../../_core/config.dart';
+import '../domain/auth_repository.dart';
 import '../domain/auth_status.dart';
 
-class AuthRepository {
+class AuthRepositoryImpl implements AuthRepository {
   final _controller = StreamController<AuthStatus>();
 
   final Dio dio;
   final HiveInterface hive;
 
-  AuthRepository({required this.dio, required this.hive});
+  AuthRepositoryImpl({required this.dio, required this.hive});
 
+  @override
   Stream<AuthStatus> get status async* {
     yield* _controller.stream;
   }
 
+  @override
   Future<void> isAuthenticated() async {
     try {
       final tokenBox = await hive.openLazyBox('tokenBox');
@@ -33,6 +36,7 @@ class AuthRepository {
     }
   }
 
+  @override
   Future<void> logIn({
     required String email,
     required String password,
@@ -53,11 +57,13 @@ class AuthRepository {
     }
   }
 
+  @override
   void logOut() async {
     _controller.add(AuthStatus.unauthenticated);
     final tokenBox = await hive.openLazyBox('tokenBox');
     tokenBox.clear();
   }
 
+  @override
   void dispose() => _controller.close();
 }

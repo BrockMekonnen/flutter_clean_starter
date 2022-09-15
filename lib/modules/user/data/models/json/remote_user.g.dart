@@ -12,7 +12,6 @@ RemoteUser _$RemoteUserFromJson(Map<String, dynamic> json) => RemoteUser(
       lastName: json['lastName'] as String,
       phone: json['phone'] as String,
       email: json['email'] as String,
-      gender: json['gender'] as String,
       roles: (json['roles'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
@@ -23,6 +22,5 @@ Map<String, dynamic> _$RemoteUserToJson(RemoteUser instance) =>
       'lastName': instance.lastName,
       'phone': instance.phone,
       'email': instance.email,
-      'gender': instance.gender,
       'roles': instance.roles,
     };

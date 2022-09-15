@@ -2,35 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
-class ConfirmPasswordField extends StatelessWidget {
-  const ConfirmPasswordField({
+class FirstName extends StatelessWidget {
+  const FirstName({
     Key? key,
-    required this.formKey,
-    required this.isPasswordVisible,
   }) : super(key: key);
-
-  final bool isPasswordVisible;
-  final GlobalKey<FormBuilderState> formKey;
 
   @override
   Widget build(BuildContext context) {
     return FormBuilderTextField(
       validator: FormBuilderValidators.compose([
-        FormBuilderValidators.required(),
-        (value) {
-          debugPrint(
-              ' password: ${formKey.currentState?.fields['password']?.value == value}');
-          debugPrint(' confirmPassword: $value');
-          if (formKey.currentState?.fields['password']?.value != value) {
-            return 'password do not match';
-          }
-          return null;
-        }
+        FormBuilderValidators.required(errorText: 'First Name is required'),
+        FormBuilderValidators.minLength(3,
+            errorText: 'Name must be longer than 2 characters'),
       ]),
-      obscureText: !isPasswordVisible,
       decoration: const InputDecoration(
         isDense: true,
-        labelText: "Confirm",
+        labelText: "First Name",
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Color(0xFFdadce0), width: 0.8),
           borderRadius: BorderRadius.all(Radius.circular(4)),
@@ -40,7 +27,7 @@ class ConfirmPasswordField extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(4)),
         ),
       ),
-      name: 'confirmPassword',
+      name: 'firstName',
     );
   }
 }

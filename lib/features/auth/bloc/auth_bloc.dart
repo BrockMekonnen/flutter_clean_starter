@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../modules/auth/data/auth_repository.dart';
+import '../../../modules/auth/domain/auth_repository.dart';
 import '../../../modules/auth/domain/auth_status.dart';
-import '../../../modules/user/data/user_repository.dart';
 import '../../../modules/user/domain/user.dart';
+import '../../../modules/user/domain/user_repository.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -44,7 +44,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     AuthStatusChanged event,
     Emitter<AuthState> emit,
   ) async {
-    print('event.status: ${event.status}');
+    // print('event.status: ${event.status}');
     switch (event.status) {
       case AuthStatus.unauthenticated:
         return emit(const AuthState.unauthenticated());

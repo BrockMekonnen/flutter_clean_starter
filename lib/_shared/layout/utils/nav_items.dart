@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 enum NavigationTab {
   home,
-  bids,
-  alerts,
+  users,
+  addUser,
   wallet,
 }
 
@@ -14,12 +14,12 @@ final navItems = <AdaptiveDestination>[
     icon: Icons.home,
   ),
   AdaptiveDestination(
-    title: 'Bids',
-    icon: Icons.handshake,
+    title: 'Users',
+    icon: Icons.people,
   ),
   AdaptiveDestination(
-    title: 'Alerts',
-    icon: Icons.notifications,
+    title: 'Add',
+    icon: Icons.person_add,
   ),
   AdaptiveDestination(
     title: 'Wallet',

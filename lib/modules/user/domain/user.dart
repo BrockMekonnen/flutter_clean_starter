@@ -11,8 +11,6 @@ class User extends Equatable {
 
   final String email;
 
-  final String gender;
-
   final List<String> roles;
 
   const User({
@@ -21,7 +19,7 @@ class User extends Equatable {
     required this.lastName,
     required this.phone,
     required this.email,
-    required this.gender,
+
     required this.roles,
   });
 
@@ -31,7 +29,7 @@ class User extends Equatable {
     lastName: '-',
     phone: '-',
     email: '-',
-    gender: '-',
+
     roles: [],
   );
 
@@ -42,7 +40,6 @@ class User extends Equatable {
         lastName,
         phone,
         email,
-        gender,
         roles,
       ];
 }

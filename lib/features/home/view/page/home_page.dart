@@ -9,28 +9,37 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Home')),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Builder(
-              builder: (context) {
-                final userId = context.select(
-                  (AuthBloc bloc) => bloc.state.user.id,
-                );
-                return Text('UserID: $userId');
-              },
-            ),
-            ElevatedButton(
-              child: const Text('Logout'),
-              onPressed: () {
-                context.read<AuthBloc>().add(AuthLogoutRequested());
-              },
-            ),
-          ],
-        ),
-      ),
+      body: Center(child: BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Icon(
+                Icons.person,
+                size: 100,
+                color: Theme.of(context).primaryColor,
+              ),
+              const SizedBox(height: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('UserID: ${state.user.id}'),
+                  Text('Name: ${state.user.firstName} ${state.user.lastName}'),
+                  Text('Email: ${state.user.email}'),
+                  Text('Phone: ${state.user.phone}'),
+                ],
+              ),
+              const SizedBox(height: 30),
+              ElevatedButton(
+                child: const Text('Logout'),
+                onPressed: () {
+                  context.read<AuthBloc>().add(AuthLogoutRequested());
+                },
+              ),
+            ],
+          );
+        },
+      )),
     );
   }
 }

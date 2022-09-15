@@ -15,8 +15,8 @@ class LoginPage extends StatelessWidget {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Center(
-          child: BlocProvider(
-            create: (context) => LoginBloc(authRepository: di()),
+          child: BlocProvider<LoginBloc>(
+            create: (context) => di(),
             child: const LoginForm(),
           ),
         ),

@@ -9,11 +9,11 @@ void navRoutes(int index, BuildContext context) {
     case NavigationTab.home:
       context.goNamed(homeRouteName);
       break;
-    case NavigationTab.alerts:
-      context.goNamed(alertRouteName);
+    case NavigationTab.addUser:
+      context.goNamed(addUserRouteName);
       break;
-    case NavigationTab.bids:
-      context.goNamed(bidRouteName);
+    case NavigationTab.users:
+      context.goNamed(listUserRouteName);
       break;
     case NavigationTab.wallet:
       context.goNamed(walletRouteName);

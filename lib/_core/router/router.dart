@@ -1,6 +1,6 @@
 import 'package:clean_flutter/_shared/layout/utils/nav_items.dart';
-import 'package:clean_flutter/features/alerts/view/page/alerts_page.dart';
-import 'package:clean_flutter/features/bid/view/page/bid_page.dart';
+import 'package:clean_flutter/features/add_user/view/page/add_user_page.dart';
+import 'package:clean_flutter/features/list_users/view/page/users_page.dart';
 import 'package:clean_flutter/features/wallet/view/page/wallet_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -22,8 +22,8 @@ const String landingRouteName = 'landing';
 const String loginRouteName = 'login';
 const String registerRouteName = 'register';
 const String homeRouteName = 'home';
-const String bidRouteName = 'bid';
-const String alertRouteName = 'alert';
+const String listUserRouteName = 'list-user';
+const String addUserRouteName = 'add-user';
 const String walletRouteName = 'wallet';
 
 class AppRouter {
@@ -70,17 +70,19 @@ class AppRouter {
           child: const LayoutPage(
             page: HomePage(),
             selectedTab: NavigationTab.home,
+            pageTitle: 'Home',
           ),
         ),
       ),
       GoRoute(
-        name: bidRouteName,
-        path: '/bids',
+        name: listUserRouteName,
+        path: '/users',
         pageBuilder: (context, state) => FadeTransitionPage(
           key: fadeTransitionKey,
           child: const LayoutPage(
-            page: BidPage(),
-            selectedTab: NavigationTab.bids,
+            page: ListUsers(),
+            pageTitle: 'Users',
+            selectedTab: NavigationTab.users,
           ),
         ),
       ),
@@ -91,18 +93,20 @@ class AppRouter {
           key: fadeTransitionKey,
           child: const LayoutPage(
             page: WalletPage(),
+            pageTitle: 'Wallet',
             selectedTab: NavigationTab.wallet,
           ),
         ),
       ),
       GoRoute(
-        name: alertRouteName,
-        path: '/alerts',
+        name: addUserRouteName,
+        path: '/add-user',
         pageBuilder: (context, state) => FadeTransitionPage(
           key: fadeTransitionKey,
           child: const LayoutPage(
-            page: AlertPage(),
-            selectedTab: NavigationTab.alerts,
+            page: AddUser(),
+            pageTitle: 'Add User',
+            selectedTab: NavigationTab.addUser,
           ),
         ),
       ),
