@@ -51,10 +51,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       case AuthStatus.authenticated:
         final user = await _tryGetUser();
         return emit(user != null
-            ? AuthState.authenticated(user)
+            ? user.isEmailVerified
+                ? AuthState.authenticated(user)
+                : AuthState.unverified(user)
             : const AuthState.unauthenticated());
       case AuthStatus.unknown:
         return emit(const AuthState.unknown());
+      default:
+        return emit(const AuthState.unknown());
+
     }
   }
 

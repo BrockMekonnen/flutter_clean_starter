@@ -2,30 +2,32 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../domain/user.dart';
+import '../../domain/user.dart';
 
 part 'remote_user.g.dart';
 
 @JsonSerializable()
 class RemoteUser extends User {
-  const RemoteUser(
-      {required this.id,
-      required this.firstName,
-      required this.lastName,
-      required this.phone,
-      required this.email,
-      required this.roles})
-      : super(
-            id: id,
-            firstName: firstName,
-            lastName: lastName,
-            phone: phone,
-            email: email,
-            roles: roles);
+  const RemoteUser({
+    required this.id,
+    required this.firstName,
+    required this.lastName,
+    required this.phone,
+    required this.email,
+    required this.roles,
+    required this.isEmailVerified,
+  }) : super(
+          id: id,
+          firstName: firstName,
+          lastName: lastName,
+          phone: phone,
+          email: email,
+          roles: roles,
+          isEmailVerified: isEmailVerified,
+        );
 
-  static parseId(objectId) => objectId['value'];
   @override
-  @JsonKey(fromJson: parseId, includeIfNull: false, name: "id")
+  @JsonKey(name: 'id')
   final String id;
 
   @override
@@ -47,6 +49,10 @@ class RemoteUser extends User {
   @override
   @JsonKey(name: 'roles')
   final List<String> roles;
+
+  @override
+  @JsonKey(name: 'isEmailVerified')
+  final bool isEmailVerified;
 
   factory RemoteUser.fromJson(Map<String, dynamic> json) =>
       _$RemoteUserFromJson(json);

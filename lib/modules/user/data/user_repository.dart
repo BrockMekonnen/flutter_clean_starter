@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:clean_flutter/modules/user/domain/user_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:hive/hive.dart';
 
 import '../domain/user.dart';
-import 'models/json/remote_user.dart';
+import '../domain/user_repository.dart';
+import 'models/remote_user.dart';
 
 class UserRepositoryImpl implements UserRepository {
   User? _user;
@@ -20,26 +20,25 @@ class UserRepositoryImpl implements UserRepository {
     try {
       String path = '/users/me';
       final response = await dio.get(path);
-      _user = RemoteUser.fromJson(response.data);
+      // print('User: ${response}');
+      _user = RemoteUser.fromJson(response.data['data']);
     } catch (error) {
       // ignore: avoid_print
       print('Error getting User: $error');
     }
     if (_user != null) return _user;
-    return Future.delayed(
-      const Duration(milliseconds: 300),
-      () => _user = User.empty,
-    );
+    return User.empty;
   }
 
   @override
-  Future<void> register(
-      {required String firstName,
-      required String lastName,
-      required String phone,
-      required String email,
-      required String password,
-      required bool isTermAndConditionAgreed}) async {
+  Future<void> register({
+    required String firstName,
+    required String lastName,
+    required String phone,
+    required String email,
+    required String password,
+    required bool isTermAndConditionAgreed,
+  }) async {
     try {
       String path = '/users';
       await dio.post(path, data: {
@@ -51,8 +50,6 @@ class UserRepositoryImpl implements UserRepository {
         'isTermAndConditionAgreed': isTermAndConditionAgreed,
       });
     } catch (error) {
-      // ignore: avoid_print
-      // print('Register Error: $error');
       throw Exception('error registering user');
     }
   }
@@ -62,18 +59,10 @@ class UserRepositoryImpl implements UserRepository {
     String path = "/users?page=$page&limit=$limit";
     try {
       final response = await dio.get(path);
-
       final users = <User>[];
       response.data['data'].forEach((item) {
         // print(item);
-        users.add(User(
-          id: item['id'],
-          firstName: item['firstName'],
-          lastName: item['lastName'],
-          phone: item['phone'],
-          email: item['email'],
-          roles: const [],
-        ));
+        users.add(RemoteUser.fromJson(item));
       });
       return users;
     } catch (error) {

@@ -13,14 +13,16 @@ class User extends Equatable {
 
   final List<String> roles;
 
+  final bool isEmailVerified;
+
   const User({
     required this.id,
     required this.firstName,
     required this.lastName,
     required this.phone,
     required this.email,
-
     required this.roles,
+    required this.isEmailVerified,
   });
 
   static const empty = User(
@@ -29,7 +31,7 @@ class User extends Equatable {
     lastName: '-',
     phone: '-',
     email: '-',
-
+    isEmailVerified: false,
     roles: [],
   );
 

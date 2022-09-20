@@ -7,12 +7,13 @@ part of 'remote_user.dart';
 // **************************************************************************
 
 RemoteUser _$RemoteUserFromJson(Map<String, dynamic> json) => RemoteUser(
-      id: RemoteUser.parseId(json['id']),
+      id: json['id'] as String,
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
       phone: json['phone'] as String,
       email: json['email'] as String,
       roles: (json['roles'] as List<dynamic>).map((e) => e as String).toList(),
+      isEmailVerified: json['isEmailVerified'] as bool,
     );
 
 Map<String, dynamic> _$RemoteUserToJson(RemoteUser instance) =>
@@ -23,4 +24,5 @@ Map<String, dynamic> _$RemoteUserToJson(RemoteUser instance) =>
       'phone': instance.phone,
       'email': instance.email,
       'roles': instance.roles,
+      'isEmailVerified': instance.isEmailVerified,
     };

@@ -47,7 +47,6 @@ class AuthRepositoryImpl implements AuthRepository {
         "email": email,
         "password": password,
       });
-      // print('response: $response');
       final tokenBox = await hive.openLazyBox('tokenBox');
       await tokenBox.put(cachedToken, response.data['token']);
       return _controller.add(AuthStatus.authenticated);
@@ -62,6 +61,30 @@ class AuthRepositoryImpl implements AuthRepository {
     _controller.add(AuthStatus.unauthenticated);
     final tokenBox = await hive.openLazyBox('tokenBox');
     tokenBox.clear();
+  }
+
+  @override
+  Future<void> requestOTP({required String email}) async {
+    String path = '/users/me/send-otp';
+    try {
+      await dio.post(path, data: {'email': email});
+    } catch (error) {
+      throw Exception('error occurred while requesting otp');
+    }
+    return;
+  }
+
+  @override
+  Future<void> verifyEmail(
+      {required String code, required String email}) async {
+    String path = '/users/me/verify-email';
+    try {
+      await dio.post(path, data: {'email': email, 'code': code});
+      _controller.add(AuthStatus.authenticated);
+    } catch (error) {
+      throw Exception('Error occurred while trying to verify your email');
+    }
+    return;
   }
 
   @override

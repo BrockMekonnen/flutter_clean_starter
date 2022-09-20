@@ -1,6 +1,7 @@
 import 'package:clean_flutter/_shared/layout/utils/nav_items.dart';
 import 'package:clean_flutter/features/add_user/view/page/add_user_page.dart';
 import 'package:clean_flutter/features/list_users/view/page/users_page.dart';
+import 'package:clean_flutter/features/verify_email/view/page/verify_email_page.dart';
 import 'package:clean_flutter/features/wallet/view/page/wallet_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -25,6 +26,7 @@ const String homeRouteName = 'home';
 const String listUserRouteName = 'list-user';
 const String addUserRouteName = 'add-user';
 const String walletRouteName = 'wallet';
+const String verifyEmailRouteName = 'verify-email';
 
 class AppRouter {
   final AuthBloc authBloc;
@@ -60,6 +62,14 @@ class AppRouter {
         pageBuilder: (context, state) => FadeTransitionPage(
           key: fadeTransitionKey,
           child: const RegisterPage(),
+        ),
+      ),
+      GoRoute(
+        name: verifyEmailRouteName,
+        path: '/verify-email',
+        pageBuilder: (context, state) => FadeTransitionPage(
+          key: fadeTransitionKey,
+          child: const VerifyEmailPage(),
         ),
       ),
       GoRoute(
@@ -124,10 +134,16 @@ class AppRouter {
     '/login',
     '/register',
     '/landing',
+    '/verify-email',
   ];
 
   String? _guard(GoRouterState state) {
     // debugPrint('authBloc.state: ${authBloc.state}');
+
+    final verifying = state.subloc == '/verify-email';
+    final isUnverified = authBloc.state.status == AuthStatus.unverified;
+    final verifyLoc = state.namedLocation(verifyEmailRouteName);
+    if (isUnverified) return verifying ? null : verifyLoc;
 
     final isUnauthenticated =
         authBloc.state.status == AuthStatus.unauthenticated;

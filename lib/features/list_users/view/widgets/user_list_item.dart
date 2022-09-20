@@ -2,9 +2,12 @@ import 'package:clean_flutter/modules/user/domain/user.dart';
 import 'package:flutter/material.dart';
 
 class UserListItem extends StatelessWidget {
-  const UserListItem({super.key, required this.user});
-
   final User user;
+
+  const UserListItem({
+    Key? key,
+    required this.user,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
