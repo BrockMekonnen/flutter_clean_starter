@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../auth/bloc/auth_bloc.dart';
 
@@ -30,11 +31,22 @@ class HomePage extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 30),
-              ElevatedButton(
-                child: const Text('Logout'),
-                onPressed: () {
-                  context.read<AuthBloc>().add(AuthLogoutRequested());
-                },
+              Wrap(
+                spacing: 20,
+                children: [
+                  ElevatedButton(
+                    child: const Text('Logout'),
+                    onPressed: () {
+                      context.read<AuthBloc>().add(AuthLogoutRequested());
+                    },
+                  ),
+                  ElevatedButton(
+                    child: const Text('Detail'),
+                    onPressed: () {
+                      GoRouter.of(context).go('/home/details');
+                    },
+                  ),
+                ],
               ),
             ],
           );

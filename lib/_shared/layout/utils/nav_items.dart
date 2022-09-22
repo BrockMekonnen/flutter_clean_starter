@@ -1,13 +1,6 @@
 import 'package:adaptive_layout/adaptive_layout.dart';
 import 'package:flutter/material.dart';
 
-enum NavigationTab {
-  home,
-  users,
-  addUser,
-  wallet,
-}
-
 final navItems = <AdaptiveDestination>[
   AdaptiveDestination(
     title: 'Home',

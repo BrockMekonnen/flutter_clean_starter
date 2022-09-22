@@ -14,6 +14,13 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormBuilderState>();
+  bool isPasswordVisible = false;
+
+  void changePasswordVisibility() {
+    setState(() {
+      isPasswordVisible = !isPasswordVisible;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +63,10 @@ class _LoginFormState extends State<LoginForm> {
                   const SizedBox(height: 40),
                   const EmailInput(),
                   const SizedBox(height: 15),
-                  const PasswordInput(),
+                  PasswordInput(
+                    changePasswordVisibility: changePasswordVisibility,
+                    isPasswordVisible: isPasswordVisible,
+                  ),
                   const SizedBox(height: 10),
                   const ForgetPasswordButton(),
                   const SizedBox(height: 40),

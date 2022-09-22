@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../_shared/bloc/request_otp/request_otp_bloc.dart';
 import '../../../auth/bloc/auth_bloc.dart';
-import '../../bloc/verify_email_bloc.dart';
 
 class ResendButton extends StatelessWidget {
   const ResendButton({
@@ -21,8 +21,8 @@ class ResendButton extends StatelessWidget {
               TextButton(
                 onPressed: () {
                   // debugPrint(state.user.email);
-                  BlocProvider.of<VerifyEmailBloc>(context)
-                      .add(ResendOTPRequested(email: state.user.email));
+                  BlocProvider.of<RequestOtpBloc>(context).add(OTPRequested(
+                      email: state.user.email, otpFor: 'Verification'));
                 },
                 child: const Text("Resend"),
               ),

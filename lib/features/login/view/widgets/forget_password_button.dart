@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../../_core/router/router.dart';
 
 class ForgetPasswordButton extends StatelessWidget {
   const ForgetPasswordButton({
@@ -12,7 +15,7 @@ class ForgetPasswordButton extends StatelessWidget {
       children: [
         TextButton(
           onPressed: () {
-            // context.goNamed(forgetPasswordRouteName);
+            context.goNamed(forgetPasswordRouteName);
           },
           child: const Text("Forget Password?"),
         ),

@@ -51,7 +51,7 @@ class AuthRepositoryImpl implements AuthRepository {
       await tokenBox.put(cachedToken, response.data['token']);
       return _controller.add(AuthStatus.authenticated);
     } catch (error) {
-      // print('Error: $error');
+      print('Error: $error');
       throw Error();
     }
   }
@@ -64,8 +64,15 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> requestOTP({required String email}) async {
-    String path = '/users/me/send-otp';
+  Future<void> requestOTP(
+      {required String email, required String otpFor}) async {
+    String path = '';
+    if (otpFor == 'Verification') {
+      path = '/users/send-otp';
+    } else if (otpFor == 'Forget') {
+      path = '/users/forget-password';
+    }
+
     try {
       await dio.post(path, data: {'email': email});
     } catch (error) {
@@ -89,4 +96,22 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   void dispose() => _controller.close();
+
+  @override
+  Future<void> resetPassword(
+      {required String email,
+      required String code,
+      required String password}) async {
+    String path = '/users/reset-password';
+    try {
+      await dio.post(path, data: {
+        'email': email,
+        'code': code,
+        'password': password,
+      });
+    } catch (error) {
+      throw Exception('Error occurred while resetting your password');
+    }
+    return;
+  }
 }

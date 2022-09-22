@@ -8,7 +8,6 @@ import '_core/router/router.dart';
 import '_core/theme/theme.dart';
 import 'features/auth/bloc/auth_bloc.dart';
 
-
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
 
@@ -31,7 +30,7 @@ class AppView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authBloc = BlocProvider.of<AuthBloc>(context);
-    final go = AppRouter(authBloc);
+    final go = AppRouter(authBloc: authBloc);
     return MaterialApp.router(
       title: 'Clean Flutter',
       debugShowCheckedModeBanner: false,

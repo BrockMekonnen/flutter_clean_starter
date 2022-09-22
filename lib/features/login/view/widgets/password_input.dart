@@ -5,9 +5,13 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 class PasswordInput extends StatelessWidget {
   const PasswordInput({
     Key? key,
+    required this.isPasswordVisible,
+    required this.changePasswordVisibility,
   }) : super(key: key);
 
-  final bool isPasswordVisible = false;
+  final bool isPasswordVisible;
+  final Function changePasswordVisibility;
+
   @override
   Widget build(BuildContext context) {
     return FormBuilderTextField(
@@ -25,16 +29,23 @@ class PasswordInput extends StatelessWidget {
         }
       ]),
       obscureText: !isPasswordVisible,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         isDense: true,
         labelText: "Password",
-        focusedBorder: OutlineInputBorder(
+        focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Color(0xFFdadce0), width: 0.8),
           borderRadius: BorderRadius.all(Radius.circular(4)),
         ),
-        enabledBorder: OutlineInputBorder(
+        enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Color(0xFFdadce0), width: 0.8),
           borderRadius: BorderRadius.all(Radius.circular(4)),
+        ),
+        suffixIcon: IconButton(
+          onPressed: () {
+            changePasswordVisibility();
+          },
+          icon:
+              Icon(isPasswordVisible ? Icons.visibility : Icons.visibility_off),
         ),
       ),
       name: 'password',

@@ -15,8 +15,6 @@ class OtpInput extends StatelessWidget {
         validator: FormBuilderValidators.compose([
           FormBuilderValidators.required(),
           FormBuilderValidators.integer(),
-          // FormBuilderValidators.min(6),
-          // FormBuilderValidators.max(6),
         ]),
         autofocus: true,
         textAlign: TextAlign.center,

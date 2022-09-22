@@ -20,11 +20,4 @@ class VerifyEmailRequested extends VerifyEmailEvent {
   List<Object> get props => [code, email];
 }
 
-class ResendOTPRequested extends VerifyEmailEvent {
-  final String email;
 
-  const ResendOTPRequested({required this.email});
-
-  @override
-  List<Object> get props => [email];
-}
