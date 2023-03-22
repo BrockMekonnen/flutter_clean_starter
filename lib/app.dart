@@ -40,7 +40,6 @@ class AppView extends StatelessWidget {
       localizationsDelegates: const [
         FormBuilderLocalizations.delegate,
       ],
-      supportedLocales: FormBuilderLocalizations.delegate.supportedLocales,
       builder: (context, widget) => ResponsiveWrapper.builder(
           ClampingScrollWrapper.builder(context, widget!),
           defaultScale: true,
