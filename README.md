@@ -1,7 +1,7 @@
-#Flutter Clean Architecture Template
+# Flutter Clean Architecture Template
 This is a template project for Flutter that follows Clean Architecture and Modular Architecture principles. The goal of this project is to provide a basic structure that can be used as a starting point for building Flutter applications that are well-organized, maintainable, and scalable.
 
-##Getting Started
+## Getting Started
 To use this template, simply clone this repository and rename the project to your desired app name. You can then modify the project as needed to fit your requirements.
 
 Features
@@ -15,5 +15,5 @@ This template includes the following features:
 
  - API Integration: The project includes an example of how to integrate with a remote API using a data source class and a repository class.
 
-##Contributing
+## Contributing
 If you find any issues with this template or have suggestions for improvements, please feel free to open an issue or submit a pull request. All contributions are welcome and appreciated!
