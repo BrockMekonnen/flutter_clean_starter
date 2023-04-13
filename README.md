@@ -1,16 +1,21 @@
-# clean_flutter
+Flutter Clean Architecture Template
+This is a template project for Flutter that follows Clean Architecture and Modular Architecture principles. The goal of this project is to provide a basic structure that can be used as a starting point for building Flutter applications that are well-organized, maintainable, and scalable.
 
-A new Flutter project.
+Getting Started
+To use this template, simply clone this repository and rename the project to your desired app name. You can then modify the project as needed to fit your requirements.
 
-## Getting Started
+Features
+This template includes the following features:
 
-This project is a starting point for a Flutter application.
+Clean Architecture: The project is structured using Clean Architecture principles, which separates the application into three layers: Domain, Data, and Presentation. This allows for better separation of concerns and makes the code more testable and maintainable.
 
-A few resources to get you started if this is your first Flutter project:
+Modular Architecture: The project is also structured using Modular Architecture principles, which separates the app into smaller, self-contained modules. This allows for better code reuse and makes it easier to add or remove functionality from the app.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Dependency Injection: The project uses the get_it package for dependency injection, which makes it easy to manage dependencies and ensures that the app is testable and scalable.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+API Integration: The project includes an example of how to integrate with a remote API using a data source class and a repository class.
+
+Unit Testing: The project includes an example of how to write unit tests using the mockito package.
+
+Contributing
+If you find any issues with this template or have suggestions for improvements, please feel free to open an issue or submit a pull request. All contributions are welcome and appreciated!
