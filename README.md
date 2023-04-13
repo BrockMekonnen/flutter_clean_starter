@@ -1,4 +1,4 @@
-# Flutter Clean Architecture Template
+# Flutter Clean + Modular Architecture Template
 This is a template project for Flutter that follows Clean Architecture and Modular Architecture principles. The goal of this project is to provide a basic structure that can be used as a starting point for building Flutter applications that are well-organized, maintainable, and scalable.
 
 ## Getting Started
