@@ -1,6 +1,4 @@
 import 'package:adaptive_layout/adaptive_layout.dart';
-import 'package:clean_flutter/_core/di/di.dart';
-import 'package:clean_flutter/_shared/layout/widgets/main_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -8,6 +6,7 @@ import 'package:responsive_framework/responsive_framework.dart';
 import '../../../_core/router/nav_routes.dart';
 import '../utils/nav_items.dart';
 import '../widgets/drawer_header.dart';
+import '../widgets/main_app_bar.dart';
 
 class LayoutPage extends StatelessWidget {
   const LayoutPage({
