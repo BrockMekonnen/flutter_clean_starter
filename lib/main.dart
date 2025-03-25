@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '_core/di/di.dart';
+import '_core/di.dart';
 import 'app.dart';
 
 Future<void> main() async {

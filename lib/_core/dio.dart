@@ -31,7 +31,7 @@ class DioConfig {
             return handler.next(response);
           }
         },
-        onError: (DioError e, handler) {
+        onError: (DioException e, handler) {
           // ignore: avoid_print
           print('onError: => $e');
           return handler.next(e);
