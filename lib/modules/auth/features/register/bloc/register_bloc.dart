@@ -1,21 +1,16 @@
 import 'package:bloc/bloc.dart';
-import 'package:clean_flutter/modules/auth/features/login/login.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../user/domain/user_repository.dart';
+import '../../../domain/auth_repository.dart';
 
 part 'register_event.dart';
 part 'register_state.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
-  final UserRepository _userRepository;
-  final LoginBloc _loginBloc;
+  final AuthRepository _authRepository;
 
-  RegisterBloc({
-    required UserRepository userRepository,
-    required LoginBloc loginBloc,
-  })  : _userRepository = userRepository,
-        _loginBloc = loginBloc,
+  RegisterBloc({required AuthRepository authRepository})
+      : _authRepository = authRepository,
         super(RegisterInitial()) {
     on<RegistrationRequested>(_registrationRequested);
   }
@@ -27,16 +22,14 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     emit(RegisterLoading());
 
     try {
-      await _userRepository.register(
+      await _authRepository.register(
         firstName: event.firstName,
         lastName: event.lastName,
         phone: event.phone,
         email: event.email,
         password: event.password,
-        isTermAndConditionAgreed: event.isTermAndConditionAgreed,
       );
-      _loginBloc
-          .add(LoginSubmitted(email: event.email, password: event.password));
+
       emit(RegisterSuccess());
     } catch (error) {
       emit(const RegisterFailure(error: 'Error Registering User'));

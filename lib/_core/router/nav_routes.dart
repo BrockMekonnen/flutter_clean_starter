@@ -8,15 +8,7 @@ final navItems = <AdaptiveDestination>[
     icon: Icons.home,
   ),
   AdaptiveDestination(
-    title: 'Users',
-    icon: Icons.people,
-  ),
-  AdaptiveDestination(
-    title: 'Add',
-    icon: Icons.person_add,
-  ),
-  AdaptiveDestination(
-    title: 'Wallet',
-    icon: Icons.account_balance_wallet,
+    title: 'Profile',
+    icon: Icons.person,
   ),
 ];

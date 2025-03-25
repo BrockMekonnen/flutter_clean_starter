@@ -1,9 +1,8 @@
-import 'package:clean_flutter/_core/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class LandingPage extends StatelessWidget {
-  const LandingPage({Key? key}) : super(key: key);
+  const LandingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +12,7 @@ class LandingPage extends StatelessWidget {
         actions: [
           TextButton.icon(
             onPressed: () {
-              context.goNamed(loginRouteName);
+              context.go("/login");
             },
             icon: Icon(
               Icons.login,
@@ -28,7 +27,7 @@ class LandingPage extends StatelessWidget {
           ),
           TextButton.icon(
             onPressed: () {
-              context.goNamed(registerRouteName);
+              context.go("/register");
             },
             icon: Icon(
               Icons.person_add,

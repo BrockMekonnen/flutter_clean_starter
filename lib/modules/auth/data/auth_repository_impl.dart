@@ -3,12 +3,15 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:hive/hive.dart';
 
-import '../../../_core/config.dart';
+import '../../../_core/constants.dart';
 import '../domain/auth_repository.dart';
 import '../domain/auth_status.dart';
+import '../domain/user.dart';
+import 'models/user_model.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final _controller = StreamController<AuthStatus>();
+  User? _user;
 
   final Dio dio;
   final HiveInterface hive;
@@ -21,10 +24,20 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  void logOut() async {
+    _controller.add(AuthStatus.unauthenticated);
+    final tokenBox = await hive.openLazyBox(Constants.cachedToken);
+    tokenBox.clear();
+  }
+
+  @override
+  void dispose() => _controller.close();
+
+  @override
   Future<void> isAuthenticated() async {
     try {
-      final tokenBox = await hive.openLazyBox('tokenBox');
-      final token = await tokenBox.get(cachedToken);
+      final tokenBox = await hive.openLazyBox(Constants.tokenBoxName);
+      final token = await tokenBox.get(Constants.cachedToken);
       if (token != null && token.isNotEmpty) {
         _controller.add(AuthStatus.authenticated);
       } else {
@@ -37,7 +50,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> logIn({
+  Future<void> login({
     required String email,
     required String password,
   }) async {
@@ -48,70 +61,47 @@ class AuthRepositoryImpl implements AuthRepository {
         "password": password,
       });
       final tokenBox = await hive.openLazyBox('tokenBox');
-      await tokenBox.put(cachedToken, response.data['token']);
+      await tokenBox.put(Constants.cachedToken, response.data['token']);
       return _controller.add(AuthStatus.authenticated);
     } catch (error) {
-      print('Error: $error');
       throw Error();
     }
   }
 
   @override
-  void logOut() async {
-    _controller.add(AuthStatus.unauthenticated);
-    final tokenBox = await hive.openLazyBox('tokenBox');
-    tokenBox.clear();
-  }
-
-  @override
-  Future<void> requestOTP(
-      {required String email, required String otpFor}) async {
-    String path = '';
-    if (otpFor == 'Verification') {
-      path = '/users/send-otp';
-    } else if (otpFor == 'Forget') {
-      path = '/users/forget-password';
-    }
-
+  Future<void> register({
+    required String firstName,
+    required String lastName,
+    required String phone,
+    required String email,
+    required String password,
+  }) async {
     try {
-      await dio.post(path, data: {'email': email});
-    } catch (error) {
-      throw Exception('error occurred while requesting otp');
-    }
-    return;
-  }
-
-  @override
-  Future<void> verifyEmail(
-      {required String code, required String email}) async {
-    String path = '/users/me/verify-email';
-    try {
-      await dio.post(path, data: {'email': email, 'code': code});
-      _controller.add(AuthStatus.authenticated);
-    } catch (error) {
-      throw Exception('Error occurred while trying to verify your email');
-    }
-    return;
-  }
-
-  @override
-  void dispose() => _controller.close();
-
-  @override
-  Future<void> resetPassword(
-      {required String email,
-      required String code,
-      required String password}) async {
-    String path = '/users/reset-password';
-    try {
+      String path = '/users';
       await dio.post(path, data: {
+        'firstName': firstName,
+        'lastName': lastName,
+        'phone': phone,
         'email': email,
-        'code': code,
         'password': password,
       });
     } catch (error) {
-      throw Exception('Error occurred while resetting your password');
+      throw Exception('error registering user');
     }
-    return;
+  }
+
+  @override
+  Future<User?> getUser() async {
+    try {
+      String path = '/users/me';
+      final response = await dio.get(path);
+      // print('User: ${response}');
+      _user = UserModel.fromJson(response.data['data']);
+    } catch (error) {
+      // ignore: avoid_print
+      print('Error getting User: $error');
+    }
+    if (_user != null) return _user;
+    return User.empty;
   }
 }

@@ -6,7 +6,7 @@ import '../../bloc/login_bloc.dart';
 import '../widgets/widgets.dart';
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({Key? key}) : super(key: key);
+  const LoginForm({super.key});
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -67,8 +67,6 @@ class _LoginFormState extends State<LoginForm> {
                     changePasswordVisibility: changePasswordVisibility,
                     isPasswordVisible: isPasswordVisible,
                   ),
-                  const SizedBox(height: 10),
-                  const ForgetPasswordButton(),
                   const SizedBox(height: 40),
                   LoginButton(formKey: _formKey),
                   const SizedBox(height: 40),

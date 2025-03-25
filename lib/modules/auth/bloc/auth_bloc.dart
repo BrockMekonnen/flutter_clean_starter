@@ -5,8 +5,7 @@ import 'package:equatable/equatable.dart';
 
 import '../domain/auth_repository.dart';
 import '../domain/auth_status.dart';
-import '../../user/domain/user.dart';
-import '../../user/domain/user_repository.dart';
+import '../domain/user.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -14,19 +13,15 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   late StreamSubscription<AuthStatus> _authStatusSubscription;
   final AuthRepository _authRepository;
-  final UserRepository _userRepository;
 
-  AuthBloc({
-    required AuthRepository authRepository,
-    required UserRepository userRepository,
-  })  : _authRepository = authRepository,
-        _userRepository = userRepository,
+  AuthBloc({required AuthRepository authRepository})
+      : _authRepository = authRepository,
         super(const AuthState.unknown()) {
     on<AppLoaded>(_appLoaded);
     on<AuthStatusChanged>(_onAuthStatusChanged);
     on<AuthLogoutRequested>(_onAuthLogoutRequested);
-    _authStatusSubscription = _authRepository.status
-        .listen((status) => add(AuthStatusChanged(status)));
+    _authStatusSubscription =
+        _authRepository.status.listen((status) => add(AuthStatusChanged(status)));
   }
 
   @override
@@ -51,15 +46,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       case AuthStatus.authenticated:
         final user = await _tryGetUser();
         return emit(user != null
-            ? user.isEmailVerified
-                ? AuthState.authenticated(user)
-                : AuthState.unverified(user)
+            ? AuthState.authenticated(user)
             : const AuthState.unauthenticated());
       case AuthStatus.unknown:
         return emit(const AuthState.unknown());
-      default:
-        return emit(const AuthState.unknown());
-
     }
   }
 
@@ -72,7 +62,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<User?> _tryGetUser() async {
     try {
-      final user = await _userRepository.getUser();
+      final user = await _authRepository.getUser();
       return user;
     } catch (_) {
       return null;

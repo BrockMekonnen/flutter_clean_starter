@@ -22,10 +22,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   ) async {
     emit(LoginLoading());
     try {
-      await _authRepository.logIn(
-        email: event.email,
-        password: event.password,
-      );
+      await _authRepository.login(email: event.email, password: event.password);
       emit(LoginSuccess());
     } catch (_) {
       emit(LoginFailure(error: 'Error Logging In'));

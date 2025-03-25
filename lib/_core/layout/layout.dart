@@ -1,1 +1,1 @@
-export 'page/layout_page.dart';
+export 'layout_page.dart';

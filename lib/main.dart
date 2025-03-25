@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '_core/di.dart';
+import '_core/bootstrap.dart';
 import 'app.dart';
 
 Future<void> main() async {
-  await initDependencyInjection();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Bootstrap.init();
   runApp(const App());
 }

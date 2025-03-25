@@ -3,7 +3,6 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
-import '../../../../../../_core/router/router.dart';
 import '../widgets/widgets.dart';
 
 class RegistrationForm extends StatefulWidget {
@@ -121,9 +120,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 children: [
                   const Text('Already Have Account?'),
                   TextButton(
-                    onPressed: () {
-                      context.goNamed(loginRouteName);
-                    },
+                    onPressed: () => context.go("/login"),
                     child: const Text("Sign In"),
                   ),
                 ],
