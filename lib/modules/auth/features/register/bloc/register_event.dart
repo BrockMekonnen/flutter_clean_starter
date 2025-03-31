@@ -13,7 +13,7 @@ class RegistrationRequested extends RegisterEvent {
   final String phone;
   final String email;
   final String password;
-  final bool isTermAndConditionAgreed;
+  final bool iAgree;
 
   const RegistrationRequested({
     required this.firstName,
@@ -21,7 +21,7 @@ class RegistrationRequested extends RegisterEvent {
     required this.phone,
     required this.email,
     required this.password,
-    required this.isTermAndConditionAgreed,
+    required this.iAgree,
   });
 
   @override
@@ -31,6 +31,6 @@ class RegistrationRequested extends RegisterEvent {
         phone,
         email,
         password,
-        isTermAndConditionAgreed,
+        iAgree,
       ];
 }

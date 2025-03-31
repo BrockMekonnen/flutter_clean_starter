@@ -40,6 +40,7 @@ class AppRouter {
   ];
 
   String? _guard(BuildContext context, GoRouterState state) {
+    // authBloc.add(AppLoaded());
     // debugPrint('authBloc.state: ${authBloc.state}');
 
     final isUnauthenticated = authBloc.state.status == AuthStatus.unauthenticated;

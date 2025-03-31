@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../../_core/di.dart';
 import '../../../domain/auth_repository.dart';
 
 part 'register_event.dart';
@@ -28,9 +30,11 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         phone: event.phone,
         email: event.email,
         password: event.password,
+        iAgree: event.iAgree,
       );
 
       emit(RegisterSuccess());
+      di.get<GoRouter>().go('/login');
     } catch (error) {
       emit(const RegisterFailure(error: 'Error Registering User'));
     }

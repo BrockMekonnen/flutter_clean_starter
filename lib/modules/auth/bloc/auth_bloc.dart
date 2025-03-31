@@ -57,7 +57,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     AuthLogoutRequested event,
     Emitter<AuthState> emit,
   ) {
-    _authRepository.logOut();
+    _authRepository.logout();
   }
 
   Future<User?> _tryGetUser() async {

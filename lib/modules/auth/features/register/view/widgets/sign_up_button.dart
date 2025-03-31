@@ -6,9 +6,9 @@ import '../../bloc/register_bloc.dart';
 
 class SignUpButton extends StatelessWidget {
   const SignUpButton({
-    Key? key,
+    super.key,
     required this.formKey,
-  }) : super(key: key);
+  });
 
   final GlobalKey<FormBuilderState> formKey;
 
@@ -21,40 +21,27 @@ class SignUpButton extends StatelessWidget {
           if (state is RegisterLoading) {
             return const CircularProgressIndicator();
           }
-          if (state is RegisterSuccess) {
-
-          }
-          return ElevatedButton(
-            style: ButtonStyle(
-                elevation: MaterialStateProperty.all(0),
-                minimumSize:
-                    MaterialStateProperty.all(const Size.fromHeight(56)),
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6)))),
+          if (state is RegisterSuccess) {}
+          return FilledButton(
+            style: FilledButton.styleFrom(
+              minimumSize: const Size.fromHeight(50),
+            ),
             onPressed: () {
               if (formKey.currentState?.saveAndValidate() ?? false) {
                 // debugPrint(formKey.currentState?.value.toString());
-                BlocProvider.of<RegisterBloc>(context)
-                    .add(RegistrationRequested(
+                BlocProvider.of<RegisterBloc>(context).add(RegistrationRequested(
                   firstName: formKey.currentState?.value['firstName'],
                   lastName: formKey.currentState?.value['lastName'],
                   phone: formKey.currentState?.value['phone'],
                   email: formKey.currentState?.value['email'],
                   password: formKey.currentState?.value['password'],
-                  isTermAndConditionAgreed:
-                      formKey.currentState?.value['isTermAndConditionAgreed'],
+                  iAgree: formKey.currentState?.value['iAgree'],
                 ));
               } else {
                 debugPrint('validation failed');
               }
             },
-            child: const Text(
-              "Sign Up",
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 18,
-              ),
-            ),
+            child: const Text("Sign Up"),
           );
         },
       ),

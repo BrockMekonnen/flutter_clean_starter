@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 import '../../bloc/login_bloc.dart';
 import '../widgets/widgets.dart';
@@ -24,6 +25,7 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
+    bool isMobile = ResponsiveBreakpoints.of(context).isMobile;
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginFailure) {
@@ -37,11 +39,12 @@ class _LoginFormState extends State<LoginForm> {
       child: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.fromLTRB(40, 48, 40, 36),
-          width: 450,
+          width: 500,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: Theme.of(context).cardColor,
-            border: Border.all(width: 0.7, color: const Color(0xffdadce0)),
+            color: !isMobile ? Theme.of(context).cardColor : null,
+            border:
+                !isMobile ? Border.all(width: 0.7, color: const Color(0xffdadce0)) : null,
           ),
           child: FormBuilder(
               key: _formKey,
@@ -49,6 +52,7 @@ class _LoginFormState extends State<LoginForm> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  FlutterLogo(size: 50),
                   Padding(
                     padding: const EdgeInsets.only(top: 12),
                     child: Text(
@@ -56,7 +60,7 @@ class _LoginFormState extends State<LoginForm> {
                       textAlign: TextAlign.center,
                       style: Theme.of(context)
                           .textTheme
-                          .headlineSmall!
+                          .headlineMedium!
                           .copyWith(fontWeight: FontWeight.w500),
                     ),
                   ),

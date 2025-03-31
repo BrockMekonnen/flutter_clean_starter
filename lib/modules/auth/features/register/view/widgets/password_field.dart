@@ -5,9 +5,9 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 
 class PasswordField extends StatelessWidget {
   const PasswordField({
-    Key? key,
+    super.key,
     required this.isPasswordVisible,
-  }) : super(key: key);
+  });
 
   final bool isPasswordVisible;
   @override

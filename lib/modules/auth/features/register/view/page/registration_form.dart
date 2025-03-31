@@ -19,114 +19,122 @@ class _RegistrationFormState extends State<RegistrationForm> {
   @override
   Widget build(BuildContext context) {
     bool isMobile = ResponsiveBreakpoints.of(context).isMobile;
-    return Container(
-      padding: const EdgeInsets.fromLTRB(40, 48, 40, 36),
-      width: isMobile ? null : 448,
-      decoration: isMobile
-          ? null
-          : BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Theme.of(context).cardColor,
-              border: Border.all(width: 0.7, color: const Color(0xffdadce0)),
-            ),
-      child: FormBuilder(
-          key: _formKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: Text(
-                  'Sign Up',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineSmall!
-                      .copyWith(fontWeight: FontWeight.w500),
+    return SingleChildScrollView(
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(40, 48, 40, 36),
+        width: isMobile ? null : 500,
+        decoration: isMobile
+            ? null
+            : BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Theme.of(context).cardColor,
+                border: Border.all(width: 0.7, color: const Color(0xffdadce0)),
+              ),
+        child: FormBuilder(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                FlutterLogo(size: 50),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Text(
+                    'Sign Up',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineMedium!
+                        .copyWith(fontWeight: FontWeight.w500),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 30),
-              ResponsiveRowColumn(
-                columnSpacing: 24,
-                rowSpacing: 8,
-                layout: isMobile
-                    ? ResponsiveRowColumnType.COLUMN
-                    : ResponsiveRowColumnType.ROW,
-                children: const [
-                  ResponsiveRowColumnItem(
-                    rowFlex: 1,
-                    child: FirstName(),
-                  ),
-                  ResponsiveRowColumnItem(
-                    rowFlex: 1,
-                    child: LastName(),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
-              const PhoneField(),
-              const SizedBox(height: 24),
-              const EmailField(),
-              const SizedBox(height: 24),
-              ResponsiveRowColumn(
-                columnSpacing: 24,
-                rowSpacing: 8,
-                layout: isMobile
-                    ? ResponsiveRowColumnType.COLUMN
-                    : ResponsiveRowColumnType.ROW,
-                children: [
-                  ResponsiveRowColumnItem(
-                    rowFlex: 1,
-                    child: PasswordField(
-                      isPasswordVisible: _isPasswordVisible,
+                const SizedBox(height: 30),
+                ResponsiveRowColumn(
+                  columnSpacing: 24,
+                  rowSpacing: 8,
+                  layout: isMobile
+                      ? ResponsiveRowColumnType.COLUMN
+                      : ResponsiveRowColumnType.ROW,
+                  children: const [
+                    ResponsiveRowColumnItem(
+                      rowFlex: 1,
+                      child: FirstName(),
                     ),
-                  ),
-                  ResponsiveRowColumnItem(
-                    rowFlex: 1,
-                    child: ConfirmPasswordField(
-                      formKey: _formKey,
-                      isPasswordVisible: _isPasswordVisible,
+                    ResponsiveRowColumnItem(
+                      rowFlex: 1,
+                      child: LastName(),
                     ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                const PhoneField(),
+                const SizedBox(height: 24),
+                const EmailField(),
+                const SizedBox(height: 24),
+                ResponsiveRowColumn(
+                  columnSpacing: 24,
+                  rowSpacing: 8,
+                  layout: isMobile
+                      ? ResponsiveRowColumnType.COLUMN
+                      : ResponsiveRowColumnType.ROW,
+                  children: [
+                    ResponsiveRowColumnItem(
+                      rowFlex: 1,
+                      child: PasswordField(
+                        isPasswordVisible: _isPasswordVisible,
+                      ),
+                    ),
+                    ResponsiveRowColumnItem(
+                      rowFlex: 1,
+                      child: ConfirmPasswordField(
+                        formKey: _formKey,
+                        isPasswordVisible: _isPasswordVisible,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Checkbox(
+                      value: _isPasswordVisible,
+                      onChanged: (value) {
+                        setState(() {
+                          _isPasswordVisible = value ?? false;
+                        });
+                      },
+                    ),
+                    const Text(
+                      'Show Password',
+                      style: TextStyle(fontSize: 12),
+                    )
+                  ],
+                ),
+                const SizedBox(height: 24),
+                FormBuilderCheckbox(
+                  name: 'iAgree',
+                  decoration: const InputDecoration(
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(0),
+                    border: InputBorder.none,
                   ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  Checkbox(
-                    value: _isPasswordVisible,
-                    onChanged: (value) {
-                      setState(() {
-                        _isPasswordVisible = value ?? false;
-                      });
-                    },
-                  ),
-                  const Text(
-                    'Show Password',
-                    style: TextStyle(fontSize: 12),
-                  )
-                ],
-              ),
-              const SizedBox(height: 24),
-              FormBuilderCheckbox(
-                name: 'isTermAndConditionAgreed',
-                title: const Text('I Agree to Term and Condition'),
-              ),
-              const SizedBox(height: 30),
-              SignUpButton(formKey: _formKey),
-              const SizedBox(height: 24),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Already Have Account?'),
-                  TextButton(
-                    onPressed: () => context.go("/login"),
-                    child: const Text("Sign In"),
-                  ),
-                ],
-              )
-            ],
-          )),
+                  title: const Text('I Agree to Term and Condition'),
+                ),
+                const SizedBox(height: 30),
+                SignUpButton(formKey: _formKey),
+                const SizedBox(height: 24),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Already Have Account?'),
+                    TextButton(
+                      onPressed: () => context.go("/login"),
+                      child: const Text("Sign In"),
+                    ),
+                  ],
+                )
+              ],
+            )),
+      ),
     );
   }
 }
