@@ -1,37 +1,38 @@
 import 'package:flutter/material.dart';
 
+import '../di.dart';
+import '../router/app_router.dart';
 import '../router/nav_routes.dart';
 import 'adaptive_layout/adaptive_layout.dart';
-
-import 'adaptive_layout/main_app_bar.dart';
+import 'adaptive_layout/navigation_service.dart';
 
 class PageLayout extends StatelessWidget {
   const PageLayout({
     super.key,
     required this.page,
-    // required this.pageTitle,
-    // required this.selectedTab,
+    required this.title,
+    required this.pageTab,
   });
 
   final Widget page;
-  // final NavigationTab selectedTab;
-  // final String pageTitle;
+  final String title;
+  final NavTab? pageTab;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: AdaptiveLayout(
-        appBar: MainAppBar(
-          context: context,
-          // title: pageTitle,
+        appBar: AppBar(
+          title: Text(title),
         ),
         includeBaseDestinationsInMenu: false,
         body: page,
-        selectedIndex: 0,
+        selectedTab: pageTab ?? NavTab.none,
         destinations: navItems,
         onDestinationSelected: (destination) {
-          // navRoutes(index, context);
+          di<AppRouter>().router.go(destination.route!);
         },
+        navigationService: di<NavigationService>(),
       ),
     );
   }

@@ -3,7 +3,9 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
+import '../../router/nav_routes.dart';
 import 'adaptive_destination.dart';
+import 'navigation_service.dart';
 import 'navigation_type.dart';
 
 typedef NavigationTypeResolver = NavigationType Function(BuildContext context);
@@ -70,7 +72,7 @@ class AdaptiveLayout extends StatelessWidget {
 
   /// The index into [destinations] for the current selected
   /// [AdaptiveScaffoldDestination].
-  final int selectedIndex;
+  final NavTab selectedTab;
 
   /// Defines the appearance of the items that are arrayed within the
   /// navigation.
@@ -84,7 +86,7 @@ class AdaptiveLayout extends StatelessWidget {
   /// The stateful widget that creates the adaptive scaffold needs to keep
   /// track of the index of the selected [AdaptiveScaffoldDestination] and call
   /// `setState` to rebuild the adaptive scaffold with the new [selectedIndex].
-  final ValueChanged<int>? onDestinationSelected;
+  final ValueChanged<AdaptiveDestination>? onDestinationSelected;
 
   /// Determines the navigation type that the scaffold uses.
   final NavigationTypeResolver? navigationTypeResolver;
@@ -107,6 +109,8 @@ class AdaptiveLayout extends StatelessWidget {
 
   // final bool isDesktopDrawerExpanded;
 
+  final NavigationService navigationService;
+
   const AdaptiveLayout({
     super.key,
     this.appBar,
@@ -126,13 +130,14 @@ class AdaptiveLayout extends StatelessWidget {
     this.drawerEdgeDragWidth,
     this.drawerEnableOpenDragGesture = true,
     this.endDrawerEnableOpenDragGesture = true,
-    required this.selectedIndex,
+    required this.selectedTab,
     required this.destinations,
     this.onDestinationSelected,
     this.navigationTypeResolver,
     this.drawerHeader,
     this.fabInRail = true,
     this.includeBaseDestinationsInMenu = true,
+    required this.navigationService,
     // this.isDesktopDrawerExpanded = true,
   });
 
@@ -152,29 +157,35 @@ class AdaptiveLayout extends StatelessWidget {
             color: Theme.of(context).appBarTheme.foregroundColor,
             splashRadius: 32,
           ),
-          const SizedBox(width: 25),
-          // const RemoteSeraLogo(size: 30),
+          const SizedBox(width: 20),
+          FlutterLogo(size: 30),
           const SizedBox(width: 5),
-          // RemoteSeraName(
-          //   fontSize: 16,
-          //   color: Theme.of(context).appBarTheme.foregroundColor!,
-          // )
+          if (isExpanded) ...[
+            Text(
+              ' Clean Starter',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).appBarTheme.foregroundColor,
+              ),
+            ),
+          ],
         ],
       ),
     );
   }
 
   Widget _expandedDrawerTile(AdaptiveDestination destination, BuildContext context) {
-    bool isSelected = destinations.indexOf(destination) == selectedIndex;
+    bool isSelected = destination.navTab == selectedTab;
     final navTheme = Theme.of(context).navigationRailTheme;
     return Padding(
       padding: const EdgeInsets.fromLTRB(12.0, 2, 10.0, 2),
       child: InkWell(
         borderRadius: BorderRadius.circular(28),
         onTap: () {
-          if (ResponsiveBreakpoints.of(context).isDesktop) {
-            Navigator.pop(context);
-          }
+          // if (ResponsiveBreakpoints.of(context).isDesktop) {
+          //   Navigator.pop(context);
+          // }
           _destinationTapped(destination);
         },
         child: Container(
@@ -219,7 +230,7 @@ class AdaptiveLayout extends StatelessWidget {
   }
 
   Widget _collapsedDrawerTile(AdaptiveDestination destination, BuildContext context) {
-    bool isSelected = destinations.indexOf(destination) == selectedIndex;
+    bool isSelected = destination.navTab == selectedTab;
     final navTheme = Theme.of(context).navigationRailTheme;
 
     return Container(
@@ -234,7 +245,7 @@ class AdaptiveLayout extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(bottom: 4),
                   decoration: BoxDecoration(
-                    color: navTheme.selectedIconTheme!.color!.withOpacity(0.3),
+                    color: navTheme.selectedIconTheme!.color!.withValues(alpha: 0.3),
                     borderRadius: const BorderRadius.all(Radius.circular(16)),
                   ),
                   child: InkWell(
@@ -333,15 +344,14 @@ class AdaptiveLayout extends StatelessWidget {
   Scaffold _buildBottomNavigationScaffold(BuildContext context) {
     final GlobalKey<ScaffoldState> key = GlobalKey();
     const int bottomNavigationOverflow = 5;
-    final bottomDestinations = destinations.sublist(
-      0,
-      math.min(destinations.length, bottomNavigationOverflow),
-    );
+    final bottomDestinations =
+        destinations.sublist(0, math.min(destinations.length, bottomNavigationOverflow));
     bool hasDrawer = destinations.length > bottomNavigationOverflow;
     final drawerDestinations = hasDrawer
         ? destinations
             .sublist(includeBaseDestinationsInMenu ? 0 : bottomNavigationOverflow)
         : <AdaptiveDestination>[];
+    int selectedIndex = bottomDestinations.indexWhere((d) => d.navTab == selectedTab);
 
     return Scaffold(
       key: key,
@@ -367,7 +377,12 @@ class AdaptiveLayout extends StatelessWidget {
                   ),
               ],
               selectedIndex: selectedIndex,
-              onDestinationSelected: onDestinationSelected ?? (_) {},
+              onDestinationSelected: (index) {
+                if (onDestinationSelected != null) {
+                  var destination = destinations[index];
+                  onDestinationSelected!(destination);
+                }
+              },
             )
           : null,
       floatingActionButton: floatingActionButton,
@@ -460,20 +475,17 @@ class AdaptiveLayout extends StatelessWidget {
     return Scaffold(
       body: Row(
         children: [
-          // if (state == NavStatus.expanded)
-          _buildDrawer(
-            destinations: destinations,
-            context: context,
-            isExpanded: true,
-            // onMenuPressed: () => context.read<NavCubit>().changeToCollapsed(),
+          ValueListenableBuilder<bool>(
+            valueListenable: navigationService.isExpanded,
+            builder: (context, isExpanded, child) {
+              return _buildDrawer(
+                destinations: destinations,
+                context: context,
+                isExpanded: isExpanded,
+                onMenuPressed: () => navigationService.toggleDrawer(),
+              );
+            },
           ),
-          // if (state == NavStatus.collapsed)
-          // _buildDrawer(
-          //   destinations: destinations,
-          //   context: context,
-          //   isExpanded: false,
-          //   onMenuPressed: () => context.read<NavCubit>().changeToExpanded(),
-          // ),
           const VerticalDivider(width: 0.7, thickness: 0.7),
           Expanded(
             child: Scaffold(
@@ -530,9 +542,8 @@ class AdaptiveLayout extends StatelessWidget {
   }
 
   void _destinationTapped(AdaptiveDestination destination) {
-    final index = destinations.indexOf(destination);
-    if (index != selectedIndex) {
-      onDestinationSelected?.call(index);
-    }
+    onDestinationSelected?.call(destination);
+    // final index = destinations.indexOf(destination);
+    // if (index != selectedIndex) {}
   }
 }

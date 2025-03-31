@@ -4,8 +4,8 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 
 class EmailField extends StatelessWidget {
   const EmailField({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

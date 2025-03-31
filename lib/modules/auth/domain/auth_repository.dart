@@ -3,7 +3,7 @@ import 'user.dart';
 
 abstract class AuthRepository {
   Stream<AuthStatus> get status;
-  void logOut();
+  void logout();
   void dispose();
 
   Future<void> isAuthenticated();
@@ -15,5 +15,6 @@ abstract class AuthRepository {
     required String phone,
     required String email,
     required String password,
+    required bool iAgree,
   });
 }

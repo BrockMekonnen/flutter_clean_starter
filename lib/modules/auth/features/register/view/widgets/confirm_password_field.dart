@@ -4,10 +4,10 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 
 class ConfirmPasswordField extends StatelessWidget {
   const ConfirmPasswordField({
-    Key? key,
+    super.key,
     required this.formKey,
     required this.isPasswordVisible,
-  }) : super(key: key);
+  });
 
   final bool isPasswordVisible;
   final GlobalKey<FormBuilderState> formKey;
@@ -18,9 +18,6 @@ class ConfirmPasswordField extends StatelessWidget {
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(),
         (value) {
-          debugPrint(
-              ' password: ${formKey.currentState?.fields['password']?.value == value}');
-          debugPrint(' confirmPassword: $value');
           if (formKey.currentState?.fields['password']?.value != value) {
             return 'password do not match';
           }

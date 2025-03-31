@@ -24,10 +24,10 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  void logOut() async {
-    _controller.add(AuthStatus.unauthenticated);
-    final tokenBox = await hive.openLazyBox(Constants.cachedToken);
+  void logout() async {
+    final tokenBox = await hive.openLazyBox(Constants.tokenBoxName);
     tokenBox.clear();
+    _controller.add(AuthStatus.unauthenticated);
   }
 
   @override
@@ -60,7 +60,7 @@ class AuthRepositoryImpl implements AuthRepository {
         "email": email,
         "password": password,
       });
-      final tokenBox = await hive.openLazyBox('tokenBox');
+      final tokenBox = await hive.openLazyBox(Constants.tokenBoxName);
       await tokenBox.put(Constants.cachedToken, response.data['token']);
       return _controller.add(AuthStatus.authenticated);
     } catch (error) {
@@ -75,6 +75,7 @@ class AuthRepositoryImpl implements AuthRepository {
     required String phone,
     required String email,
     required String password,
+    required bool iAgree,
   }) async {
     try {
       String path = '/users';
@@ -84,6 +85,7 @@ class AuthRepositoryImpl implements AuthRepository {
         'phone': phone,
         'email': email,
         'password': password,
+        'isTermAndConditionAgreed': iAgree,
       });
     } catch (error) {
       throw Exception('error registering user');

@@ -1,5 +1,7 @@
-import 'package:clean_flutter/_core/layout/layout_page.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../_core/layout/page_layout.dart';
+import '../../../../../_core/router/nav_routes.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -7,10 +9,10 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageLayout(
-      page: Scaffold(
-        body: Center(
-          child: Text('Profile Page'),
-        ),
+      title: 'Profile',
+      pageTab: NavTab.profile,
+      page: Center(
+        child: Text('Profile Page'),
       ),
     );
   }

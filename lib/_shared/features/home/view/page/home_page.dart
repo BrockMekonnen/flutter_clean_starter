@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../_core/layout/page_layout.dart';
+import '../../../../../_core/router/nav_routes.dart';
 import '../../../../../modules/auth/bloc/auth_bloc.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(child: BlocBuilder<AuthBloc, AuthState>(
+    return PageLayout(
+      title: 'Home',
+      pageTab: NavTab.home,
+      page: Center(child: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
           return Column(
             mainAxisSize: MainAxisSize.min,

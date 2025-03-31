@@ -4,10 +4,10 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 
 class PasswordInput extends StatelessWidget {
   const PasswordInput({
-    Key? key,
+    super.key,
     required this.isPasswordVisible,
     required this.changePasswordVisibility,
-  }) : super(key: key);
+  });
 
   final bool isPasswordVisible;
   final Function changePasswordVisibility;
