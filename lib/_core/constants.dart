@@ -7,7 +7,7 @@ class Constants {
   static const String cachedUser = 'CACHED_USER';
   static const String userBoxName = 'CACHED_USER_BOX';
 
-  static const String apiBaseUrl = "http://localhost:3000/api";
+  static const String apiBaseUrl = "http://0.0.0.0:9090/api";
 
   static const List<Breakpoint> breakpoints = [
     Breakpoint(start: 0, end: 600, name: MOBILE),
