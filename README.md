@@ -6,26 +6,27 @@ A production-ready Flutter project template following **Clean Architecture** and
 
 ## 🚀 Features
 
-✅ **Sign In and Sign Up Flows**  
-✅ **Home, Profile, and Settings Pages**  
-✅ **Dark and Light Theme Support**  
-✅ **Localization**: English, Spanish, Chinese, Arabic  
-✅ **Responsive Design**: Works great on Web and Mobile  
+✅ **Sign In and Sign Up Flows**
+✅ **Home, Profile, and Settings Pages**
+✅ **Dark and Light Theme Support**
+✅ **Localization**: English, Spanish, Chinese, Arabic
+✅ **Responsive Design**: Works great on Web and Mobile
 
 ---
 
-## 🧩 Tech Stack
+## 🥉 Tech Stack
 
-- 🧭 **GoRouter** for modern declarative routing  
-- 📦 **BLoC** for predictable state management  
-- 📁 **Hive** for local caching and storage  
-- 🌐 **Dio** for powerful and flexible networking  
-- 🧩 **GetIt** for dependency injection  
+* 🧭 **GoRouter** for modern declarative routing
+* 📦 **BLoC** for predictable state management
+* 📁 **Hive** for local caching and storage
+* 🌐 **Dio** for powerful and flexible networking
+* 🥉 **GetIt** for dependency injection
 
 ---
 
 ## 📁 Project Structure
 
+```
 lib/
 ├── _core/               # Core functions, libraries, and configurations
 ├── _shared/             # Shared pages, widgets, and utilities
@@ -36,6 +37,7 @@ lib/
 │   │   └── features/    # UI layer
 │   ├── user/            # Placeholder for user features
 │   └── todo/            # Reserved for future development
+```
 
 ---
 
@@ -46,29 +48,34 @@ lib/
 2. Run `flutter pub get`
 3. Launch using `flutter run`
 4. Start building your features!
+```
 
+---
 
-⸻
-
-🌍 Localization
+## 🌍 Localization
 
 Built-in support for:
-	•	English 🇺🇸
-	•	Spanish 🇪🇸
-	•	Chinese 🇨🇳
-	•	Arabic 🇸🇦 (including RTL support)
 
-⸻
+* English 🇺🇸
+* Spanish 🇪🇸
+* Chinese 🇨🇳
+* Arabic 🇸🇦 (including RTL support)
 
-🤝 Contributions Welcome
+---
+
+## 🤝 Contributions Welcome
 
 We welcome contributions of all kinds!
 Fork the repo, make your changes, and submit a pull request.
 
-⸻
+---
 
-💡 License
+## 🔗 View on GitHub
 
-This project is open source and available under the MIT License.
+👉 [GitHub Repository](https://github.com/your-repo-url)
 
-Let me know if you'd like to customize the GitHub link or include any badges.
+---
+
+## 💡 License
+
+This project is open source and available under the [MIT License](LICENSE).
