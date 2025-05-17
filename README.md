@@ -6,11 +6,11 @@ A production-ready Flutter project template following **Clean Architecture** and
 
 ## 🚀 Features
 
-✅ **Sign In and Sign Up Flows**
-✅ **Home, Profile, and Settings Pages**
-✅ **Dark and Light Theme Support**
-✅ **Localization**: English, Spanish, Chinese, Arabic
-✅ **Responsive Design**: Works great on Web and Mobile
+✅ **Sign In and Sign Up Flows**  
+✅ **Home, Profile, and Settings Pages**  
+✅ **Dark and Light Theme Support**  
+✅ **Localization**: English, Spanish, Chinese, Arabic  
+✅ **Responsive Design**: Works great on Web and Mobile  
 
 ---
 
@@ -67,12 +67,6 @@ Built-in support for:
 
 We welcome contributions of all kinds!
 Fork the repo, make your changes, and submit a pull request.
-
----
-
-## 🔗 View on GitHub
-
-👉 [GitHub Repository](https://github.com/your-repo-url)
 
 ---
 
