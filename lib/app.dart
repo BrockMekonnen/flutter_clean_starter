@@ -36,7 +36,7 @@ class AppView extends StatelessWidget {
       builder: (context, themeMode) {
         return ToastificationWrapper(
           child: MaterialApp.router(
-            title: 'Flutter Clean Starter',
+            title: 'Clean Starter',
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
             darkTheme: darkTheme,

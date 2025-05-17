@@ -1,4 +1,3 @@
-import 'package:clean_flutter/_core/initial_app_data.dart';
 import 'package:go_router/go_router.dart';
 
 import '../_shared/shared_module.dart';
@@ -6,6 +5,7 @@ import '../modules/auth/auth_module.dart';
 import 'database.dart';
 import 'di.dart';
 import 'http_client.dart';
+import 'initial_app_data.dart';
 import 'network_info.dart';
 import 'router/app_router.dart';
 

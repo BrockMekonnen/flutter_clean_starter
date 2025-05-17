@@ -1,5 +1,5 @@
 // Deferred import
-import 'package:clean_flutter/_shared/features/landing/views/page/landing_page.dart'
+import 'package:clean_starter/_shared/features/landing/views/page/landing_page.dart'
     deferred as landing;
 import 'package:flutter/material.dart';
 

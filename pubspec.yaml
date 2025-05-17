@@ -1,6 +1,6 @@
-name: clean_flutter
+name: clean_starter
 
-description: A Modular Clean Architecture Flutter project boilerplate template.
+description: A production-ready Flutter project template following Clean Architecture and Modular Design principles. Designed to help you kickstart scalable, maintainable, and beautiful Flutter apps—fast.
 
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 

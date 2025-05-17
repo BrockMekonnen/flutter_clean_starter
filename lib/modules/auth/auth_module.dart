@@ -1,4 +1,3 @@
-import 'package:clean_flutter/modules/auth/data/models/user_model.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
@@ -6,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'auth_routes.dart';
 import 'bloc/auth_bloc.dart';
 import 'data/auth_repository_impl.dart';
+import 'data/models/user_model.dart';
 import 'domain/auth_repository.dart';
 import 'features/login/bloc/login_bloc.dart';
 import 'features/register/bloc/register_bloc.dart';
