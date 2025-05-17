@@ -1,19 +1,74 @@
-# Flutter Clean + Modular Architecture Template
-This is a template project for Flutter that follows Clean Architecture and Modular Architecture principles. The goal of this project is to provide a basic structure that can be used as a starting point for building Flutter applications that are well-organized, maintainable, and scalable.
+# ✨ Flutter Clean Starter Template
 
-## Getting Started
-To use this template, simply clone this repository and rename the project to your desired app name. You can then modify the project as needed to fit your requirements.
+A production-ready Flutter project template following **Clean Architecture** and **Modular Design** principles. Designed to help you kickstart scalable, maintainable, and beautiful Flutter apps—fast.
 
-Features
-This template includes the following features:
+---
 
- - Clean Architecture: The project is structured using Clean Architecture principles, which separates the application into three layers: Domain, Data, and Presentation. This allows for better separation of concerns and makes the code more testable and maintainable.
+## 🚀 Features
 
- - Modular Architecture: The project is also structured using Modular Architecture principles, which separates the app into smaller, self-contained modules. This allows for better code reuse and makes it easier to add or remove functionality from the app.
+✅ **Sign In and Sign Up Flows**  
+✅ **Home, Profile, and Settings Pages**  
+✅ **Dark and Light Theme Support**  
+✅ **Localization**: English, Spanish, Chinese, Arabic  
+✅ **Responsive Design**: Works great on Web and Mobile  
 
- - Dependency Injection: The project uses the get_it package for dependency injection, which makes it easy to manage dependencies and ensures that the app is testable and scalable.
+---
 
- - API Integration: The project includes an example of how to integrate with a remote API using a data source class and a repository class.
+## 🧩 Tech Stack
 
-## Contributing
-If you find any issues with this template or have suggestions for improvements, please feel free to open an issue or submit a pull request. All contributions are welcome and appreciated!
+- 🧭 **GoRouter** for modern declarative routing  
+- 📦 **BLoC** for predictable state management  
+- 📁 **Hive** for local caching and storage  
+- 🌐 **Dio** for powerful and flexible networking  
+- 🧩 **GetIt** for dependency injection  
+
+---
+
+## 📁 Project Structure
+
+lib/
+├── _core/               # Core functions, libraries, and configurations
+├── _shared/             # Shared pages, widgets, and utilities
+├── modules/             # Feature-based structure
+│   ├── auth/            # Authentication module
+│   │   ├── data/        # Data layer
+│   │   ├── domain/      # Domain layer
+│   │   └── features/    # UI layer
+│   ├── user/            # Placeholder for user features
+│   └── todo/            # Reserved for future development
+
+---
+
+## 📦 Getting Started
+
+```bash
+1. Clone the repo from GitHub
+2. Run `flutter pub get`
+3. Launch using `flutter run`
+4. Start building your features!
+
+
+⸻
+
+🌍 Localization
+
+Built-in support for:
+	•	English 🇺🇸
+	•	Spanish 🇪🇸
+	•	Chinese 🇨🇳
+	•	Arabic 🇸🇦 (including RTL support)
+
+⸻
+
+🤝 Contributions Welcome
+
+We welcome contributions of all kinds!
+Fork the repo, make your changes, and submit a pull request.
+
+⸻
+
+💡 License
+
+This project is open source and available under the MIT License.
+
+Let me know if you'd like to customize the GitHub link or include any badges.
