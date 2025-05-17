@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <!--
+	<head>
+		<!--
     If you are serving your web app in a path other than the root, change the
     href value below to reflect the base path you are serving from.
 
@@ -14,25 +14,72 @@
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
   -->
-  <base href="$FLUTTER_BASE_HREF">
+		<base href="$FLUTTER_BASE_HREF" />
 
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+		<meta charset="UTF-8" />
+		<meta content="IE=Edge" http-equiv="X-UA-Compatible" />
+		<meta name="description" content="A new Flutter project." />
 
-  <!-- iOS meta tags & icons -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="clean_flutter">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+		<!-- iOS meta tags & icons -->
+		<meta name="mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="apple-mobile-web-app-title" content="clean_flutter" />
+		<link rel="apple-touch-icon" href="icons/Icon-192.png" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+		<!-- Favicon -->
+		<link rel="icon" type="image/png" href="favicon.png" />
 
-  <title>clean_flutter</title>
-  <link rel="manifest" href="manifest.json">
-</head>
-<body>
-  <script src="flutter_bootstrap.js" async></script>
-</body>
+		<title>clean_flutter</title>
+		<link rel="manifest" href="manifest.json" />
+	</head>
+	<body>
+		<style>
+			html[data-theme="dark"] {
+				background-color: #1e2427;
+				color-scheme: dark;
+			}
+
+			html[data-theme="light"] {
+				background-color: #ffffff;
+				color-scheme: light;
+			}
+
+			/* body {
+				background: transparent;
+				margin: 0;
+			} */
+		</style>
+		<script src="flutter_bootstrap.js" async></script>
+		<script>
+			function applyTheme(theme) {
+				document.documentElement.setAttribute("data-theme", theme);
+			}
+
+			function detectColorScheme() {
+				const savedTheme = localStorage.getItem("theme");
+
+				if (savedTheme === "light" || savedTheme === "dark") {
+					applyTheme(savedTheme);
+				} else if (window.matchMedia) {
+					const mediaQuery = window.matchMedia(
+						"(prefers-color-scheme: dark)"
+					);
+					console.log("mediaQuery: ", mediaQuery);
+					applyTheme(mediaQuery.matches ? "dark" : "light");
+
+					// Listen for system theme changes and update live if no saved preference
+					mediaQuery.addEventListener("change", (e) => {
+						if (!localStorage.getItem("theme")) {
+							applyTheme(e.matches ? "dark" : "light");
+						}
+					});
+				} else {
+					// Fallback if matchMedia is not supported
+					applyTheme("light");
+				}
+			}
+
+			detectColorScheme();
+		</script>
+	</body>
 </html>

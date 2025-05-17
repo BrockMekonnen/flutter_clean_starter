@@ -1,75 +1,92 @@
 import 'dart:async';
 
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:hive/hive.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../../../_core/constants.dart';
+import '../../../_core/error/exceptions.dart';
+import '../../../_core/error/failures.dart';
+import '../../../_core/network_info.dart';
 import '../domain/auth_repository.dart';
-import '../domain/auth_status.dart';
 import '../domain/user.dart';
 import 'models/user_model.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  final _controller = StreamController<AuthStatus>();
-  User? _user;
+  final _userController = BehaviorSubject<User>();
 
   final Dio dio;
   final HiveInterface hive;
+  final NetworkInfo networkInfo;
 
-  AuthRepositoryImpl({required this.dio, required this.hive});
-
-  @override
-  Stream<AuthStatus> get status async* {
-    yield* _controller.stream;
-  }
-
-  @override
-  void logout() async {
-    final tokenBox = await hive.openLazyBox(Constants.tokenBoxName);
-    tokenBox.clear();
-    _controller.add(AuthStatus.unauthenticated);
-  }
+  AuthRepositoryImpl({
+    required this.dio,
+    required this.hive,
+    required this.networkInfo,
+  });
 
   @override
-  void dispose() => _controller.close();
+  Stream<User> getUserStream() => _userController.asBroadcastStream();
 
   @override
-  Future<void> isAuthenticated() async {
+  Future<Either<Failure, void>> logout() async {
     try {
-      final tokenBox = await hive.openLazyBox(Constants.tokenBoxName);
-      final token = await tokenBox.get(Constants.cachedToken);
-      if (token != null && token.isNotEmpty) {
-        _controller.add(AuthStatus.authenticated);
-      } else {
-        _controller.add(AuthStatus.unauthenticated);
-      }
-    } catch (error) {
-      // print("error: $error");
-      _controller.add(AuthStatus.unknown);
+      clearCache();
+      _userController.add(User.empty);
+      return Right(null);
+    } catch (e) {
+      return Left(CacheFailure("Oops, Something went wrong while clearing cached data!"));
     }
   }
 
   @override
-  Future<void> login({
+  void dispose() => _userController.close();
+
+  @override
+  Future<Either<Failure, void>> isAuthenticated() async {
+    try {
+      final user = await _getCachedUser();
+      _userController.add(user);
+      return Right(null);
+    } catch (error) {
+      _userController.add(User.empty);
+      return Left(CacheFailure('Error occurred while loading cached data!'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> login({
     required String email,
     required String password,
   }) async {
     try {
       String path = '/users/login';
-      final response = await dio.post(path, data: {
-        "email": email,
-        "password": password,
-      });
-      final tokenBox = await hive.openLazyBox(Constants.tokenBoxName);
-      await tokenBox.put(Constants.cachedToken, response.data['token']);
-      return _controller.add(AuthStatus.authenticated);
+      final tokenRes = await dio.post(path, data: {"email": email, "password": password});
+      String? token = tokenRes.data?['token'];
+      if (token == null) {
+        return Left(ServerFailure("Error occurred while authenticating user!"));
+      }
+      await _cacheToken(token);
+
+      final user = await _getUser();
+      await _cacheUser(user);
+
+      _userController.add(user);
+      return Right(null);
     } catch (error) {
-      throw Error();
+      if (error is DioException) {
+        final message = DioExceptions.fromDioError(error).toString();
+        return Left(ServerFailure(message));
+      } else if (error is CacheException) {
+        return Left(CacheFailure("Oops, Something went wrong while caching user data!"));
+      }
+      return Left(ServerFailure());
     }
   }
 
   @override
-  Future<void> register({
+  Future<Either<Failure, void>> register({
     required String firstName,
     required String lastName,
     required String phone,
@@ -87,23 +104,70 @@ class AuthRepositoryImpl implements AuthRepository {
         'password': password,
         'isTermAndConditionAgreed': iAgree,
       });
+      return Right(null);
     } catch (error) {
-      throw Exception('error registering user');
+      if (error is DioException) {
+        final message = DioExceptions.fromDioError(error).toString();
+        return Left(ServerFailure(message));
+      }
+      return Left(ServerFailure());
     }
   }
 
   @override
-  Future<User?> getUser() async {
+  Future<Either<Failure, User?>> getUser() async {
     try {
-      String path = '/users/me';
-      final response = await dio.get(path);
-      // print('User: ${response}');
-      _user = UserModel.fromJson(response.data['data']);
+      var user = await _getUser();
+      _userController.add(user);
+      return Right(user);
     } catch (error) {
-      // ignore: avoid_print
-      print('Error getting User: $error');
+      if (error is DioException) {
+        final message = DioExceptions.fromDioError(error).toString();
+        return Left(ServerFailure(message));
+      }
+      return Left(ServerFailure());
     }
-    if (_user != null) return _user;
-    return User.empty;
+  }
+
+  Future<UserModel> _getUser() async {
+    String path = '/users/me';
+    final response = await dio.get(path);
+    var user = UserModel.fromJson(response.data['data']);
+    return user;
+  }
+
+  Future<void> _cacheToken(String token) async {
+    try {
+      final tokenBox = await hive.openLazyBox(Constants.tokenBoxName);
+      await tokenBox.put(Constants.cachedTokenRef, token);
+    } catch (e) {
+      throw CacheException();
+    }
+  }
+
+  Future<void> _cacheUser(UserModel user) async {
+    try {
+      final userBox = await hive.openLazyBox(Constants.userBoxName);
+      userBox.put(Constants.cachedUserRef, user);
+    } catch (e) {
+      throw CacheException();
+    }
+  }
+
+  Future<UserModel> _getCachedUser() async {
+    final userBox = await hive.openLazyBox(Constants.userBoxName);
+    final user = await userBox.get(Constants.cachedUserRef);
+    if (user != null) {
+      return user;
+    } else {
+      throw CacheException();
+    }
+  }
+
+  void clearCache() async {
+    final db = await hive.openLazyBox(Constants.userBoxName);
+    final tokenBox = await hive.openLazyBox(Constants.tokenBoxName);
+    tokenBox.clear();
+    db.clear();
   }
 }

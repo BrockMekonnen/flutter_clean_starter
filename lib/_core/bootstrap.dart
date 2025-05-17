@@ -1,11 +1,13 @@
-import 'database.dart';
-import 'http_client.dart';
+import 'package:clean_flutter/_core/initial_app_data.dart';
+import 'package:go_router/go_router.dart';
 
-import 'di.dart';
-import 'router/app_router.dart';
 import '../_shared/shared_module.dart';
 import '../modules/auth/auth_module.dart';
-import 'package:go_router/go_router.dart';
+import 'database.dart';
+import 'di.dart';
+import 'http_client.dart';
+import 'network_info.dart';
+import 'router/app_router.dart';
 
 class Bootstrap {
   static Future<void> init() async {
@@ -13,6 +15,10 @@ class Bootstrap {
     final List<RouteBase> routes = [];
     await HttpClient.init();
     await Database.init();
+    await InitialAppData.load();
+
+    //* Register Network
+    di.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl());
 
     //* Registering Modules
     await registerAuthModule(di, routes);

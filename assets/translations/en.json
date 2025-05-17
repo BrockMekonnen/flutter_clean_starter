@@ -1,0 +1,66 @@
+{
+  "loginPage": {
+    "signIn": "Sign In",
+    "password": "Password",
+    "dontHaveAccount": "Don't Have Account?",
+    "signUp": "Sign Up",
+    "emailAddress": "Email Address",
+    "passwordMinLengthErrorMessage": "Password must be at least 8 digits long",
+    "passwordSpecialCharacterErrorMessage": "Passwords must have at least one special character"
+  },
+  "registerPage": {
+    "signUp": "Sign Up",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phoneNumber": "Phone Number",
+    "emailAddress": "Email Address",
+    "password": "Password",
+    "confirm": "Confirm",
+    "showPassword": "Show Password",
+    "iAgreeToTermCondition": "I Agree to Term and Condition",
+    "alreadyHaveAccount": "Already Have Account?",
+    "signIn": "Sign In",
+    "passwordDoNotMatch": "Password do not match",
+    "validPhoneNumberErrorMessage": "Please enter a valid phone number",
+    "phoneNumberHint": "Enter your phone number (e.g., +1 123-456-7890)"
+  },
+  "homePage": {
+    "title": "Home",
+    "hello": "Hello"
+  },
+  "settingsPage": {
+    "title": "Settings",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode",
+    "language": "Language"
+  },
+  "layoutPage": {
+    "home": "Home",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout",
+    "changeLanguage": "Change Language",
+    "changeTheme": "Change Theme"
+  },
+  "profilePage": {
+    "title": "Profile"
+  },
+  "landingPage": {
+    "welcomeTo": "Welcome to",
+    "cleanStarter": "Clean Starter",
+    "paragraph1": "This Flutter template project is built upon the principles of Clean Architecture and Modular Architecture. It provides a solid, scalable foundation designed to help you kickstart Flutter applications that are well-structured, easy to maintain, and ready for growth.",
+    "paragraph2": "This project is ideal for developers who want to jump-start their Flutter apps with a scalable and clean architecture. It’s easy to extend, maintain, and adapt to production-ready applications. Enjoy building! 🚀",
+    "featuresTitle": "📦 Included Features",
+    "structureTitle": "📁 Project Structure",
+    "structureLine1": "- _core: Core functions, libraries, and configurations\n- _shared: Shared pages, widgets, and utilities\n- modules: Feature-based structure\n  • auth:\n    ├── data (Data layer)\n    ├── domain (Domain layer)\n    └── features (UI layer)\n  • user: Placeholder for user features\n  • todo: Reserved for future development",
+    "structureDetails": "- _core: Core functions, libraries, and configurations\n- _shared: Shared pages, widgets, and utilities\n- modules: Feature-based structure\n  • auth:\n    ├── data (Data layer)\n    ├── domain (Domain layer)\n    └── features (UI layer)\n  • user: Placeholder for user features\n  • todo: Reserved for future development",
+    "gettingStartedTitle": "🚀 Getting Started",
+    "gettingStartedDetails": "1. Clone the repo from GitHub\n2. Run `flutter pub get`\n3. Launch using `flutter run`\n4. Start building your features!",
+    "techStackTitle": "🛠️ Tech Stack",
+    "techStackDetails": "🧭 GoRouter for modern routing\n📦 BLoC for state management\n📁 Hive for local caching and storage\n🌐 Dio for networking\n🧩 GetIt for dependency injection",
+    "featuresDetails": "✅ Sign In and Sign Up Flows\n✅ Home, Profile, and Settings Pages\n✅ Dark and Light Theme Support\n✅ Localization: English, Spanish, Chinese, Arabic\n✅ Responsive Design for Web and Mobile",
+    "viewOnGithub": "View on GitHub",
+    "paragraph3": "We welcome contributions of all kinds!\nFork the repo, make changes, and submit a pull request.",
+    "contributionsWelcome": "🤝 Contributions Welcome"
+  }
+}

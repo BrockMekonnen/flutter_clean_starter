@@ -1,7 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-
 
 class PasswordField extends StatelessWidget {
   const PasswordField({
@@ -13,23 +13,24 @@ class PasswordField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FormBuilderTextField(
+      name: 'password',
       validator: FormBuilderValidators.compose([
-        FormBuilderValidators.required(errorText: 'Password is required'),
+        FormBuilderValidators.required(),
         FormBuilderValidators.minLength(8,
-            errorText: 'Password must be at least 8 digits long'),
+            errorText: context.tr('loginPage.passwordMinLengthErrorMessage')),
         (value) {
           String pattern = r'(?=.*?[#?!@$%^&*-])';
           RegExp regExp = RegExp(pattern);
           if (!regExp.hasMatch(value!)) {
-            return 'passwords must have at least one special character';
+            return context.tr('loginPage.passwordSpecialCharacterErrorMessage');
           }
           return null;
         }
       ]),
       obscureText: !isPasswordVisible,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         isDense: true,
-        labelText: "Password",
+        labelText: context.tr('registerPage.password'),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Color(0xFFdadce0), width: 0.8),
           borderRadius: BorderRadius.all(Radius.circular(4)),
@@ -39,7 +40,6 @@ class PasswordField extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(4)),
         ),
       ),
-      name: 'password',
     );
   }
 }

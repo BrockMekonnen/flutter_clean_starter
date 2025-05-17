@@ -111,6 +111,8 @@ class AdaptiveLayout extends StatelessWidget {
 
   final NavigationService navigationService;
 
+  final GlobalKey<ScaffoldState> drawerKey;
+
   const AdaptiveLayout({
     super.key,
     this.appBar,
@@ -138,6 +140,7 @@ class AdaptiveLayout extends StatelessWidget {
     this.fabInRail = true,
     this.includeBaseDestinationsInMenu = true,
     required this.navigationService,
+    required this.drawerKey,
     // this.isDesktopDrawerExpanded = true,
   });
 
@@ -165,8 +168,8 @@ class AdaptiveLayout extends StatelessWidget {
               ' Clean Starter',
               style: TextStyle(
                 fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: Theme.of(context).appBarTheme.foregroundColor,
+                fontWeight: FontWeight.w600,
+                color: Theme.of(context).primaryColor,
               ),
             ),
           ],
@@ -177,7 +180,7 @@ class AdaptiveLayout extends StatelessWidget {
 
   Widget _expandedDrawerTile(AdaptiveDestination destination, BuildContext context) {
     bool isSelected = destination.navTab == selectedTab;
-    final navTheme = Theme.of(context).navigationRailTheme;
+    final theme = Theme.of(context).navigationRailTheme;
     return Padding(
       padding: const EdgeInsets.fromLTRB(12.0, 2, 10.0, 2),
       child: InkWell(
@@ -190,8 +193,7 @@ class AdaptiveLayout extends StatelessWidget {
         },
         child: Container(
           decoration: BoxDecoration(
-            color:
-                isSelected ? Theme.of(context).primaryColor.withValues(alpha: 0.3) : null,
+            color: isSelected ? theme.indicatorColor : null,
             borderRadius: BorderRadius.circular(28),
           ),
           height: 52,
@@ -203,24 +205,26 @@ class AdaptiveLayout extends StatelessWidget {
               if (isSelected) ...[
                 Icon(
                   destination.icon,
-                  color: navTheme.selectedIconTheme?.color,
+                  color: theme.selectedIconTheme?.color,
                 ),
                 const SizedBox(width: 12),
                 Text(
                   destination.title,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
-                    color: Theme.of(context).colorScheme.primary,
+                    color: theme.selectedLabelTextStyle?.color,
                   ),
                 )
               ],
               if (!isSelected) ...[
                 Icon(
                   destination.icon,
-                  color: navTheme.unselectedIconTheme?.color,
+                  color: theme.unselectedIconTheme?.color,
                 ),
                 const SizedBox(width: 12),
-                Text(destination.title),
+                Text(
+                  destination.title,
+                ),
               ]
             ],
           ),
@@ -245,7 +249,7 @@ class AdaptiveLayout extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(bottom: 4),
                   decoration: BoxDecoration(
-                    color: navTheme.selectedIconTheme!.color!.withValues(alpha: 0.3),
+                    color: navTheme.indicatorColor,
                     borderRadius: const BorderRadius.all(Radius.circular(16)),
                   ),
                   child: InkWell(
@@ -342,7 +346,7 @@ class AdaptiveLayout extends StatelessWidget {
   }
 
   Scaffold _buildBottomNavigationScaffold(BuildContext context) {
-    final GlobalKey<ScaffoldState> key = GlobalKey();
+    // final GlobalKey<ScaffoldState> key = GlobalKey();
     const int bottomNavigationOverflow = 5;
     final bottomDestinations =
         destinations.sublist(0, math.min(destinations.length, bottomNavigationOverflow));
@@ -354,7 +358,7 @@ class AdaptiveLayout extends StatelessWidget {
     int selectedIndex = bottomDestinations.indexWhere((d) => d.navTab == selectedTab);
 
     return Scaffold(
-      key: key,
+      key: drawerKey,
       body: body,
       appBar: selectedIndex < 5 ? appBar : null,
       drawer: hasDrawer
@@ -362,13 +366,13 @@ class AdaptiveLayout extends StatelessWidget {
               destinations: drawerDestinations,
               context: context,
               isExpanded: true,
-              onMenuPressed: () => key.currentState!.closeDrawer(),
+              onMenuPressed: () => drawerKey.currentState?.closeDrawer(),
             )
           : null,
       bottomNavigationBar: selectedIndex < 5
           ? NavigationBar(
-              // elevation: 0,
               labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+              selectedIndex: selectedIndex,
               destinations: [
                 for (final destination in bottomDestinations)
                   NavigationDestination(
@@ -376,7 +380,6 @@ class AdaptiveLayout extends StatelessWidget {
                     label: destination.title,
                   ),
               ],
-              selectedIndex: selectedIndex,
               onDestinationSelected: (index) {
                 if (onDestinationSelected != null) {
                   var destination = destinations[index];
@@ -390,19 +393,18 @@ class AdaptiveLayout extends StatelessWidget {
   }
 
   Scaffold _buildNavigationRailScaffold(BuildContext context) {
-    // ignore: no_leading_underscores_for_local_identifiers
-    final GlobalKey<ScaffoldState> _key = GlobalKey();
+    // final GlobalKey<ScaffoldState> key = GlobalKey();
     const int railDestinationsOverflow = 7;
     final railDestinations =
         destinations.sublist(0, math.min(destinations.length, railDestinationsOverflow));
 
     return Scaffold(
-      key: _key,
+      key: drawerKey,
       drawer: _buildDrawer(
         destinations: destinations,
         context: context,
         isExpanded: true,
-        onMenuPressed: () => _key.currentState!.closeDrawer(),
+        onMenuPressed: () => drawerKey.currentState!.closeDrawer(),
       ),
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -411,7 +413,7 @@ class AdaptiveLayout extends StatelessWidget {
             destinations: railDestinations,
             context: context,
             isExpanded: false,
-            onMenuPressed: () => _key.currentState!.openDrawer(),
+            onMenuPressed: () => drawerKey.currentState!.openDrawer(),
           ),
           const VerticalDivider(width: 0.7, thickness: 0.7),
           Expanded(
@@ -442,16 +444,16 @@ class AdaptiveLayout extends StatelessWidget {
   }
 
   Scaffold _buildNavigationDrawerScaffold(BuildContext context) {
-    final GlobalKey<ScaffoldState> key = GlobalKey(); // Create a key
+    // final GlobalKey<ScaffoldState> key = GlobalKey(); // Create a key
     return Scaffold(
-      key: key,
+      key: drawerKey,
       body: body,
       appBar: appBar,
       drawer: _buildDrawer(
         destinations: destinations,
         context: context,
         isExpanded: true,
-        onMenuPressed: () => key.currentState!.closeDrawer(),
+        onMenuPressed: () => drawerKey.currentState!.closeDrawer(),
       ),
       floatingActionButton: floatingActionButton,
       floatingActionButtonLocation: floatingActionButtonLocation,
@@ -543,7 +545,5 @@ class AdaptiveLayout extends StatelessWidget {
 
   void _destinationTapped(AdaptiveDestination destination) {
     onDestinationSelected?.call(destination);
-    // final index = destinations.indexOf(destination);
-    // if (index != selectedIndex) {}
   }
 }

@@ -1,15 +1,18 @@
-import 'auth_status.dart';
+import 'package:dartz/dartz.dart';
+
+import '../../../_core/error/failures.dart';
 import 'user.dart';
 
 abstract class AuthRepository {
-  Stream<AuthStatus> get status;
-  void logout();
+  Stream<User> getUserStream();
   void dispose();
 
-  Future<void> isAuthenticated();
-  Future<void> login({required String email, required String password});
-  Future<User?> getUser();
-  Future<void> register({
+  Future<Either<Failure, void>> isAuthenticated();
+  Future<Either<Failure, void>> logout();
+  Future<Either<Failure, void>> login({required String email, required String password});
+  Future<Either<Failure, User?>> getUser();
+
+  Future<Either<Failure, void>> register({
     required String firstName,
     required String lastName,
     required String phone,

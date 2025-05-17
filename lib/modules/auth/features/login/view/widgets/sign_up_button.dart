@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -9,10 +10,10 @@ class SignUpButton extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text('Don\'t Have Account?'),
+        Text(context.tr('loginPage.dontHaveAccount')),
         TextButton(
           onPressed: () => context.go("/register"),
-          child: const Text("Sign Up"),
+          child: Text(context.tr('loginPage.signUp')),
         ),
       ],
     );

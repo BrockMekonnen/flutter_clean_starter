@@ -7,5 +7,10 @@
   // Remove from file watching
   "files.watcherExclude": {
     "**/.fvm": true
-  }
+},
+"cSpell.words": [
+	"Español",
+	"toastification",
+	"العربية"
+]
 }

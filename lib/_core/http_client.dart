@@ -16,15 +16,15 @@ class HttpClient {
         onRequest: (options, handler) async {
           // get user token
           final tokenBox = await Hive.openLazyBox(Constants.tokenBoxName);
-          final token = await tokenBox.get(Constants.cachedToken);
+          final token = await tokenBox.get(Constants.cachedTokenRef);
           if (token != Null) {
             options.headers['authorization'] = "Bearer $token";
           }
-          debugPrint("request url: ${options.path}");
+          debugPrint("request: ${options.uri}");
           return handler.next(options);
         },
         onResponse: (response, handler) {
-          debugPrint('request success');
+          // debugPrint('request success');
           if (response.statusCode! >= 200 || response.statusCode! < 300) {
             return handler.next(response);
           } else {
@@ -39,7 +39,7 @@ class HttpClient {
         },
       ),
     );
-    
+
     di.registerLazySingleton(() => dio);
   }
 }

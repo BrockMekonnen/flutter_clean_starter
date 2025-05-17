@@ -21,11 +21,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     Emitter<LoginState> emit,
   ) async {
     emit(LoginLoading());
-    try {
-      await _authRepository.login(email: event.email, password: event.password);
-      emit(LoginSuccess());
-    } catch (_) {
-      emit(LoginFailure(error: 'Error Logging In'));
-    }
+    var result = await _authRepository.login(
+      email: event.email,
+      password: event.password,
+    );
+    emit(result.fold(
+      (error) => LoginFailure(error: error.getMessage()),
+      (_) => LoginSuccess(),
+    ));
   }
 }

@@ -1,0 +1,66 @@
+{
+  "loginPage": {
+    "signIn": "Iniciar sesión",
+    "password": "Contraseña",
+    "dontHaveAccount": "¿No tienes cuenta?",
+    "signUp": "Inscribirse",
+    "emailAddress": "Dirección de correo electrónico",
+    "passwordMinLengthErrorMessage": "La contraseña debe tener al menos 8 dígitos",
+    "passwordSpecialCharacterErrorMessage": "Las contraseñas deben tener al menos un carácter especial"
+  },
+  "registerPage": {
+    "signUp": "Inscribirse",
+    "firstName": "Nombre de pila",
+    "lastName": "Apellido",
+    "phoneNumber": "Número de teléfono",
+    "emailAddress": "Dirección de correo electrónico",
+    "password": "Contraseña",
+    "confirm": "Confirmar",
+    "showPassword": "Mostrar contraseña",
+    "iAgreeToTermCondition": "Acepto los términos y condiciones",
+    "alreadyHaveAccount": "¿Ya tienes cuenta?",
+    "signIn": "Iniciar sesión",
+    "passwordDoNotMatch": "La contraseña no coincide",
+    "validPhoneNumberErrorMessage": "Por favor, introduzca un número de teléfono válido",
+    "phoneNumberHint": "Ingrese su número de teléfono (por ejemplo, +1 123-456-7890)"
+  },
+  "homePage": {
+    "title": "Inicio",
+    "hello": "Hola"
+  },
+  "settingsPage": {
+    "title": "Ajustes",
+    "darkMode": "Modo oscuro",
+    "lightMode": "Modo de luz",
+    "language": "Idioma"
+  },
+  "layoutPage": {
+    "home": "Inicio",
+    "profile": "Perfil",
+    "settings": "Ajustes",
+    "logout": "Cerrar sesión",
+    "changeLanguage": "Cambiar idioma",
+    "changeTheme": "Cambiar tema"
+  },
+  "profilePage": {
+    "title": "Perfil"
+  },
+  "landingPage": {
+    "welcomeTo": "Bienvenido a",
+    "cleanStarter": "Inicio Limpio",
+    "paragraph1": "Este proyecto de plantilla de Flutter está basado en los principios de Arquitectura Limpia y Arquitectura Modular. Proporciona una base sólida y escalable diseñada para ayudarte a iniciar aplicaciones Flutter bien estructuradas, fáciles de mantener y preparadas para crecer.",
+    "paragraph2": "Este proyecto es ideal para desarrolladores que desean iniciar rápidamente sus aplicaciones Flutter con una arquitectura limpia y escalable. Es fácil de extender, mantener y adaptar para aplicaciones listas para producción. ¡Disfruta programando! 🚀",
+    "featuresTitle": "📦 Funciones incluidas",
+    "structureTitle": "📁 Estructura del proyecto",
+    "structureLine1": "- _core: Funciones principales, bibliotecas y configuraciones\n- _shared: Páginas, widgets y utilidades compartidas\n- modules: Estructura basada en características\n  • auth:\n    ├── data (Capa de datos)\n    ├── domain (Capa de dominio)\n    └── features (Capa de interfaz)\n  • user: Marcador de posición para funciones de usuario\n  • todo: Reservado para desarrollo futuro",
+    "structureDetails": "- _core: Funciones principales, bibliotecas y configuraciones\n- _shared: Páginas, widgets y utilidades compartidas\n- modules: Estructura basada en características\n  • auth:\n    ├── data (Capa de datos)\n    ├── domain (Capa de dominio)\n    └── features (Capa de interfaz)\n  • user: Marcador de posición para funciones de usuario\n  • todo: Reservado para desarrollo futuro",
+    "gettingStartedTitle": "🚀 Comenzando",
+    "gettingStartedDetails": "1. Clona el repositorio desde GitHub  \n2. Ejecuta `flutter pub get`  \n3. Inicia la aplicación con `flutter run`  \n4. ¡Empieza a construir tus funcionalidades!",
+    "techStackTitle": "🛠️ Conjunto de tecnologías",
+    "techStackDetails": "🧭 GoRouter para enrutamiento moderno  \n📦 BLoC para gestión de estado  \n📁 Hive para almacenamiento en caché y local  \n🌐 Dio para conexión de red  \n🧩 GetIt para inyección de dependencias  ",
+    "featuresDetails": "✅ Flujos de inicio de sesión y registro  \n✅ Páginas de Inicio, Perfil y Configuración  \n✅ Soporte para temas claro y oscuro  \n✅ Localización: inglés, español, chino, árabe  \n✅ Diseño responsivo para web y dispositivos móviles  ",
+    "viewOnGithub": "Ver en GitHub",
+    "paragraph3": "¡Damos la bienvenida a todo tipo de contribuciones!\nHaz un fork del repositorio, realiza cambios y envía un pull request.",
+    "contributionsWelcome": "🤝 Bienvenidas las contribuciones"
+  }
+}

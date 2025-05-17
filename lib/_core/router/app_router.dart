@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -22,7 +23,7 @@ class AppRouter {
 
   late final router = GoRouter(
     navigatorKey: rootNavigatorKey,
-    initialLocation: "/landing",
+    initialLocation: "/",
     routes: routes,
     errorPageBuilder: (context, state) => NoTransitionPage<void>(
       key: state.pageKey,
@@ -44,14 +45,21 @@ class AppRouter {
     // debugPrint('authBloc.state: ${authBloc.state}');
 
     final isUnauthenticated = authBloc.state.status == AuthStatus.unauthenticated;
-    final unAuthRoute = unAuthScope.contains(state.matchedLocation);
-    final loggingIn = state.matchedLocation == '/login';
+    final isUnAuthRoute = unAuthScope.contains(state.matchedLocation);
+    // final loggingIn = state.matchedLocation == '/login';
 
-    if (isUnauthenticated && !loggingIn) return unAuthRoute ? null : "/login";
+    if (isUnauthenticated && !isUnAuthRoute) {
+      return !isUnAuthRoute
+          ? kIsWeb
+              ? '/landing'
+              : '/login'
+          : null;
+    }
 
+    final isSplashLoc = state.matchedLocation == '/splash';
     final loggedIn = authBloc.state.status == AuthStatus.authenticated;
 
-    if (loggedIn && (loggingIn || unAuthRoute)) {
+    if (loggedIn && (isUnAuthRoute || isSplashLoc)) {
       return "/home";
     }
 

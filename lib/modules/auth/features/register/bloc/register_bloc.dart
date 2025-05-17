@@ -1,8 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../../../../_core/di.dart';
 import '../../../domain/auth_repository.dart';
 
 part 'register_event.dart';
@@ -22,21 +20,17 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     Emitter<RegisterState> emit,
   ) async {
     emit(RegisterLoading());
-
-    try {
-      await _authRepository.register(
-        firstName: event.firstName,
-        lastName: event.lastName,
-        phone: event.phone,
-        email: event.email,
-        password: event.password,
-        iAgree: event.iAgree,
-      );
-
-      emit(RegisterSuccess());
-      di.get<GoRouter>().go('/login');
-    } catch (error) {
-      emit(const RegisterFailure(error: 'Error Registering User'));
-    }
+    var result = await _authRepository.register(
+      firstName: event.firstName,
+      lastName: event.lastName,
+      phone: event.phone,
+      email: event.email,
+      password: event.password,
+      iAgree: event.iAgree,
+    );
+    emit(result.fold(
+      (error) => RegisterFailure(error: error.getMessage()),
+      (_) => RegisterSuccess(),
+    ));
   }
 }

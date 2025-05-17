@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
+import '../../../../../../_shared/widgets/show_toast_notification.dart';
 import '../../bloc/login_bloc.dart';
 import '../widgets/widgets.dart';
 
@@ -29,11 +31,10 @@ class _LoginFormState extends State<LoginForm> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginFailure) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(content: Text(state.error)),
-            );
+          CustomToast.showErrorNotification(
+            title: "Login Error",
+            description: state.error,
+          );
         }
       },
       child: SingleChildScrollView(
@@ -56,7 +57,7 @@ class _LoginFormState extends State<LoginForm> {
                   Padding(
                     padding: const EdgeInsets.only(top: 12),
                     child: Text(
-                      'Sign In',
+                      context.tr("loginPage.signIn"),
                       textAlign: TextAlign.center,
                       style: Theme.of(context)
                           .textTheme

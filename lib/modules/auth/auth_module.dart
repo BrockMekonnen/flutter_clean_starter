@@ -1,5 +1,7 @@
+import 'package:clean_flutter/modules/auth/data/models/user_model.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive/hive.dart';
 
 import 'auth_routes.dart';
 import 'bloc/auth_bloc.dart';
@@ -9,14 +11,16 @@ import 'features/login/bloc/login_bloc.dart';
 import 'features/register/bloc/register_bloc.dart';
 
 Future<void> registerAuthModule(GetIt di, List<RouteBase> router) async {
-  //*? inject data sources */
+  //? register Hive Adapters
+  di<HiveInterface>().registerAdapter<UserModel>(UserModelAdapter());
 
   //? inject repositories
   di.registerLazySingleton<AuthRepository>(
-      () => AuthRepositoryImpl(dio: di(), hive: di()));
+      () => AuthRepositoryImpl(dio: di(), hive: di(), networkInfo: di()));
 
   //? inject blocs
-  di.registerLazySingleton(() => AuthBloc(authRepository: di())..add(AppLoaded()));
+  di.registerLazySingleton(
+      () => AuthBloc(authRepository: di())..add(AuthStatusSubscriptionRequested()));
   di.registerFactory(() => LoginBloc(authRepository: di()));
   di.registerFactory(() => RegisterBloc(authRepository: di()));
 

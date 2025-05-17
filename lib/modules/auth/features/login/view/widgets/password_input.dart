@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -15,23 +16,24 @@ class PasswordInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FormBuilderTextField(
+      name: 'password',
+      obscureText: !isPasswordVisible,
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(),
         FormBuilderValidators.minLength(8,
-            errorText: 'Password must be at least 8 digits long'),
+            errorText: context.tr('loginPage.passwordMinLengthErrorMessage')),
         (value) {
           String pattern = r'(?=.*?[#?!@$%^&*-])';
           RegExp regExp = RegExp(pattern);
           if (!regExp.hasMatch(value!)) {
-            return 'passwords must have at least one special character';
+            return context.tr('loginPage.passwordSpecialCharacterErrorMessage');
           }
           return null;
         }
       ]),
-      obscureText: !isPasswordVisible,
       decoration: InputDecoration(
-        isDense: true,
-        labelText: "Password",
+        // isDense: true,
+        labelText: context.tr('loginPage.password'),
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Color(0xFFdadce0), width: 0.8),
           borderRadius: BorderRadius.all(Radius.circular(4)),
@@ -41,14 +43,10 @@ class PasswordInput extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(4)),
         ),
         suffixIcon: IconButton(
-          onPressed: () {
-            changePasswordVisibility();
-          },
-          icon:
-              Icon(isPasswordVisible ? Icons.visibility : Icons.visibility_off),
+          onPressed: () => changePasswordVisibility(),
+          icon: Icon(isPasswordVisible ? Icons.visibility : Icons.visibility_off),
         ),
       ),
-      name: 'password',
     );
   }
 }

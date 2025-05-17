@@ -11,22 +11,18 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  late StreamSubscription<AuthStatus> _authStatusSubscription;
   final AuthRepository _authRepository;
 
   AuthBloc({required AuthRepository authRepository})
       : _authRepository = authRepository,
-        super(const AuthState.unknown()) {
+        super(const AuthState()) {
     on<AppLoaded>(_appLoaded);
-    on<AuthStatusChanged>(_onAuthStatusChanged);
+    on<AuthStatusSubscriptionRequested>(_onAuthSubscriptionRequested);
     on<AuthLogoutRequested>(_onAuthLogoutRequested);
-    _authStatusSubscription =
-        _authRepository.status.listen((status) => add(AuthStatusChanged(status)));
   }
 
   @override
   Future<void> close() {
-    _authStatusSubscription.cancel();
     _authRepository.dispose();
     return super.close();
   }
@@ -35,22 +31,40 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     await _authRepository.isAuthenticated();
   }
 
-  Future<void> _onAuthStatusChanged(
-    AuthStatusChanged event,
+  Future<void> _onAuthSubscriptionRequested(
+    AuthStatusSubscriptionRequested event,
     Emitter<AuthState> emit,
   ) async {
-    // print('event.status: ${event.status}');
-    switch (event.status) {
-      case AuthStatus.unauthenticated:
-        return emit(const AuthState.unauthenticated());
-      case AuthStatus.authenticated:
-        final user = await _tryGetUser();
-        return emit(user != null
-            ? AuthState.authenticated(user)
-            : const AuthState.unauthenticated());
-      case AuthStatus.unknown:
-        return emit(const AuthState.unknown());
-    }
+    await _authRepository.isAuthenticated();
+    await emit.forEach<User>(
+      _authRepository.getUserStream(),
+      onData: (user) {
+        // print("auth_bloc: $user");
+        if (user == User.empty) {
+          return state.copyWith(
+            status: AuthStatus.unauthenticated,
+            user: user,
+          );
+        } else {
+          // if (!user.isEmailVerified) {
+          //   return state.copyWith(
+          //     status: AuthStatus.unverified,
+          //     user: user,
+          //   );
+          // }
+
+          return state.copyWith(
+            status: AuthStatus.authenticated,
+            user: user,
+          );
+        }
+      },
+      onError: (_, __) {
+        return state.copyWith(
+          status: AuthStatus.unauthenticated,
+        );
+      },
+    );
   }
 
   void _onAuthLogoutRequested(
@@ -58,14 +72,5 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) {
     _authRepository.logout();
-  }
-
-  Future<User?> _tryGetUser() async {
-    try {
-      final user = await _authRepository.getUser();
-      return user;
-    } catch (_) {
-      return null;
-    }
   }
 }
