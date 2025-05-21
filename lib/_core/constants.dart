@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class Constants {
-  static const String apiBaseUrl = "http://192.168.0.143:3000/api";
+  static const String apiBaseUrl = "http://0.0.0.0:3000/api";
 
   static const String cachedTokenRef = 'CACHED_TOKEN';
   static const String tokenBoxName = 'CACHED_TOKEN_BOX';
