@@ -7,23 +7,27 @@ import 'bloc/auth_bloc.dart';
 import 'data/auth_repository_impl.dart';
 import 'data/models/user_model.dart';
 import 'domain/auth_repository.dart';
+import 'domain/auth_usecase.dart';
 import 'features/login/bloc/login_bloc.dart';
 import 'features/register/bloc/register_bloc.dart';
 
 Future<void> registerAuthModule(GetIt di, List<RouteBase> router) async {
-  //? register Hive Adapters
+  //* register Hive Adapters
   di<HiveInterface>().registerAdapter<UserModel>(UserModelAdapter());
 
-  //? inject repositories
+  //* inject repositories
   di.registerLazySingleton<AuthRepository>(
       () => AuthRepositoryImpl(dio: di(), hive: di(), networkInfo: di()));
 
-  //? inject blocs
+  //* Inject Usecases
+  di.registerLazySingleton<AuthUsecase>(() => AuthUsecase(di()));
+
+  //* inject blocs
   di.registerLazySingleton(
-      () => AuthBloc(authRepository: di())..add(AuthStatusSubscriptionRequested()));
+      () => AuthBloc(userUsecase: di())..add(AuthStatusSubscriptionRequested()));
   di.registerFactory(() => LoginBloc(authRepository: di()));
   di.registerFactory(() => RegisterBloc(authRepository: di()));
 
-  //? register routes
+  //* register routes
   router.addAll(authRoutes());
 }

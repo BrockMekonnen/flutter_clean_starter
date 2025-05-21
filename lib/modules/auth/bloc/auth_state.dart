@@ -1,5 +1,7 @@
 part of 'auth_bloc.dart';
 
+enum AuthStatus { unknown, authenticated, unauthenticated, unverified }
+
 class AuthState extends Equatable {
   final AuthStatus status;
   final User user;

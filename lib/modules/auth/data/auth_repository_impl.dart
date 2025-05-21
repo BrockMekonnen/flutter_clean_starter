@@ -32,7 +32,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, void>> logout() async {
     try {
-      clearCache();
+      await clearCache();
       _userController.add(User.empty);
       return Right(null);
     } catch (e) {
@@ -164,10 +164,10 @@ class AuthRepositoryImpl implements AuthRepository {
     }
   }
 
-  void clearCache() async {
-    final db = await hive.openLazyBox(Constants.userBoxName);
+  Future<void> clearCache() async {
+    final userBox = await hive.openLazyBox(Constants.userBoxName);
     final tokenBox = await hive.openLazyBox(Constants.tokenBoxName);
-    tokenBox.clear();
-    db.clear();
+    await tokenBox.clear();
+    await userBox.clear();
   }
 }

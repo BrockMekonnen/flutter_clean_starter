@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../_shared/features/error/error_page.dart';
 import '../../modules/auth/bloc/auth_bloc.dart';
-import '../../modules/auth/domain/auth_status.dart';
 
 const fadeTransitionKey = ValueKey<String>('Layout_Scaffold');
 final GlobalKey<NavigatorState> rootNavigatorKey =
