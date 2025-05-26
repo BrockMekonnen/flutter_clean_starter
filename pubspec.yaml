@@ -37,8 +37,6 @@ dependencies:
   easy_localization: ^3.0.7+1
   url_launcher: ^6.3.1
   infinite_scroll_pagination: ^5.0.0
-  stream_transform: ^2.1.1
-  bloc_concurrency: ^0.3.0
 
 dev_dependencies:
   flutter_test:

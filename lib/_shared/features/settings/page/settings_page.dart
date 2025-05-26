@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../_core/layout/page_layout.dart';
-import '../../../../_core/router/nav_routes.dart';
 import '../../../bloc/theme_mode_cubit.dart';
+import '../../../shared_routes.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -13,7 +13,7 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageLayout(
       title: context.tr('settingsPage.title'),
-      pageTab: NavTab.settings,
+      pageTab: SharedNavTab.settings,
       page: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 700),

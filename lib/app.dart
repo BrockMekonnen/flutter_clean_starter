@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:clean_starter/_core/_init_modules.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +10,7 @@ import 'package:toastification/toastification.dart';
 
 import '_core/constants.dart';
 import '_core/di.dart';
-import '_core/router/app_router.dart';
+import '_core/app_router.dart';
 import '_core/theme.dart';
 import '_shared/bloc/theme_mode_cubit.dart';
 import 'modules/auth/bloc/auth_bloc.dart';
@@ -36,6 +39,14 @@ class AppView extends StatelessWidget {
       builder: (context, themeMode) {
         return ToastificationWrapper(
           child: MaterialApp.router(
+            scrollBehavior: MaterialScrollBehavior().copyWith(
+              dragDevices: {
+                PointerDeviceKind.mouse,
+                PointerDeviceKind.touch,
+                PointerDeviceKind.stylus,
+                PointerDeviceKind.unknown
+              },
+            ),
             title: 'Clean Starter',
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
@@ -47,8 +58,11 @@ class AppView extends StatelessWidget {
               ...context.localizationDelegates,
               FormBuilderLocalizations.delegate,
             ],
-            builder: (context, child) => ResponsiveBreakpoints.builder(
-                breakpoints: Constants.breakpoints, child: child!),
+            builder: (context, child) {
+              AppModules.initAfterRunApp(context);
+              return ResponsiveBreakpoints.builder(
+                  breakpoints: Constants.breakpoints, child: child!);
+            },
             routeInformationParser: di<AppRouter>().router.routeInformationParser,
             routerDelegate: di<AppRouter>().router.routerDelegate,
             routeInformationProvider: di<AppRouter>().router.routeInformationProvider,

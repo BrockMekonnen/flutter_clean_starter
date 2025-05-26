@@ -20,7 +20,7 @@ class PostModel extends Post {
     String title,
     String content,
     String state,
-    DateTime postedAt,
+    DateTime? postedAt,
     DateTime createdAt,
     DateTime updatedAt,
     this.user,

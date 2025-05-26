@@ -29,4 +29,7 @@ class Constants {
     Locale('zh'),
     Locale('es'),
   ];
+
+  static const String mainRouesDiKey = "MainRoutes";
+  static const String navTabsDiKey = "NavTabs";
 }

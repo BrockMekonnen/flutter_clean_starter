@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../_core/layout/page_layout.dart';
-import '../../../../_core/router/nav_routes.dart';
 import '../../../../modules/auth/bloc/auth_bloc.dart';
+import '../../../shared_routes.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
 
     return PageLayout(
       title: context.tr('homePage.title'),
-      pageTab: NavTab.home,
+      pageTab: SharedNavTab.home,
       page: Align(
         alignment: Alignment.topCenter,
         child: BlocBuilder<AuthBloc, AuthState>(

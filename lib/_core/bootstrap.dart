@@ -1,19 +1,22 @@
 import 'package:go_router/go_router.dart';
 
-import '../_shared/shared_module.dart';
-import '../modules/auth/auth_module.dart';
-import '../modules/post/post_module.dart';
+import '_init_modules.dart';
+import 'constants.dart';
 import 'database.dart';
 import 'di.dart';
 import 'http_client.dart';
 import 'initial_app_data.dart';
+import 'layout/adaptive_layout/adaptive_destination.dart';
 import 'network_info.dart';
-import 'router/app_router.dart';
+import 'app_router.dart';
 
 class Bootstrap {
   static Future<void> init() async {
     //* Initiate Core
-    final List<RouteBase> routes = [];
+    di.registerSingleton<List<RouteBase>>([], instanceName: Constants.mainRouesDiKey);
+    di.registerSingleton<List<AdaptiveDestination>>([],
+        instanceName: Constants.navTabsDiKey);
+
     await HttpClient.init();
     await Database.init();
     await InitialAppData.load();
@@ -22,11 +25,10 @@ class Bootstrap {
     di.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl());
 
     //* Registering Modules
-    await registerAuthModule(di, routes);
-    await registerSharedModule(di, routes);
-    await registerPostModule(di, routes);
+    AppModules.initBeforeRunApp();
 
     //* initialize all routes
-    di.registerLazySingleton(() => AppRouter(authBloc: di(), routes: routes));
+    di.registerLazySingleton(
+        () => AppRouter(routes: di.get(instanceName: Constants.mainRouesDiKey)));
   }
 }

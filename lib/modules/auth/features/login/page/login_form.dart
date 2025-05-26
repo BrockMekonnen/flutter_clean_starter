@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:go_router/go_router.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 import '../../../../../_shared/widgets/show_toast_notification.dart';
@@ -35,6 +36,9 @@ class _LoginFormState extends State<LoginForm> {
             title: "Login Error",
             description: state.error,
           );
+        }
+        if (state is LoginSuccess) {
+          context.go("/home");
         }
       },
       child: SingleChildScrollView(

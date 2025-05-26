@@ -11,7 +11,9 @@ PostModel _$PostModelFromJson(Map<String, dynamic> json) => PostModel(
       json['title'] as String,
       json['content'] as String,
       json['state'] as String,
-      DateTime.parse(json['postedAt'] as String),
+      json['postedAt'] == null
+          ? null
+          : DateTime.parse(json['postedAt'] as String),
       DateTime.parse(json['createdAt'] as String),
       DateTime.parse(json['updatedAt'] as String),
       PosterModel.fromJson(json['user'] as Map<String, dynamic>),

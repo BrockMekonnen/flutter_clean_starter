@@ -72,7 +72,8 @@ class PostRepositoryImpl implements PostRepository {
     if (await networkInfo.isConnected()) {
       try {
         String path = "/posts";
-        final res = await dio.get(path);
+        final res = await dio
+            .get(path, queryParameters: {"page": params.page, "limit": params.pageSize});
         final posts = <PostListItem>[];
         res.data['data'].forEach((e) => posts.add(PostListItemModel.fromJson(e)));
         return Right(QueryResult(

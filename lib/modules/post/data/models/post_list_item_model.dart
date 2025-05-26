@@ -15,7 +15,7 @@ class PostListItemModel extends PostListItem {
     String title,
     String content,
     String state,
-    DateTime postedAt,
+    DateTime? postedAt,
     this.user,
   ) : super(
           id,

@@ -3,7 +3,6 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
-import '../../router/nav_routes.dart';
 import 'adaptive_destination.dart';
 import 'navigation_service.dart';
 import 'navigation_type.dart';

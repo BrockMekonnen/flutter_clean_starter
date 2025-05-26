@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 import '../di.dart';
-import '../router/app_router.dart';
-import '../router/nav_routes.dart';
+import '../app_router.dart';
+import 'adaptive_layout/adaptive_destination.dart';
 import 'adaptive_layout/adaptive_layout.dart';
 import 'adaptive_layout/app_bar_actions.dart';
 import 'adaptive_layout/navigation_service.dart';
@@ -28,12 +28,10 @@ class PageLayout extends StatelessWidget {
         navigationService: di<NavigationService>(),
         includeBaseDestinationsInMenu: false,
         appBar: AppBar(title: Text(title), actions: appBarActions(context)),
+        selectedTab: pageTab ?? DefaultNavTab.none,
+        onDestinationSelected: (d) => di<AppRouter>().router.go(d.route!),
+        destinations: getNavRoutes(),
         body: page,
-        selectedTab: pageTab ?? NavTab.none,
-        destinations: getNavItems(context),
-        onDestinationSelected: (destination) {
-          di<AppRouter>().router.go(destination.route!);
-        },
       ),
     );
   }

@@ -12,7 +12,9 @@ PostListItemModel _$PostListItemModelFromJson(Map<String, dynamic> json) =>
       json['title'] as String,
       json['content'] as String,
       json['state'] as String,
-      DateTime.parse(json['postedAt'] as String),
+      json['postedAt'] == null
+          ? null
+          : DateTime.parse(json['postedAt'] as String),
       PosterModel.fromJson(json['user'] as Map<String, dynamic>),
     );
 

@@ -11,12 +11,12 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Center(
-          child: BlocProvider<LoginBloc>(
-            create: (context) => di(),
+      body: BlocProvider<LoginBloc>(
+        create: (context) => di(),
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Center(
             child: const LoginForm(),
           ),
         ),

@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
 
-import '../../_core/router/app_router.dart';
+import '../../_core/app_router.dart';
 
 class CustomToast {
   static void showSuccessNotification({

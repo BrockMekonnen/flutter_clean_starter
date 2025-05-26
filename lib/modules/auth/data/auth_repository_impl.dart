@@ -46,8 +46,12 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, void>> isAuthenticated() async {
     try {
-      final user = await _getCachedUser();
-      _userController.add(user);
+      if (_userController.hasValue) {
+        return Right(null);
+      } else {
+        final user = await _getCachedUser();
+        _userController.add(user);
+      }
       return Right(null);
     } catch (error) {
       _userController.add(User.empty);

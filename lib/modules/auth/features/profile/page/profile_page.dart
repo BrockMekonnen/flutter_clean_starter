@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../_core/layout/page_layout.dart';
-import '../../../../../_core/router/nav_routes.dart';
+import '../../../auth_routes.dart';
 import '../../../bloc/auth_bloc.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -15,7 +15,7 @@ class ProfilePage extends StatelessWidget {
 
     return PageLayout(
       title: context.tr('profilePage.title'),
-      pageTab: NavTab.profile,
+      pageTab: AuthNavTab.profile,
       page: Align(
         alignment: Alignment.topCenter,
         child: BlocBuilder<AuthBloc, AuthState>(
