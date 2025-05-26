@@ -15,7 +15,7 @@ class SplashPage extends StatelessWidget {
         if (state.status == AuthStatus.authenticated) {
           context.go('/home');
         } else {
-          String route = kIsWeb ? "/landing" : "login";
+          String route = kIsWeb ? "/landing" : "/login";
           context.go(route);
         }
       },
