@@ -3,16 +3,16 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../domain/auth_usecase.dart';
+import '../domain/auth_usecases.dart';
 import '../domain/user.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final AuthUsecase _userUsecase;
+  final AuthUsecases _userUsecase;
 
-  AuthBloc({required AuthUsecase userUsecase})
+  AuthBloc({required AuthUsecases userUsecase})
       : _userUsecase = userUsecase,
         super(const AuthState()) {
     on<AppLoaded>(_appLoaded);

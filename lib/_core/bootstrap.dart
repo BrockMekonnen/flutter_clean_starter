@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 
 import '../_shared/shared_module.dart';
 import '../modules/auth/auth_module.dart';
+import '../modules/post/post_module.dart';
 import 'database.dart';
 import 'di.dart';
 import 'http_client.dart';
@@ -23,6 +24,7 @@ class Bootstrap {
     //* Registering Modules
     await registerAuthModule(di, routes);
     await registerSharedModule(di, routes);
+    await registerPostModule(di, routes);
 
     //* initialize all routes
     di.registerLazySingleton(() => AppRouter(authBloc: di(), routes: routes));

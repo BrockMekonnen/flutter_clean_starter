@@ -7,7 +7,7 @@ import 'bloc/auth_bloc.dart';
 import 'data/auth_repository_impl.dart';
 import 'data/models/user_model.dart';
 import 'domain/auth_repository.dart';
-import 'domain/auth_usecase.dart';
+import 'domain/auth_usecases.dart';
 import 'features/login/bloc/login_bloc.dart';
 import 'features/register/bloc/register_bloc.dart';
 
@@ -20,7 +20,7 @@ Future<void> registerAuthModule(GetIt di, List<RouteBase> router) async {
       () => AuthRepositoryImpl(dio: di(), hive: di(), networkInfo: di()));
 
   //* Inject Usecases
-  di.registerLazySingleton<AuthUsecase>(() => AuthUsecase(di()));
+  di.registerLazySingleton<AuthUsecases>(() => AuthUsecases(di()));
 
   //* inject blocs
   di.registerLazySingleton(

@@ -1,9 +1,9 @@
 import 'package:go_router/go_router.dart';
 
 import '../../_core/router/app_router.dart';
-import 'features/login/view/page/login_page.dart';
-import 'features/profile/view/profile_page.dart';
-import 'features/register/view/page/register_page.dart';
+import 'features/login/page/login_page.dart';
+import 'features/profile/page/profile_page.dart';
+import 'features/register/page/register_page.dart';
 
 List<GoRoute> authRoutes() {
   return [
