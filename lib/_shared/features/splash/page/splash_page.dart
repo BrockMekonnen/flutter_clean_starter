@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../_core/app_router.dart';
 import '../../../../modules/auth/bloc/auth_bloc.dart';
 
 class SplashPage extends StatelessWidget {
@@ -13,7 +14,7 @@ class SplashPage extends StatelessWidget {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state.status == AuthStatus.authenticated) {
-          context.go('/home');
+          context.go(firstNavRoute());
         } else {
           String route = kIsWeb ? "/landing" : "/login";
           context.go(route);

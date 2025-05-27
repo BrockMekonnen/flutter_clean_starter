@@ -1,3 +1,4 @@
+import 'package:clean_starter/_core/app_router.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -33,7 +34,7 @@ class Error404Page extends StatelessWidget {
               const SizedBox(height: 24),
               FilledButton.icon(
                 onPressed: () {
-                  final route = kIsWeb ? "/landing" : "/home";
+                  final route = kIsWeb ? "/landing" : firstNavRoute();
                   context.go(route);
                 },
                 icon: const Icon(Icons.home),

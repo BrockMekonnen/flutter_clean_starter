@@ -15,18 +15,12 @@ final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 
 List<AdaptiveDestination> getNavRoutes() => di.get(instanceName: Constants.navTabsDiKey);
 
-class AppRouter {
-  final List<RouteBase> routes;
-
-  AppRouter({required this.routes});
-
-  late final router = GoRouter(
-    navigatorKey: rootNavigatorKey,
-    initialLocation: "/",
-    routes: routes,
-    errorPageBuilder: (_, __) => NoTransitionPage<void>(child: const Error404Page()),
-    debugLogDiagnostics: false,
-  );
+String firstNavRoute() {
+  var navRoutes = getNavRoutes();
+  if (navRoutes.isNotEmpty) {
+    return navRoutes.first.route;
+  }
+  return "/";
 }
 
 FutureOr<String?> authRouteGuard(BuildContext context, GoRouterState state) async {
@@ -61,7 +55,7 @@ FutureOr<String?> unAuthRouteGuard(BuildContext context, GoRouterState state) as
   if (authBloc.state.status == AuthStatus.unauthenticated) {
     return null;
   } else {
-    return "/home";
+    return firstNavRoute();
   }
 }
 
@@ -70,12 +64,26 @@ FutureOr<String?> initialRedirect(BuildContext context, GoRouterState state) {
   var status = authBloc.state.status;
 
   if (status == AuthStatus.authenticated) {
-    return "/home";
+    return firstNavRoute();
   } else if (status == AuthStatus.unauthenticated) {
     return kIsWeb ? "/landing" : "/login";
   } else {
     return null;
   }
+}
+
+class AppRouter {
+  final List<RouteBase> routes;
+
+  AppRouter({required this.routes});
+
+  late final router = GoRouter(
+    navigatorKey: rootNavigatorKey,
+    initialLocation: "/",
+    routes: routes,
+    errorPageBuilder: (_, __) => NoTransitionPage<void>(child: const Error404Page()),
+    debugLogDiagnostics: false,
+  );
 }
 
 class FadeTransitionPage extends CustomTransitionPage<void> {
