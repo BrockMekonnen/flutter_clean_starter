@@ -80,15 +80,15 @@ class AppRouter {
   late final router = GoRouter(
     navigatorKey: rootNavigatorKey,
     initialLocation: "/",
-    routes: routes,
     errorPageBuilder: (_, __) => NoTransitionPage<void>(child: const Error404Page()),
     debugLogDiagnostics: false,
+    routes: routes,
   );
 }
 
 class FadeTransitionPage extends CustomTransitionPage<void> {
   FadeTransitionPage({
-    // required LocalKey super.key,
+    super.key,
     required super.child,
   }) : super(
           transitionsBuilder: (c, animation, a2, child) => FadeTransition(

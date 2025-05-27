@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../_core/app_router.dart';
 import '../../../modules/auth/bloc/auth_bloc.dart';
 
 class Error401Page extends StatelessWidget {
