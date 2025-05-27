@@ -41,14 +41,12 @@ List<GoRoute> sharedRoutes() {
       path: '/splash',
       redirect: initialRedirect,
       pageBuilder: (context, state) => FadeTransitionPage(
-        key: fadeTransitionKey,
         child: const SplashPage(),
       ),
     ),
     GoRoute(
       path: "/errors/401",
       pageBuilder: (context, state) => FadeTransitionPage(
-        key: fadeTransitionKey,
         child: const Error401Page(),
       ),
     ),
@@ -56,7 +54,6 @@ List<GoRoute> sharedRoutes() {
       path: "/landing",
       redirect: unAuthRouteGuard,
       pageBuilder: (context, state) => FadeTransitionPage(
-        key: fadeTransitionKey,
         child: const LandingPageLoader(), // 👈 Lazy-load the page
       ),
     ),
@@ -64,7 +61,6 @@ List<GoRoute> sharedRoutes() {
       path: "/home",
       redirect: authRouteGuard,
       pageBuilder: (context, state) => FadeTransitionPage(
-        key: fadeTransitionKey,
         child: const HomePage(),
       ),
     ),
@@ -72,7 +68,6 @@ List<GoRoute> sharedRoutes() {
       path: "/settings",
       redirect: authRouteGuard,
       pageBuilder: (context, state) => FadeTransitionPage(
-        key: fadeTransitionKey,
         child: const SettingsPage(),
       ),
     ),

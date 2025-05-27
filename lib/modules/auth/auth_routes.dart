@@ -28,7 +28,6 @@ List<GoRoute> authRoutes() {
       path: "/login",
       redirect: unAuthRouteGuard,
       pageBuilder: (context, state) => FadeTransitionPage(
-        key: state.pageKey,
         child: const LoginPage(),
       ),
     ),
@@ -36,7 +35,6 @@ List<GoRoute> authRoutes() {
       path: "/register",
       redirect: unAuthRouteGuard,
       pageBuilder: (context, state) => FadeTransitionPage(
-        key: state.pageKey,
         child: const RegisterPage(),
       ),
     ),
@@ -44,7 +42,6 @@ List<GoRoute> authRoutes() {
       path: "/profile",
       redirect: authRouteGuard,
       pageBuilder: (context, state) => FadeTransitionPage(
-        key: state.pageKey,
         child: const ProfilePage(),
       ),
     ),

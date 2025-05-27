@@ -11,14 +11,11 @@ import 'constants.dart';
 import 'di.dart';
 import 'layout/adaptive_layout/adaptive_destination.dart';
 
-const fadeTransitionKey = ValueKey<String>('Layout_Scaffold');
-final GlobalKey<NavigatorState> rootNavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: 'root');
+final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 
 List<AdaptiveDestination> getNavRoutes() => di.get(instanceName: Constants.navTabsDiKey);
 
 class AppRouter {
-  // final AuthBloc authBloc;
   final List<RouteBase> routes;
 
   AppRouter({required this.routes});
@@ -27,10 +24,7 @@ class AppRouter {
     navigatorKey: rootNavigatorKey,
     initialLocation: "/",
     routes: routes,
-    errorPageBuilder: (context, state) => NoTransitionPage<void>(
-      key: state.pageKey,
-      child: const Error404Page(),
-    ),
+    errorPageBuilder: (_, __) => NoTransitionPage<void>(child: const Error404Page()),
     debugLogDiagnostics: false,
   );
 }
@@ -86,7 +80,7 @@ FutureOr<String?> initialRedirect(BuildContext context, GoRouterState state) {
 
 class FadeTransitionPage extends CustomTransitionPage<void> {
   FadeTransitionPage({
-    required LocalKey super.key,
+    // required LocalKey super.key,
     required super.child,
   }) : super(
           transitionsBuilder: (c, animation, a2, child) => FadeTransition(
@@ -95,21 +89,4 @@ class FadeTransitionPage extends CustomTransitionPage<void> {
           ),
         );
   static final _curveTween = CurveTween(curve: Curves.easeIn);
-}
-
-class GoRouterRefreshStream extends ChangeNotifier {
-  GoRouterRefreshStream(Stream<dynamic> stream) {
-    notifyListeners();
-    _subscription = stream.asBroadcastStream().listen(
-          (dynamic _) => notifyListeners(),
-        );
-  }
-
-  late final StreamSubscription<dynamic> _subscription;
-
-  @override
-  void dispose() {
-    _subscription.cancel();
-    super.dispose();
-  }
 }

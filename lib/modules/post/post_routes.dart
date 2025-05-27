@@ -37,7 +37,6 @@ List<RouteBase> postRoutes() {
   return [
     ShellRoute(
       pageBuilder: (context, state, child) => FadeTransitionPage(
-        key: state.pageKey,
         child: BlocProvider(
           create: (_) => di<PostListingBloc>(),
           child: child,
@@ -48,7 +47,6 @@ List<RouteBase> postRoutes() {
           path: "/posts",
           redirect: authRouteGuard,
           pageBuilder: (context, state) => FadeTransitionPage(
-            key: state.pageKey,
             child: PostListingPage(navTab: PostNavTab.posts),
           ),
           routes: [
@@ -56,7 +54,6 @@ List<RouteBase> postRoutes() {
               path: "detail/:id",
               redirect: authRouteGuard,
               pageBuilder: (context, state) => FadeTransitionPage(
-                key: state.pageKey,
                 child: PostDetailPage(
                   postId: state.pathParameters['id']!,
                   navTab: PostNavTab.posts,
@@ -68,8 +65,7 @@ List<RouteBase> postRoutes() {
       ],
     ),
     ShellRoute(
-      pageBuilder: (context, state, child) => FadeTransitionPage(
-        key: state.pageKey,
+      pageBuilder: (_, __, child) => FadeTransitionPage(
         child: BlocProvider(
           create: (_) => di<PostListingBloc>(),
           child: child,
@@ -80,7 +76,6 @@ List<RouteBase> postRoutes() {
           path: "/me/posts",
           redirect: authRouteGuard,
           pageBuilder: (context, state) => FadeTransitionPage(
-            key: state.pageKey,
             child: const PostListingPage(navTab: PostNavTab.myPosts),
           ),
           routes: [
@@ -88,7 +83,6 @@ List<RouteBase> postRoutes() {
               path: "detail/:id",
               redirect: authRouteGuard,
               pageBuilder: (context, state) => FadeTransitionPage(
-                key: state.pageKey,
                 child: PostDetailPage(
                   postId: state.pathParameters['id']!,
                   navTab: PostNavTab.myPosts,
@@ -99,7 +93,6 @@ List<RouteBase> postRoutes() {
               path: "edit/:id",
               redirect: authRouteGuard,
               pageBuilder: (context, state) => FadeTransitionPage(
-                key: state.pageKey,
                 child: EditPostPage(
                   postId: state.pathParameters['id']!,
                 ),
@@ -109,7 +102,6 @@ List<RouteBase> postRoutes() {
               path: "new",
               redirect: authRouteGuard,
               pageBuilder: (context, state) => FadeTransitionPage(
-                key: state.pageKey,
                 child: CreatePostPage(),
               ),
             ),
