@@ -25,14 +25,14 @@ class AdaptiveDestination implements Comparable<AdaptiveDestination> {
   final String title;
   final IconData icon;
   final int order;
-  final String? route;
+  final String route;
   final NavTab? navTab;
 
   AdaptiveDestination({
     required this.title,
     required this.icon,
     required this.order,
-    this.route,
+    required this.route,
     this.navTab,
   });
 

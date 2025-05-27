@@ -37,6 +37,7 @@ List<RouteBase> postRoutes() {
   return [
     ShellRoute(
       pageBuilder: (context, state, child) => FadeTransitionPage(
+        key: state.pageKey,
         child: BlocProvider(
           create: (_) => di<PostListingBloc>(),
           child: child,
@@ -47,6 +48,7 @@ List<RouteBase> postRoutes() {
           path: "/posts",
           redirect: authRouteGuard,
           pageBuilder: (context, state) => FadeTransitionPage(
+            key: state.pageKey,
             child: PostListingPage(navTab: PostNavTab.posts),
           ),
           routes: [
@@ -76,6 +78,7 @@ List<RouteBase> postRoutes() {
           path: "/me/posts",
           redirect: authRouteGuard,
           pageBuilder: (context, state) => FadeTransitionPage(
+            key: state.pageKey,
             child: const PostListingPage(navTab: PostNavTab.myPosts),
           ),
           routes: [

@@ -5,6 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
+import '../../../../../_core/app_router.dart';
 import '../../../../../_shared/widgets/show_toast_notification.dart';
 import '../bloc/login_bloc.dart';
 import '../widgets/widgets.dart';
@@ -38,7 +39,7 @@ class _LoginFormState extends State<LoginForm> {
           );
         }
         if (state is LoginSuccess) {
-          context.go("/home");
+          context.go(firstNavRoute());
         }
       },
       child: SingleChildScrollView(

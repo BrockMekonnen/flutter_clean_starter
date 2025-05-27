@@ -41,7 +41,7 @@ class PageLayout extends StatelessWidget {
       includeBaseDestinationsInMenu: false,
       appBar: AppBar(title: Text(title), actions: appBarActions(context)),
       selectedTab: navTab ?? DefaultNavTab.none,
-      onDestinationSelected: (d) => di<AppRouter>().router.go(d.route!),
+      onDestinationSelected: (d) => di<AppRouter>().router.go(d.route),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: floatingActionButton,
       destinations: getNavRoutes(),

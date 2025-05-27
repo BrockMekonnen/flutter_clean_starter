@@ -15,6 +15,14 @@ final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 
 List<AdaptiveDestination> getNavRoutes() => di.get(instanceName: Constants.navTabsDiKey);
 
+String firstNavRoute() {
+  var navRoutes = getNavRoutes();
+  if (navRoutes.isNotEmpty) {
+    return navRoutes.first.route;
+  }
+  return "/";
+}
+
 FutureOr<String?> authRouteGuard(BuildContext context, GoRouterState state) async {
   var authBloc = context.read<AuthBloc>();
 
@@ -47,7 +55,7 @@ FutureOr<String?> unAuthRouteGuard(BuildContext context, GoRouterState state) as
   if (authBloc.state.status == AuthStatus.unauthenticated) {
     return null;
   } else {
-    return "/home";
+    return firstNavRoute();
   }
 }
 
@@ -56,7 +64,7 @@ FutureOr<String?> initialRedirect(BuildContext context, GoRouterState state) {
   var status = authBloc.state.status;
 
   if (status == AuthStatus.authenticated) {
-    return "/home";
+    return firstNavRoute();
   } else if (status == AuthStatus.unauthenticated) {
     return kIsWeb ? "/landing" : "/login";
   } else {
@@ -80,7 +88,7 @@ class AppRouter {
 
 class FadeTransitionPage extends CustomTransitionPage<void> {
   FadeTransitionPage({
-    // required LocalKey super.key,
+    super.key,
     required super.child,
   }) : super(
           transitionsBuilder: (c, animation, a2, child) => FadeTransition(
