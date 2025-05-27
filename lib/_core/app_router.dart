@@ -15,20 +15,6 @@ final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 
 List<AdaptiveDestination> getNavRoutes() => di.get(instanceName: Constants.navTabsDiKey);
 
-class AppRouter {
-  final List<RouteBase> routes;
-
-  AppRouter({required this.routes});
-
-  late final router = GoRouter(
-    navigatorKey: rootNavigatorKey,
-    initialLocation: "/",
-    routes: routes,
-    errorPageBuilder: (_, __) => NoTransitionPage<void>(child: const Error404Page()),
-    debugLogDiagnostics: false,
-  );
-}
-
 FutureOr<String?> authRouteGuard(BuildContext context, GoRouterState state) async {
   var authBloc = context.read<AuthBloc>();
 
@@ -76,6 +62,20 @@ FutureOr<String?> initialRedirect(BuildContext context, GoRouterState state) {
   } else {
     return null;
   }
+}
+
+class AppRouter {
+  final List<RouteBase> routes;
+
+  AppRouter({required this.routes});
+
+  late final router = GoRouter(
+    navigatorKey: rootNavigatorKey,
+    initialLocation: "/",
+    errorPageBuilder: (_, __) => NoTransitionPage<void>(child: const Error404Page()),
+    debugLogDiagnostics: false,
+    routes: routes,
+  );
 }
 
 class FadeTransitionPage extends CustomTransitionPage<void> {
