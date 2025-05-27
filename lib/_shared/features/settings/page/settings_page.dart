@@ -13,7 +13,7 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageLayout(
       title: context.tr('settingsPage.title'),
-      pageTab: SharedNavTab.settings,
+      navTab: SharedNavTab.settings,
       page: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 700),

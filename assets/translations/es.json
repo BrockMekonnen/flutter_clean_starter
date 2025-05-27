@@ -62,5 +62,15 @@
     "viewOnGithub": "Ver en GitHub",
     "paragraph3": "¡Damos la bienvenida a todo tipo de contribuciones!\nHaz un fork del repositorio, realiza cambios y envía un pull request.",
     "contributionsWelcome": "🤝 Bienvenidas las contribuciones"
+  },
+  "postPage": {
+    "title1": "Publicaciones",
+    "title2": "Mis publicaciones",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "publish": "Publicar",
+    "postDetails": "Detalles de la publicación",
+    "editPost": "Editar publicación",
+    "createPost": "Crear publicación"
   }
 }

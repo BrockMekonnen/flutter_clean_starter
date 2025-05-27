@@ -62,5 +62,15 @@
     "viewOnGithub": "View on GitHub",
     "paragraph3": "We welcome contributions of all kinds!\nFork the repo, make changes, and submit a pull request.",
     "contributionsWelcome": "🤝 Contributions Welcome"
+  },
+  "postPage": {
+    "title1": "Posts",
+    "title2": "My Posts",
+    "edit": "Edit",
+    "delete": "Delete",
+    "publish": "Publish",
+    "postDetails": "Post Details",
+    "editPost": "Edit Post",
+    "createPost": "Create Post"
   }
 }

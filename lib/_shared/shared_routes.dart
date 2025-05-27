@@ -26,7 +26,7 @@ List<AdaptiveDestination> getSharedNavTabs(BuildContext context) {
       icon: Icons.settings,
       route: '/settings',
       navTab: SharedNavTab.settings,
-      order: 4,
+      order: 40,
     ),
   ];
 }

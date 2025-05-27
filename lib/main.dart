@@ -11,8 +11,8 @@ Future<void> main() async {
   await EasyLocalization.ensureInitialized();
   await Bootstrap.init();
   runApp(EasyLocalization(
-    supportedLocales: Constants.supportedLocales,
     path: Constants.langAssetPath,
+    supportedLocales: Constants.supportedLocales,
     assetLoader: const CodegenLoader(),
     fallbackLocale: Locale('en', 'US'),
     child: App(),

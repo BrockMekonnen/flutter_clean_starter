@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
 
     return PageLayout(
       title: context.tr('homePage.title'),
-      pageTab: SharedNavTab.home,
+      navTab: SharedNavTab.home,
       page: Align(
         alignment: Alignment.topCenter,
         child: BlocBuilder<AuthBloc, AuthState>(

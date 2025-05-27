@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../../../_shared/domain/cqrs.dart';
+import '../../../domain/post.dart';
 import '../../../domain/post_list_item.dart';
 import '../../../domain/post_usecases.dart';
 
@@ -18,6 +19,8 @@ class PostListingBloc extends Bloc<PostListingEvent, PagingState<int, PostListIt
         super(PagingState()) {
     on<FetchPostListingEvent>(_fetchPosts);
     on<RefreshPostListingEvent>(_refreshPosts);
+    on<UpdatePostInListingEvent>(_updatePost);
+    on<DeletePostFromListingEvent>(_deletePost);
   }
 
   void _fetchPosts(
@@ -27,7 +30,8 @@ class PostListingBloc extends Bloc<PostListingEvent, PagingState<int, PostListIt
     if (state.isLoading) return;
     emit(state.copyWith(isLoading: true, error: null));
     final newKey = (state.keys?.last ?? 0) + 1;
-    final result = await _postUsecases.fetchPosts(Pagination(newKey, _limit));
+    final result =
+        await _postUsecases.fetchPosts(Pagination(newKey, _limit), event.isMyPosts);
     emit(result.fold(
       (e) => state.copyWith(
         error: e.getMessage(),
@@ -47,7 +51,7 @@ class PostListingBloc extends Bloc<PostListingEvent, PagingState<int, PostListIt
     Emitter<PagingState> emit,
   ) async {
     emit(state.copyWith(isLoading: true, error: null));
-    final result = await _postUsecases.fetchPosts(Pagination(1, _limit));
+    final result = await _postUsecases.fetchPosts(Pagination(1, _limit), event.isMyPosts);
     emit(result.fold(
       (e) => state.copyWith(
         error: e.getMessage(),
@@ -60,5 +64,44 @@ class PostListingBloc extends Bloc<PostListingEvent, PagingState<int, PostListIt
         isLoading: false,
       ),
     ));
+  }
+
+  void _updatePost(
+    UpdatePostInListingEvent event,
+    Emitter<PagingState> emit,
+  ) async {
+    var post = event.post;
+    final newPostListItem = PostListItem(
+        post.id, post.title, post.content, post.state, post.postedAt, post.user);
+    List<List<PostListItem>> updatedPages = List.from(state.pages ?? []);
+
+    if (event.isCreate) {
+      // If no pages exist, create a new first page
+      if (updatedPages.isEmpty) {
+        updatedPages = [
+          [newPostListItem]
+        ];
+      } else {
+        updatedPages[0] = [newPostListItem, ...updatedPages[0]];
+      }
+    } else {
+      updatedPages = updatedPages
+          .map((page) => page.map((p) => p.id == post.id ? newPostListItem : p).toList())
+          .toList();
+    }
+
+    emit(state.copyWith(pages: updatedPages));
+  }
+
+  void _deletePost(
+    DeletePostFromListingEvent event,
+    Emitter<PagingState> emit,
+  ) {
+    final updatedPages = state.pages
+        ?.map((page) => page.where((post) => post.id != event.postId).toList())
+        .where((page) => page.isNotEmpty)
+        .toList();
+
+    emit(state.copyWith(pages: updatedPages));
   }
 }

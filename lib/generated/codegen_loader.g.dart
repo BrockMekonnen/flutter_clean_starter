@@ -78,6 +78,16 @@ class CodegenLoader extends AssetLoader{
     "viewOnGithub": "在 GitHub 上查看",
     "paragraph3": "我们欢迎各种形式的贡献！\n请 Fork 仓库，进行修改，然后提交 Pull Request。",
     "contributionsWelcome": "🤝 欢迎贡献"
+  },
+  "postPage": {
+    "title1": "帖子",
+    "title2": "我的帖子",
+    "edit": "编辑",
+    "delete": "删除",
+    "publish": "发布",
+    "postDetails": "帖子详情",
+    "editPost": "编辑帖子",
+    "createPost": "创建帖子"
   }
 };
 static const Map<String,dynamic> _en = {
@@ -144,6 +154,16 @@ static const Map<String,dynamic> _en = {
     "viewOnGithub": "View on GitHub",
     "paragraph3": "We welcome contributions of all kinds!\nFork the repo, make changes, and submit a pull request.",
     "contributionsWelcome": "🤝 Contributions Welcome"
+  },
+  "postPage": {
+    "title1": "Posts",
+    "title2": "My Posts",
+    "edit": "Edit",
+    "delete": "Delete",
+    "publish": "Publish",
+    "postDetails": "Post Details",
+    "editPost": "Edit Post",
+    "createPost": "Create Post"
   }
 };
 static const Map<String,dynamic> _es = {
@@ -210,6 +230,16 @@ static const Map<String,dynamic> _es = {
     "viewOnGithub": "Ver en GitHub",
     "paragraph3": "¡Damos la bienvenida a todo tipo de contribuciones!\nHaz un fork del repositorio, realiza cambios y envía un pull request.",
     "contributionsWelcome": "🤝 Bienvenidas las contribuciones"
+  },
+  "postPage": {
+    "title1": "Publicaciones",
+    "title2": "Mis publicaciones",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "publish": "Publicar",
+    "postDetails": "Detalles de la publicación",
+    "editPost": "Editar publicación",
+    "createPost": "Crear publicación"
   }
 };
 static const Map<String,dynamic> _ar = {
@@ -276,6 +306,16 @@ static const Map<String,dynamic> _ar = {
     "viewOnGithub": "عرض على GitHub",
     "paragraph3": "نرحب بجميع أنواع المساهمات!\nقم بعمل تفرع للمستودع، وأجرِ التعديلات، وقدم طلب سحب.",
     "contributionsWelcome": "🤝 نرحب بالمساهمات"
+  },
+  "postPage": {
+    "title1": "المنشورات",
+    "title2": "منشوراتي",
+    "edit": "تعديل",
+    "delete": "حذفEliminar",
+    "publish": "نشر",
+    "postDetails": "تفاصيل المنشور",
+    "editPost": "تعديل المنشور",
+    "createPost": "إنشاء منشور"
   }
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"zh": _zh, "en": _en, "es": _es, "ar": _ar};

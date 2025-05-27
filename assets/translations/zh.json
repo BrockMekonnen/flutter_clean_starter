@@ -62,5 +62,15 @@
     "viewOnGithub": "在 GitHub 上查看",
     "paragraph3": "我们欢迎各种形式的贡献！\n请 Fork 仓库，进行修改，然后提交 Pull Request。",
     "contributionsWelcome": "🤝 欢迎贡献"
+  },
+  "postPage": {
+    "title1": "帖子",
+    "title2": "我的帖子",
+    "edit": "编辑",
+    "delete": "删除",
+    "publish": "发布",
+    "postDetails": "帖子详情",
+    "editPost": "编辑帖子",
+    "createPost": "创建帖子"
   }
 }

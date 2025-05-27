@@ -18,19 +18,16 @@ class PostUsecases {
     return _postRepository.deletePost(id);
   }
 
-  Future<Either<Failure, void>> publishPost(String id) {
+  Future<Either<Failure, Post>> publishPost(String id) {
     return _postRepository.publishPost(id);
   }
 
-  Future<Either<Failure, String>> createPost(String title, String content) {
-    return _postRepository.createPost(title, content);
+  Future<Either<Failure, Post>> storePost(String title, String content, {String? id}) {
+    return _postRepository.storePost(title, content, id: id);
   }
 
-  Future<Either<Failure, String>> updatePost(String id, String title, String content) {
-    return _postRepository.updatePost(id, title, content);
-  }
-
-  Future<Either<Failure, QueryResult<List<PostListItem>>>> fetchPosts(Pagination params) {
-    return _postRepository.fetchPosts(params);
+  Future<Either<Failure, QueryResult<List<PostListItem>>>> fetchPosts(
+      Pagination params, bool fetchMine) {
+    return _postRepository.fetchPosts(params, fetchMine);
   }
 }

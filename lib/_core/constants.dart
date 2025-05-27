@@ -20,8 +20,6 @@ class Constants {
     Breakpoint(start: 1921, end: double.infinity, name: '4K'),
   ];
 
-  static GlobalKey<ScaffoldState> layoutDrawerKey = GlobalKey();
-
   static const String langAssetPath = 'assets/translations';
   static const List<Locale> supportedLocales = [
     Locale('en'),

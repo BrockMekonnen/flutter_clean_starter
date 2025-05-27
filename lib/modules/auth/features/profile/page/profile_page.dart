@@ -15,7 +15,7 @@ class ProfilePage extends StatelessWidget {
 
     return PageLayout(
       title: context.tr('profilePage.title'),
-      pageTab: AuthNavTab.profile,
+      navTab: AuthNavTab.profile,
       page: Align(
         alignment: Alignment.topCenter,
         child: BlocBuilder<AuthBloc, AuthState>(
