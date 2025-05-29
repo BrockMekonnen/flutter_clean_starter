@@ -5,7 +5,7 @@ import '../_core/constants.dart';
 import '../_core/di.dart';
 import '../_core/layout/adaptive_layout/adaptive_destination.dart';
 import '../_core/layout/adaptive_layout/navigation_service.dart';
-import 'bloc/theme_mode_cubit.dart';
+import 'blocs/theme_mode_cubit.dart';
 import 'shared_routes.dart';
 
 Future<void> registerSharedModule() async {
