@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../_core/layout/page_layout.dart';
-import '../../../blocs/theme_mode_cubit.dart';
+import '../../../bloc/theme_mode_cubit.dart';
 import '../../../shared_routes.dart';
 
 class SettingsPage extends StatelessWidget {

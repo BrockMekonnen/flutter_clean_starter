@@ -13,7 +13,7 @@ import '_core/constants.dart';
 import '_core/di.dart';
 import '_core/app_router.dart';
 import '_core/theme.dart';
-import '_shared/blocs/theme_mode_cubit.dart';
+import '_shared/bloc/theme_mode_cubit.dart';
 import 'modules/auth/bloc/auth_bloc.dart';
 
 class App extends StatelessWidget {

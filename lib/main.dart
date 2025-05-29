@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '_core/_bootstrap.dart';
+import '_core/bootstrap.dart';
 import '_core/constants.dart';
 import 'app.dart';
 import 'generated/codegen_loader.g.dart';
