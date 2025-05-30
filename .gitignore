@@ -47,8 +47,4 @@ app.*.map.json
 
 .fvm/
 
-.fvm/
-
-.fvm/
-
-.fvm
+site/
