@@ -19,7 +19,7 @@ A production-ready Flutter project template using **Clean Architecture** and **M
 ## 📚 Documentation
 
 📖 Full documentation available at:  
-<!-- 👉 **[https://yourdomain.com/flutter_clean_starter](https://yourdomain.com/flutter_clean_starter)** -->
+👉 **[https://BrockMekonnen.github.io/flutter_clean_starter](https://BrockMekonnen.github.io/flutter_clean_starter)**
 
 Covers:
 - Architecture & Folder Structure  

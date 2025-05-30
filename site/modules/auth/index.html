@@ -1,0 +1,1777 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A production-ready Flutter starter template using Clean Architecture">
+      
+      
+        <meta name="author" content="Biruk Mekonnen">
+      
+      
+        <link rel="canonical" href="https://BrockMekonnen.github.io/flutter_clean_starter/modules/auth/">
+      
+      
+        <link rel="prev" href="../shared/">
+      
+      
+        <link rel="next" href="../../contributing/">
+      
+      
+      <link rel="icon" href="../../img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Auth Module - Flutter Clean Starter</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#authentication-module" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Flutter Clean Starter" class="md-header__button md-logo" aria-label="Flutter Clean Starter" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m13.13 22.19-1.63-3.83c1.57-.58 3.04-1.36 4.4-2.27zM5.64 12.5l-3.83-1.63 6.1-2.77C7 9.46 6.22 10.93 5.64 12.5M21.61 2.39S16.66.269 11 5.93c-2.19 2.19-3.5 4.6-4.35 6.71-.28.75-.09 1.57.46 2.13l2.13 2.12c.55.56 1.37.74 2.12.46A19.1 19.1 0 0 0 18.07 13c5.66-5.66 3.54-10.61 3.54-10.61m-7.07 7.07c-.78-.78-.78-2.05 0-2.83s2.05-.78 2.83 0c.77.78.78 2.05 0 2.83s-2.05.78-2.83 0m-5.66 7.07-1.41-1.41zM6.24 22l3.64-3.64c-.34-.09-.67-.24-.97-.45L4.83 22zM2 22h1.41l4.77-4.76-1.42-1.41L2 20.59zm0-2.83 4.09-4.08c-.21-.3-.36-.62-.45-.97L2 17.76z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Flutter Clean Starter
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Auth Module
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/BrockMekonnen/flutter_clean_starter" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    BrockMekonnen/flutter_clean_starter
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../getting_started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../architecture/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../folder_structure/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Folder Structure
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../_core/overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Core
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Modules
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../contributing/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Contributing
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Flutter Clean Starter" class="md-nav__button md-logo" aria-label="Flutter Clean Starter" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m13.13 22.19-1.63-3.83c1.57-.58 3.04-1.36 4.4-2.27zM5.64 12.5l-3.83-1.63 6.1-2.77C7 9.46 6.22 10.93 5.64 12.5M21.61 2.39S16.66.269 11 5.93c-2.19 2.19-3.5 4.6-4.35 6.71-.28.75-.09 1.57.46 2.13l2.13 2.12c.55.56 1.37.74 2.12.46A19.1 19.1 0 0 0 18.07 13c5.66-5.66 3.54-10.61 3.54-10.61m-7.07 7.07c-.78-.78-.78-2.05 0-2.83s2.05-.78 2.83 0c.77.78.78 2.05 0 2.83s-2.05.78-2.83 0m-5.66 7.07-1.41-1.41zM6.24 22l3.64-3.64c-.34-.09-.67-.24-.97-.45L4.83 22zM2 22h1.41l4.77-4.76-1.42-1.41L2 20.59zm0-2.83 4.09-4.08c-.21-.3-.36-.62-.45-.97L2 17.76z"/></svg>
+
+    </a>
+    Flutter Clean Starter
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/BrockMekonnen/flutter_clean_starter" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    BrockMekonnen/flutter_clean_starter
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../folder_structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Folder Structure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Core
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Core
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_core/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_core/bootstrap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bootstrap
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_core/init_modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Init Modules
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_core/app_router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Router
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_core/di/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Dependency Injection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_core/http_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    HTTP Client
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_core/database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Database
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_core/theme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theme
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Modules
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Modules
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shared/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Shared Module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Auth Module
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Auth Module
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#domain-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Domain Layer
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 Domain Layer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#userdart" class="md-nav__link">
+    <span class="md-ellipsis">
+      user.dart
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auth_repositorydart" class="md-nav__link">
+    <span class="md-ellipsis">
+      auth_repository.dart
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auth_usecasesdart" class="md-nav__link">
+    <span class="md-ellipsis">
+      auth_usecases.dart
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      📦 Data Layer
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📦 Data Layer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authrepositoryimpl" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 AuthRepositoryImpl
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usermodel" class="md-nav__link">
+    <span class="md-ellipsis">
+      👤 UserModel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-authentication-bloc" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔐 Global Authentication Bloc
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔐 Global Authentication Bloc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#path-modulesauthblocauth_blocdart" class="md-nav__link">
+    <span class="md-ellipsis">
+      📁 Path: modules/auth/bloc/auth_bloc.dart
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-injection-in-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      🌍 Global Injection in App
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎨 Features Layer
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎨 Features Layer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#login-flow-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔐 Login Flow Example
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔐 Login Flow Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#featuresloginbloclogin_blocdart" class="md-nav__link">
+    <span class="md-ellipsis">
+      features/login/bloc/login_bloc.dart
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#featuresloginpagelogin_pagedart" class="md-nav__link">
+    <span class="md-ellipsis">
+      features/login/page/login_page.dart
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#featuresloginwidgetslogin_buttondart" class="md-nav__link">
+    <span class="md-ellipsis">
+      features/login/widgets/login_button.dart
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-registration" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Module Registration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 Module Registration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auth_moduledart" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧱 auth_module.dart
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#navigation-tabs" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧭 Navigation Tabs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auth_routesdart" class="md-nav__link">
+    <span class="md-ellipsis">
+      🗂️ auth_routes.dart
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getauthnavtabs" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧭 getAuthNavTabs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/BrockMekonnen/flutter_clean_starter/edit/master/docs/modules/auth.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="authentication-module">🔐 Authentication Module<a class="headerlink" href="#authentication-module" title="Permanent link">&para;</a></h1>
+<p>This module handles all user authentication logic using a clean architecture approach, keeping core business rules isolated from external dependencies.</p>
+<hr />
+<h2 id="domain-layer">🧠 Domain Layer<a class="headerlink" href="#domain-layer" title="Permanent link">&para;</a></h2>
+<p>Defines core authentication logic, independent of any frameworks or data sources.</p>
+<h4 id="userdart">user.dart<a class="headerlink" href="#userdart" title="Permanent link">&para;</a></h4>
+<p>Entity representing the authenticated user.</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="kd">class</span><span class="w"> </span><span class="nc">User</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Equatable</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">final</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">firstName</span><span class="p">,</span><span class="w"> </span><span class="n">lastName</span><span class="p">,</span><span class="w"> </span><span class="n">phone</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="p">;</span>
+<span class="w">        </span><span class="kd">final</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">isEmailVerified</span><span class="p">;</span>
+<span class="w">        </span><span class="kd">final</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">roles</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">User</span><span class="p">({</span>
+<span class="w">            </span><span class="kd">required</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">id</span><span class="p">,</span>
+<span class="w">            </span><span class="kd">required</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">firstName</span><span class="p">,</span>
+<span class="w">            </span><span class="kd">required</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">lastName</span><span class="p">,</span>
+<span class="w">            </span><span class="kd">required</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">phone</span><span class="p">,</span>
+<span class="w">            </span><span class="kd">required</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">email</span><span class="p">,</span>
+<span class="w">            </span><span class="kd">required</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">isEmailVerified</span><span class="p">,</span>
+<span class="w">            </span><span class="kd">required</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">roles</span><span class="p">,</span>
+<span class="w">        </span><span class="p">});</span>
+
+<span class="w">        </span><span class="kd">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">empty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">User</span><span class="p">(</span>
+<span class="w">            </span><span class="nl">id:</span><span class="w"> </span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="w"> </span><span class="nl">firstName:</span><span class="w"> </span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="w"> </span><span class="nl">lastName:</span><span class="w"> </span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="w"> </span><span class="nl">phone:</span><span class="w"> </span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="nl">email:</span><span class="w"> </span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="w"> </span><span class="nl">isEmailVerified:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nl">roles:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">        </span><span class="p">);</span>
+
+<span class="w">        </span><span class="nd">@override</span>
+<span class="w">        </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">Object</span><span class="o">&gt;</span><span class="w"> </span><span class="kd">get</span><span class="w"> </span><span class="n">props</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">firstName</span><span class="p">,</span><span class="w"> </span><span class="n">lastName</span><span class="p">,</span><span class="w"> </span><span class="n">phone</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="n">isEmailVerified</span><span class="p">,</span><span class="w"> </span><span class="n">roles</span><span class="p">];</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<h4 id="auth_repositorydart">auth_repository.dart<a class="headerlink" href="#auth_repositorydart" title="Permanent link">&para;</a></h4>
+<p>Abstract contract for authentication operations.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">AuthRepository</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Stream</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="n">getUserStream</span><span class="p">();</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">dispose</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">Future</span><span class="o">&lt;</span><span class="n">Either</span><span class="o">&lt;</span><span class="n">Failure</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">isAuthenticated</span><span class="p">();</span>
+<span class="w">  </span><span class="n">Future</span><span class="o">&lt;</span><span class="n">Either</span><span class="o">&lt;</span><span class="n">Failure</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">login</span><span class="p">({</span><span class="kd">required</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="kd">required</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="n">password</span><span class="p">});</span>
+<span class="w">  </span><span class="n">Future</span><span class="o">&lt;</span><span class="n">Either</span><span class="o">&lt;</span><span class="n">Failure</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">logout</span><span class="p">();</span>
+<span class="w">  </span><span class="n">Future</span><span class="o">&lt;</span><span class="n">Either</span><span class="o">&lt;</span><span class="n">Failure</span><span class="p">,</span><span class="w"> </span><span class="n">User</span><span class="o">?&gt;&gt;</span><span class="w"> </span><span class="n">getUser</span><span class="p">();</span>
+<span class="w">  </span><span class="n">Future</span><span class="o">&lt;</span><span class="n">Either</span><span class="o">&lt;</span><span class="n">Failure</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">register</span><span class="p">({</span>
+<span class="w">    </span><span class="kd">required</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="n">firstName</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">required</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="n">lastName</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">required</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="n">phone</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">required</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="n">email</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">required</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="n">password</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">required</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">iAgree</span><span class="p">,</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="auth_usecasesdart">auth_usecases.dart<a class="headerlink" href="#auth_usecasesdart" title="Permanent link">&para;</a></h4>
+<p>Use cases that interact with AuthRepository.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">AuthUsecases</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">final</span><span class="w"> </span><span class="n">AuthRepository</span><span class="w"> </span><span class="n">repo</span><span class="p">;</span>
+<span class="w">  </span><span class="n">AuthUsecases</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">repo</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">Future</span><span class="o">&lt;</span><span class="n">Either</span><span class="o">&lt;</span><span class="n">Failure</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">isAuthenticated</span><span class="p">()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">repo</span><span class="p">.</span><span class="n">isAuthenticated</span><span class="p">();</span>
+<span class="w">  </span><span class="n">Stream</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="n">getUserStream</span><span class="p">()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">repo</span><span class="p">.</span><span class="n">getUserStream</span><span class="p">();</span>
+<span class="w">  </span><span class="n">Future</span><span class="o">&lt;</span><span class="n">Either</span><span class="o">&lt;</span><span class="n">Failure</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">logout</span><span class="p">()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">repo</span><span class="p">.</span><span class="n">logout</span><span class="p">();</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">dispose</span><span class="p">()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">repo</span><span class="p">.</span><span class="n">dispose</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="data-layer">📦 Data Layer<a class="headerlink" href="#data-layer" title="Permanent link">&para;</a></h2>
+<p>The data layer provides the concrete implementation of AuthRepository and bridges the domain layer with external systems (network and local storage).</p>
+<p>It uses:</p>
+<ul>
+<li>🛰️ Dio for network calls</li>
+<li>📦 Hive for local caching</li>
+<li>🔁 RxDart (BehaviorSubject) for user state streaming</li>
+</ul>
+<hr />
+<h4 id="authrepositoryimpl">🔧 AuthRepositoryImpl<a class="headerlink" href="#authrepositoryimpl" title="Permanent link">&para;</a></h4>
+<p>Implements the AuthRepository contract using Dio, Hive, and network info. Key responsibilities:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>login</code></td>
+<td>Authenticates via <code>/users/login</code>, caches token/user, updates stream</td>
+</tr>
+<tr>
+<td><code>register</code></td>
+<td>Sends registration request to <code>/users</code></td>
+</tr>
+<tr>
+<td><code>getUser</code></td>
+<td>Fetches user from API, updates user stream</td>
+</tr>
+<tr>
+<td><code>isAuthenticated</code></td>
+<td>Checks user stream or loads from cache</td>
+</tr>
+<tr>
+<td><code>logout</code></td>
+<td>Clears Hive boxes and resets user stream</td>
+</tr>
+<tr>
+<td><code>getUserStream()</code></td>
+<td>Returns reactive stream of current <code>User</code></td>
+</tr>
+<tr>
+<td><code>dispose()</code></td>
+<td>Closes the stream</td>
+</tr>
+</tbody>
+</table>
+<p>🗃️ Local Helpers:</p>
+<ul>
+<li>_cacheToken, _cacheUser, _getCachedUser, _clearCache</li>
+<li>_mapError: maps exceptions to domain Failure objects</li>
+</ul>
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<details>
+<summary>Full Implementation: <code>auth_repository_impl.dart</code></summary>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">AuthRepositoryImpl</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">AuthRepository</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">final</span><span class="w"> </span><span class="n">Dio</span><span class="w"> </span><span class="n">dio</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">final</span><span class="w"> </span><span class="n">HiveInterface</span><span class="w"> </span><span class="n">hive</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">final</span><span class="w"> </span><span class="n">NetworkInfo</span><span class="w"> </span><span class="n">networkInfo</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">final</span><span class="w"> </span><span class="n">_userController</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BehaviorSubject</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">AuthRepositoryImpl</span><span class="p">({</span><span class="kd">required</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">dio</span><span class="p">,</span><span class="w"> </span><span class="kd">required</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">hive</span><span class="p">,</span><span class="w"> </span><span class="kd">required</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">networkInfo</span><span class="p">});</span>
+
+<span class="w">  </span><span class="nd">@override</span>
+<span class="w">  </span><span class="n">Stream</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="n">getUserStream</span><span class="p">()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">_userController</span><span class="p">.</span><span class="n">stream</span><span class="p">;</span>
+
+<span class="w">  </span><span class="nd">@override</span>
+<span class="w">  </span><span class="n">Future</span><span class="o">&lt;</span><span class="n">Either</span><span class="o">&lt;</span><span class="n">Failure</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">isAuthenticated</span><span class="p">()</span><span class="w"> </span><span class="kd">async</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">_userController</span><span class="p">.</span><span class="n">hasValue</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">Right</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+<span class="w">      </span><span class="kd">final</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">await</span><span class="w"> </span><span class="n">_getCachedUser</span><span class="p">();</span>
+<span class="w">      </span><span class="n">_userController</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">user</span><span class="p">);</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">Right</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">_userController</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">User</span><span class="p">.</span><span class="n">empty</span><span class="p">);</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">Left</span><span class="p">(</span><span class="n">CacheFailure</span><span class="p">(</span><span class="s2">&quot;Failed to load cached user&quot;</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nd">@override</span>
+<span class="w">  </span><span class="n">Future</span><span class="o">&lt;</span><span class="n">Either</span><span class="o">&lt;</span><span class="n">Failure</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">login</span><span class="p">({</span><span class="kd">required</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="kd">required</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="n">password</span><span class="p">})</span><span class="w"> </span><span class="kd">async</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kd">final</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">await</span><span class="w"> </span><span class="n">dio</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/users/login&#39;</span><span class="p">,</span><span class="w"> </span><span class="nl">data:</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;email&quot;</span><span class="o">:</span><span class="w"> </span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;password&quot;</span><span class="o">:</span><span class="w"> </span><span class="n">password</span><span class="p">});</span>
+<span class="w">      </span><span class="kd">final</span><span class="w"> </span><span class="n">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res</span><span class="p">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;token&#39;</span><span class="p">];</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">token</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">Left</span><span class="p">(</span><span class="n">ServerFailure</span><span class="p">(</span><span class="s2">&quot;Invalid response&quot;</span><span class="p">));</span>
+
+<span class="w">      </span><span class="kd">await</span><span class="w"> </span><span class="n">_cacheToken</span><span class="p">(</span><span class="n">token</span><span class="p">);</span>
+<span class="w">      </span><span class="kd">final</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">await</span><span class="w"> </span><span class="n">_getUser</span><span class="p">();</span>
+<span class="w">      </span><span class="kd">await</span><span class="w"> </span><span class="n">_cacheUser</span><span class="p">(</span><span class="n">user</span><span class="p">);</span>
+<span class="w">      </span><span class="n">_userController</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">user</span><span class="p">);</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">Right</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">Left</span><span class="p">(</span><span class="n">_mapError</span><span class="p">(</span><span class="n">e</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nd">@override</span>
+<span class="w">  </span><span class="n">Future</span><span class="o">&lt;</span><span class="n">Either</span><span class="o">&lt;</span><span class="n">Failure</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">register</span><span class="p">({</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="kd">async</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kd">await</span><span class="w"> </span><span class="n">dio</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/users&#39;</span><span class="p">,</span><span class="w"> </span><span class="nl">data:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">});</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">Right</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">Left</span><span class="p">(</span><span class="n">_mapError</span><span class="p">(</span><span class="n">e</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nd">@override</span>
+<span class="w">  </span><span class="n">Future</span><span class="o">&lt;</span><span class="n">Either</span><span class="o">&lt;</span><span class="n">Failure</span><span class="p">,</span><span class="w"> </span><span class="n">User</span><span class="o">?&gt;&gt;</span><span class="w"> </span><span class="n">getUser</span><span class="p">()</span><span class="w"> </span><span class="kd">async</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kd">final</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">await</span><span class="w"> </span><span class="n">_getUser</span><span class="p">();</span>
+<span class="w">      </span><span class="n">_userController</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">user</span><span class="p">);</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">Right</span><span class="p">(</span><span class="n">user</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">Left</span><span class="p">(</span><span class="n">_mapError</span><span class="p">(</span><span class="n">e</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nd">@override</span>
+<span class="w">  </span><span class="n">Future</span><span class="o">&lt;</span><span class="n">Either</span><span class="o">&lt;</span><span class="n">Failure</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">logout</span><span class="p">()</span><span class="w"> </span><span class="kd">async</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kd">await</span><span class="w"> </span><span class="n">_clearCache</span><span class="p">();</span>
+<span class="w">      </span><span class="n">_userController</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">User</span><span class="p">.</span><span class="n">empty</span><span class="p">);</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">Right</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">Left</span><span class="p">(</span><span class="n">CacheFailure</span><span class="p">(</span><span class="s2">&quot;Failed to clear cache&quot;</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nd">@override</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">dispose</span><span class="p">()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">_userController</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+
+<span class="w">  </span><span class="c1">// Helpers</span>
+<span class="w">  </span><span class="n">Future</span><span class="o">&lt;</span><span class="n">UserModel</span><span class="o">&gt;</span><span class="w"> </span><span class="n">_getUser</span><span class="p">()</span><span class="w"> </span><span class="kd">async</span><span class="w"> </span><span class="o">=&gt;</span>
+<span class="w">      </span><span class="n">UserModel</span><span class="p">.</span><span class="n">fromJson</span><span class="p">((</span><span class="kd">await</span><span class="w"> </span><span class="n">dio</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">&#39;/users/me&#39;</span><span class="p">)).</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]);</span>
+
+<span class="w">  </span><span class="n">Future</span><span class="o">&lt;</span><span class="n">UserModel</span><span class="o">&gt;</span><span class="w"> </span><span class="n">_getCachedUser</span><span class="p">()</span><span class="w"> </span><span class="kd">async</span><span class="w"> </span><span class="o">=&gt;</span>
+<span class="w">      </span><span class="kd">await</span><span class="w"> </span><span class="n">hive</span><span class="p">.</span><span class="n">openLazyBox</span><span class="p">(</span><span class="s1">&#39;userBox&#39;</span><span class="p">).</span><span class="n">then</span><span class="p">((</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">&#39;cachedUser&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="p">(</span><span class="k">throw</span><span class="w"> </span><span class="n">CacheException</span><span class="p">()));</span>
+
+<span class="w">  </span><span class="n">Future</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="n">_cacheToken</span><span class="p">(</span><span class="kt">String</span><span class="w"> </span><span class="n">token</span><span class="p">)</span><span class="w"> </span><span class="kd">async</span><span class="w"> </span><span class="o">=&gt;</span>
+<span class="w">      </span><span class="kd">await</span><span class="w"> </span><span class="n">hive</span><span class="p">.</span><span class="n">openLazyBox</span><span class="p">(</span><span class="s1">&#39;tokenBox&#39;</span><span class="p">).</span><span class="n">then</span><span class="p">((</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="s1">&#39;cachedToken&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">token</span><span class="p">));</span>
+
+<span class="w">  </span><span class="n">Future</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="n">_cacheUser</span><span class="p">(</span><span class="n">UserModel</span><span class="w"> </span><span class="n">user</span><span class="p">)</span><span class="w"> </span><span class="kd">async</span><span class="w"> </span><span class="o">=&gt;</span>
+<span class="w">      </span><span class="kd">await</span><span class="w"> </span><span class="n">hive</span><span class="p">.</span><span class="n">openLazyBox</span><span class="p">(</span><span class="s1">&#39;userBox&#39;</span><span class="p">).</span><span class="n">then</span><span class="p">((</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="s1">&#39;cachedUser&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">));</span>
+
+<span class="w">  </span><span class="n">Future</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="n">_clearCache</span><span class="p">()</span><span class="w"> </span><span class="kd">async</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">await</span><span class="w"> </span><span class="n">hive</span><span class="p">.</span><span class="n">openLazyBox</span><span class="p">(</span><span class="s1">&#39;userBox&#39;</span><span class="p">).</span><span class="n">then</span><span class="p">((</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">clear</span><span class="p">());</span>
+<span class="w">    </span><span class="kd">await</span><span class="w"> </span><span class="n">hive</span><span class="p">.</span><span class="n">openLazyBox</span><span class="p">(</span><span class="s1">&#39;tokenBox&#39;</span><span class="p">).</span><span class="n">then</span><span class="p">((</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">clear</span><span class="p">());</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">Failure</span><span class="w"> </span><span class="n">_mapError</span><span class="p">(</span><span class="kt">dynamic</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">DioException</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">ServerFailure</span><span class="p">(</span><span class="n">DioExceptions</span><span class="p">.</span><span class="n">fromDioError</span><span class="p">(</span><span class="n">e</span><span class="p">).</span><span class="n">toString</span><span class="p">());</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">CacheException</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">CacheFailure</span><span class="p">(</span><span class="s2">&quot;Caching failed&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ServerFailure</span><span class="p">(</span><span class="s2">&quot;Unexpected error&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</details>
+
+<hr />
+<h4 id="usermodel">👤 UserModel<a class="headerlink" href="#usermodel" title="Permanent link">&para;</a></h4>
+<p>A Hive-compatible, JSON-deserializable implementation of the domain User. Used for:
+• parsing /users/me API response
+• local caching with Hive</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@HiveType</span><span class="p">(</span><span class="nl">typeId:</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
+<span class="nd">@JsonSerializable</span><span class="p">(</span><span class="nl">createToJson:</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">UserModel</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nd">@HiveField</span><span class="p">(</span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="nd">@JsonKey</span><span class="p">(</span><span class="nl">name:</span><span class="w"> </span><span class="s1">&#39;id&#39;</span><span class="p">)</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+<span class="w">    </span><span class="nd">@HiveField</span><span class="p">(</span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="nd">@JsonKey</span><span class="p">(</span><span class="nl">name:</span><span class="w"> </span><span class="s1">&#39;firstName&#39;</span><span class="p">)</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="n">firstName</span><span class="p">;</span>
+<span class="w">    </span><span class="nd">@HiveField</span><span class="p">(</span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="nd">@JsonKey</span><span class="p">(</span><span class="nl">name:</span><span class="w"> </span><span class="s1">&#39;lastName&#39;</span><span class="p">)</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="n">lastName</span><span class="p">;</span>
+<span class="w">    </span><span class="nd">@HiveField</span><span class="p">(</span><span class="m">3</span><span class="p">)</span><span class="w"> </span><span class="nd">@JsonKey</span><span class="p">(</span><span class="nl">name:</span><span class="w"> </span><span class="s1">&#39;phone&#39;</span><span class="p">)</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="n">phone</span><span class="p">;</span>
+<span class="w">    </span><span class="nd">@HiveField</span><span class="p">(</span><span class="m">4</span><span class="p">)</span><span class="w"> </span><span class="nd">@JsonKey</span><span class="p">(</span><span class="nl">name:</span><span class="w"> </span><span class="s1">&#39;email&#39;</span><span class="p">)</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="n">email</span><span class="p">;</span>
+<span class="w">    </span><span class="nd">@HiveField</span><span class="p">(</span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="nd">@JsonKey</span><span class="p">(</span><span class="nl">name:</span><span class="w"> </span><span class="s1">&#39;isEmailVerified&#39;</span><span class="p">,</span><span class="w"> </span><span class="nl">defaultValue:</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">isEmailVerified</span><span class="p">;</span>
+<span class="w">    </span><span class="nd">@HiveField</span><span class="p">(</span><span class="m">6</span><span class="p">)</span><span class="w"> </span><span class="nd">@JsonKey</span><span class="p">(</span><span class="nl">name:</span><span class="w"> </span><span class="s1">&#39;roles&#39;</span><span class="p">)</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">roles</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">UserModel</span><span class="p">(</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">firstName</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">lastName</span><span class="p">,</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">phone</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">isEmailVerified</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">roles</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">super</span><span class="p">(</span>
+<span class="w">        </span><span class="nl">id:</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="nl">firstName:</span><span class="w"> </span><span class="n">firstName</span><span class="p">,</span><span class="w"> </span><span class="nl">lastName:</span><span class="w"> </span><span class="n">lastName</span><span class="p">,</span>
+<span class="w">        </span><span class="nl">phone:</span><span class="w"> </span><span class="n">phone</span><span class="p">,</span><span class="w"> </span><span class="nl">email:</span><span class="w"> </span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="nl">isEmailVerified:</span><span class="w"> </span><span class="n">isEmailVerified</span><span class="p">,</span><span class="w"> </span><span class="nl">roles:</span><span class="w"> </span><span class="n">roles</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kd">factory</span><span class="w"> </span><span class="n">UserModel</span><span class="p">.</span><span class="n">fromJson</span><span class="p">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="kt">dynamic</span><span class="o">&gt;</span><span class="w"> </span><span class="n">json</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="err">\</span><span class="n">_$UserModelFromJson</span><span class="p">(</span><span class="n">json</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="global-authentication-bloc">🔐 Global Authentication Bloc<a class="headerlink" href="#global-authentication-bloc" title="Permanent link">&para;</a></h2>
+<p>Unlike other feature-specific BLoCs, the AuthBloc is a globally scoped bloc responsible for managing the authenticated user and session status. It persists throughout the entire app lifecycle.</p>
+<p>This bloc listens to a User stream exposed by the AuthRepository and emits high-level authentication states.</p>
+<h4 id="path-modulesauthblocauth_blocdart">📁 Path: modules/auth/bloc/auth_bloc.dart<a class="headerlink" href="#path-modulesauthblocauth_blocdart" title="Permanent link">&para;</a></h4>
+<p>Auth Status Enum
+<div class="highlight"><pre><span></span><code><span class="n">enum</span><span class="w"> </span><span class="n">AuthStatus</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">unknown</span><span class="p">,</span>
+<span class="w">  </span><span class="n">authenticated</span><span class="p">,</span>
+<span class="w">  </span><span class="n">unauthenticated</span><span class="p">,</span>
+<span class="w">  </span><span class="n">unverified</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>AuthState
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">AuthState</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Equatable</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">final</span><span class="w"> </span><span class="n">AuthStatus</span><span class="w"> </span><span class="n">status</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">final</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="n">user</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">AuthState</span><span class="p">({</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AuthStatus</span><span class="p">.</span><span class="n">unknown</span><span class="p">,</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">User</span><span class="p">.</span><span class="n">empty</span><span class="p">,</span>
+<span class="w">  </span><span class="p">});</span>
+
+<span class="w">  </span><span class="n">AuthState</span><span class="w"> </span><span class="n">copyWith</span><span class="p">({</span><span class="n">AuthStatus</span><span class="o">?</span><span class="w"> </span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="n">User</span><span class="o">?</span><span class="w"> </span><span class="n">user</span><span class="p">})</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">AuthState</span><span class="p">(</span>
+<span class="w">    </span><span class="nl">status:</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">status</span><span class="p">,</span>
+<span class="w">    </span><span class="nl">user:</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">user</span><span class="p">,</span>
+<span class="w">  </span><span class="p">);</span>
+
+<span class="w">  </span><span class="nd">@override</span>
+<span class="w">  </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">Object</span><span class="o">&gt;</span><span class="w"> </span><span class="kd">get</span><span class="w"> </span><span class="n">props</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>Auth Events
+<div class="highlight"><pre><span></span><code><span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">AuthEvent</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Equatable</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">AuthEvent</span><span class="p">();</span>
+
+<span class="w">  </span><span class="nd">@override</span>
+<span class="w">  </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">Object</span><span class="o">&gt;</span><span class="w"> </span><span class="kd">get</span><span class="w"> </span><span class="n">props</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">[];</span>
+<span class="p">}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nc">AppLoaded</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">AuthEvent</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nc">AuthStatusSubscriptionRequested</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">AuthEvent</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nc">AuthLogoutRequested</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">AuthEvent</span><span class="w"> </span><span class="p">{}</span>
+</code></pre></div>
+AuthBloc Overview
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">AuthBloc</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Bloc</span><span class="o">&lt;</span><span class="n">AuthEvent</span><span class="p">,</span><span class="w"> </span><span class="n">AuthState</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">final</span><span class="w"> </span><span class="n">AuthUsecases</span><span class="w"> </span><span class="n">_userUsecase</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">AuthBloc</span><span class="p">({</span><span class="kd">required</span><span class="w"> </span><span class="n">AuthUsecases</span><span class="w"> </span><span class="n">userUsecase</span><span class="p">})</span>
+<span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="n">_userUsecase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userUsecase</span><span class="p">,</span>
+<span class="w">        </span><span class="k">super</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">AuthState</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">on</span><span class="o">&lt;</span><span class="n">AppLoaded</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_appLoaded</span><span class="p">);</span>
+<span class="w">    </span><span class="kd">on</span><span class="o">&lt;</span><span class="n">AuthStatusSubscriptionRequested</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_onAuthSubscriptionRequested</span><span class="p">);</span>
+<span class="w">    </span><span class="kd">on</span><span class="o">&lt;</span><span class="n">AuthLogoutRequested</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_onAuthLogoutRequested</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">Future</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="n">_appLoaded</span><span class="p">(...)</span><span class="w"> </span><span class="kd">async</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">await</span><span class="w"> </span><span class="n">_userUsecase</span><span class="p">.</span><span class="n">isAuthenticated</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">Future</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="n">_onAuthSubscriptionRequested</span><span class="p">(...)</span><span class="w"> </span><span class="kd">async</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">await</span><span class="w"> </span><span class="n">_userUsecase</span><span class="p">.</span><span class="n">isAuthenticated</span><span class="p">();</span>
+<span class="w">    </span><span class="kd">await</span><span class="w"> </span><span class="n">emit</span><span class="p">.</span><span class="n">forEach</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">      </span><span class="n">_userUsecase</span><span class="p">.</span><span class="n">getUserStream</span><span class="p">(),</span>
+<span class="w">      </span><span class="nl">onData:</span><span class="w"> </span><span class="p">(</span><span class="n">user</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">User</span><span class="p">.</span><span class="n">empty</span>
+<span class="w">        </span><span class="o">?</span><span class="w"> </span><span class="n">state</span><span class="p">.</span><span class="n">copyWith</span><span class="p">(</span><span class="nl">status:</span><span class="w"> </span><span class="n">AuthStatus</span><span class="p">.</span><span class="n">unauthenticated</span><span class="p">)</span>
+<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">state</span><span class="p">.</span><span class="n">copyWith</span><span class="p">(</span><span class="nl">status:</span><span class="w"> </span><span class="n">AuthStatus</span><span class="p">.</span><span class="n">authenticated</span><span class="p">,</span><span class="w"> </span><span class="nl">user:</span><span class="w"> </span><span class="n">user</span><span class="p">),</span>
+<span class="w">      </span><span class="nl">onError:</span><span class="w"> </span><span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">__</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">state</span><span class="p">.</span><span class="n">copyWith</span><span class="p">(</span><span class="nl">status:</span><span class="w"> </span><span class="n">AuthStatus</span><span class="p">.</span><span class="n">unauthenticated</span><span class="p">),</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">_onAuthLogoutRequested</span><span class="p">(...)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">_userUsecase</span><span class="p">.</span><span class="n">logout</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nd">@override</span>
+<span class="w">  </span><span class="n">Future</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="n">close</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">_userUsecase</span><span class="p">.</span><span class="n">dispose</span><span class="p">();</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">super</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<hr />
+<p>🧩 Bloc Registration</p>
+<p>The AuthBloc is registered globally via GetIt in auth_module.dart:
+<div class="highlight"><pre><span></span><code><span class="n">di</span><span class="p">.</span><span class="n">registerLazySingleton</span><span class="p">(</span>
+<span class="w">  </span><span class="p">()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">AuthBloc</span><span class="p">(</span><span class="nl">userUsecase:</span><span class="w"> </span><span class="n">di</span><span class="p">())..</span><span class="n">add</span><span class="p">(</span><span class="n">AuthStatusSubscriptionRequested</span><span class="p">()),</span>
+<span class="p">);</span>
+</code></pre></div>
+This dispatch ensures the bloc begins listening to authentication status as soon as the app starts.</p>
+<hr />
+<h3 id="global-injection-in-app">🌍 Global Injection in App<a class="headerlink" href="#global-injection-in-app" title="Permanent link">&para;</a></h3>
+<p>Inside app.dart, AuthBloc is injected into the root widget using MultiBlocProvider, ensuring it’s available app-wide:
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">App</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">StatelessWidget</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">App</span><span class="p">({</span><span class="k">super</span><span class="p">.</span><span class="n">key</span><span class="p">});</span>
+
+<span class="w">  </span><span class="nd">@override</span>
+<span class="w">  </span><span class="n">Widget</span><span class="w"> </span><span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span><span class="w"> </span><span class="n">context</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">MultiBlocProvider</span><span class="p">(</span>
+<span class="w">      </span><span class="nl">providers:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="n">BlocProvider</span><span class="o">&lt;</span><span class="n">ThemeModeCubit</span><span class="o">&gt;</span><span class="p">(</span><span class="nl">create:</span><span class="w"> </span><span class="p">(</span><span class="n">context</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">di</span><span class="p">()),</span>
+<span class="w">        </span><span class="n">BlocProvider</span><span class="o">&lt;</span><span class="n">AuthBloc</span><span class="o">&gt;</span><span class="p">(</span><span class="nl">create:</span><span class="w"> </span><span class="p">(</span><span class="n">context</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">di</span><span class="p">()),</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nl">child:</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">AppView</span><span class="p">(),</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<hr />
+<p>✅ This global architecture ensures that:</p>
+<ul>
+<li>User state is accessible anywhere in the app.</li>
+<li>Authentication state changes (login, logout, load from cache) automatically update UI and route protections.</li>
+<li>Lifecycle of AuthBloc matches the app lifecycle — initialized on startup and disposed only when the app exits.</li>
+</ul>
+<hr />
+<h2 id="features-layer">🎨 Features Layer<a class="headerlink" href="#features-layer" title="Permanent link">&para;</a></h2>
+<p>The features/ directory holds UI-related logic and presentation for the authentication module. It is organized into feature-specific subfolders:</p>
+<div class="highlight"><pre><span></span><code>features/
+├── login/       # Login screen UI and its BLoC
+├── register/    # Sign up screen UI and its BLoC
+└── profile/     # Profile screen UI
+</code></pre></div>
+<h3 id="login-flow-example">🔐 Login Flow Example<a class="headerlink" href="#login-flow-example" title="Permanent link">&para;</a></h3>
+<h4 id="featuresloginbloclogin_blocdart">features/login/bloc/login_bloc.dart<a class="headerlink" href="#featuresloginbloclogin_blocdart" title="Permanent link">&para;</a></h4>
+<p>Handles login logic by invoking the AuthUsecases.login(...) method and emitting states based on the result.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">LoginBloc</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Bloc</span><span class="o">&lt;</span><span class="n">LoginEvent</span><span class="p">,</span><span class="w"> </span><span class="n">LoginState</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">final</span><span class="w"> </span><span class="n">AuthUsecases</span><span class="w"> </span><span class="n">_authUsecases</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">LoginBloc</span><span class="p">({</span><span class="kd">required</span><span class="w"> </span><span class="n">AuthUsecases</span><span class="w"> </span><span class="n">authUsecases</span><span class="p">})</span>
+<span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="n">_authUsecases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">authUsecases</span><span class="p">,</span>
+<span class="w">        </span><span class="k">super</span><span class="p">(</span><span class="n">LoginInitial</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">on</span><span class="o">&lt;</span><span class="n">LoginSubmitted</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_onSubmitted</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">Future</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="n">_onSubmitted</span><span class="p">(</span>
+<span class="w">    </span><span class="n">LoginSubmitted</span><span class="w"> </span><span class="n">event</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Emitter</span><span class="o">&lt;</span><span class="n">LoginState</span><span class="o">&gt;</span><span class="w"> </span><span class="n">emit</span><span class="p">,</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="kd">async</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">emit</span><span class="p">(</span><span class="n">LoginLoading</span><span class="p">());</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">await</span><span class="w"> </span><span class="n">_authUsecases</span><span class="p">.</span><span class="n">login</span><span class="p">(</span>
+<span class="w">      </span><span class="nl">email:</span><span class="w"> </span><span class="n">event</span><span class="p">.</span><span class="n">email</span><span class="p">,</span>
+<span class="w">      </span><span class="nl">password:</span><span class="w"> </span><span class="n">event</span><span class="p">.</span><span class="n">password</span><span class="p">,</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">    </span><span class="n">emit</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">fold</span><span class="p">(</span>
+<span class="w">      </span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">LoginFailure</span><span class="p">(</span><span class="nl">error:</span><span class="w"> </span><span class="n">error</span><span class="p">.</span><span class="n">getMessage</span><span class="p">()),</span>
+<span class="w">      </span><span class="p">(</span><span class="n">_</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">LoginSuccess</span><span class="p">(),</span>
+<span class="w">    </span><span class="p">));</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="featuresloginpagelogin_pagedart">features/login/page/login_page.dart<a class="headerlink" href="#featuresloginpagelogin_pagedart" title="Permanent link">&para;</a></h4>
+<p>Wraps the login form with a BlocProvider and injects LoginBloc from the dependency injector (di()).</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">LoginPage</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">StatelessWidget</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">LoginPage</span><span class="p">({</span><span class="k">super</span><span class="p">.</span><span class="n">key</span><span class="p">});</span>
+
+<span class="w">  </span><span class="nd">@override</span>
+<span class="w">  </span><span class="n">Widget</span><span class="w"> </span><span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span><span class="w"> </span><span class="n">context</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Scaffold</span><span class="p">(</span>
+<span class="w">      </span><span class="nl">body:</span><span class="w"> </span><span class="n">BlocProvider</span><span class="o">&lt;</span><span class="n">LoginBloc</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">        </span><span class="nl">create:</span><span class="w"> </span><span class="p">(</span><span class="n">context</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">di</span><span class="p">(),</span>
+<span class="w">        </span><span class="nl">child:</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Center</span><span class="p">(</span><span class="nl">child:</span><span class="w"> </span><span class="n">LoginForm</span><span class="p">()),</span>
+<span class="w">      </span><span class="p">),</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="featuresloginwidgetslogin_buttondart">features/login/widgets/login_button.dart<a class="headerlink" href="#featuresloginwidgetslogin_buttondart" title="Permanent link">&para;</a></h4>
+<p>Button that triggers the login submission after validating form data:</p>
+<div class="highlight"><pre><span></span><code><span class="n">BlocBuilder</span><span class="o">&lt;</span><span class="n">LoginBloc</span><span class="p">,</span><span class="w"> </span><span class="n">LoginState</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">  </span><span class="nl">builder:</span><span class="w"> </span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">state</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">final</span><span class="w"> </span><span class="n">isLoading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">LoginLoading</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">FilledButton</span><span class="p">(</span>
+<span class="w">      </span><span class="nl">onPressed:</span><span class="w"> </span><span class="o">!</span><span class="n">isLoading</span>
+<span class="w">          </span><span class="o">?</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">formKey</span><span class="p">.</span><span class="n">currentState</span><span class="o">?</span><span class="p">.</span><span class="n">saveAndValidate</span><span class="p">()</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">context</span><span class="p">.</span><span class="n">read</span><span class="o">&lt;</span><span class="n">LoginBloc</span><span class="o">&gt;</span><span class="p">().</span><span class="n">add</span><span class="p">(</span><span class="n">LoginSubmitted</span><span class="p">(</span>
+<span class="w">                  </span><span class="nl">email:</span><span class="w"> </span><span class="n">formKey</span><span class="p">.</span><span class="n">currentState</span><span class="o">?</span><span class="p">.</span><span class="n">value</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">],</span>
+<span class="w">                  </span><span class="nl">password:</span><span class="w"> </span><span class="n">formKey</span><span class="p">.</span><span class="n">currentState</span><span class="o">?</span><span class="p">.</span><span class="n">value</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">],</span>
+<span class="w">                </span><span class="p">));</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="o">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">      </span><span class="nl">child:</span><span class="w"> </span><span class="n">isLoading</span>
+<span class="w">          </span><span class="o">?</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">CircularProgressIndicator</span><span class="p">()</span>
+<span class="w">          </span><span class="o">:</span><span class="w"> </span><span class="n">Text</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;loginPage.signIn&quot;</span><span class="p">)),</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="p">);</span>
+</code></pre></div>
+<hr />
+<h2 id="module-registration">🧩 Module Registration<a class="headerlink" href="#module-registration" title="Permanent link">&para;</a></h2>
+<h4 id="auth_moduledart">🧱 auth_module.dart<a class="headerlink" href="#auth_moduledart" title="Permanent link">&para;</a></h4>
+<p>This file is responsible for registering all dependencies related to the auth module using GetIt.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Future</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="n">registerAuthModule</span><span class="p">()</span><span class="w"> </span><span class="kd">async</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Hive Adapters</span>
+<span class="w">  </span><span class="n">di</span><span class="o">&lt;</span><span class="n">HiveInterface</span><span class="o">&gt;</span><span class="p">().</span><span class="n">registerAdapter</span><span class="o">&lt;</span><span class="n">UserModel</span><span class="o">&gt;</span><span class="p">(</span><span class="n">UserModelAdapter</span><span class="p">());</span>
+
+<span class="w">  </span><span class="c1">// Repository &amp; Usecases</span>
+<span class="w">  </span><span class="n">di</span><span class="p">.</span><span class="n">registerLazySingleton</span><span class="o">&lt;</span><span class="n">AuthRepository</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">    </span><span class="p">()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">AuthRepositoryImpl</span><span class="p">(</span><span class="nl">dio:</span><span class="w"> </span><span class="n">di</span><span class="p">(),</span><span class="w"> </span><span class="nl">hive:</span><span class="w"> </span><span class="n">di</span><span class="p">(),</span><span class="w"> </span><span class="nl">networkInfo:</span><span class="w"> </span><span class="n">di</span><span class="p">()),</span>
+<span class="w">  </span><span class="p">);</span>
+<span class="w">  </span><span class="n">di</span><span class="p">.</span><span class="n">registerLazySingleton</span><span class="o">&lt;</span><span class="n">AuthUsecases</span><span class="o">&gt;</span><span class="p">(()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">AuthUsecases</span><span class="p">(</span><span class="n">di</span><span class="p">()));</span>
+
+<span class="w">  </span><span class="c1">// Global AuthBloc</span>
+<span class="w">  </span><span class="n">di</span><span class="p">.</span><span class="n">registerLazySingleton</span><span class="p">(</span>
+<span class="w">    </span><span class="p">()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">AuthBloc</span><span class="p">(</span><span class="nl">userUsecase:</span><span class="w"> </span><span class="n">di</span><span class="p">())..</span><span class="n">add</span><span class="p">(</span><span class="n">AuthStatusSubscriptionRequested</span><span class="p">()),</span>
+<span class="w">  </span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">// Feature Blocs</span>
+<span class="w">  </span><span class="n">di</span><span class="p">.</span><span class="n">registerFactory</span><span class="p">(()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">LoginBloc</span><span class="p">(</span><span class="nl">authUsecases:</span><span class="w"> </span><span class="n">di</span><span class="p">()));</span>
+<span class="w">  </span><span class="n">di</span><span class="p">.</span><span class="n">registerFactory</span><span class="p">(()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">RegisterBloc</span><span class="p">(</span><span class="nl">authUsecases:</span><span class="w"> </span><span class="n">di</span><span class="p">()));</span>
+
+<span class="w">  </span><span class="c1">// Routes</span>
+<span class="w">  </span><span class="n">di</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">RouteBase</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="nl">instanceName:</span><span class="w"> </span><span class="n">Constants</span><span class="p">.</span><span class="n">mainRouesDiKey</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">addAll</span><span class="p">(</span><span class="n">authRoutes</span><span class="p">());</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="navigation-tabs">🧭 Navigation Tabs<a class="headerlink" href="#navigation-tabs" title="Permanent link">&para;</a></h4>
+<p>Some auth features like Profile are available as tabs in adaptive layouts. Tabs are injected via registerAuthModuleWithContext, which uses BuildContext to access localized labels.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="n">registerAuthModuleWithContext</span><span class="p">(</span><span class="n">BuildContext</span><span class="w"> </span><span class="n">context</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">final</span><span class="w"> </span><span class="n">navTabs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">di</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">AdaptiveDestination</span><span class="o">&gt;&gt;</span><span class="p">(</span>
+<span class="w">    </span><span class="nl">instanceName:</span><span class="w"> </span><span class="n">Constants</span><span class="p">.</span><span class="n">navTabsDiKey</span><span class="p">,</span>
+<span class="w">  </span><span class="p">);</span>
+<span class="w">  </span><span class="n">navTabs</span><span class="p">.</span><span class="n">addAll</span><span class="p">(</span><span class="n">getAuthNavTabs</span><span class="p">(</span><span class="n">context</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="auth_routesdart">🗂️ auth_routes.dart<a class="headerlink" href="#auth_routesdart" title="Permanent link">&para;</a></h4>
+<p>Defines all routes and navigation tabs for the auth module.</p>
+<div class="highlight"><pre><span></span><code><span class="n">List</span><span class="o">&lt;</span><span class="n">GoRoute</span><span class="o">&gt;</span><span class="w"> </span><span class="n">authRoutes</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="n">GoRoute</span><span class="p">(</span>
+<span class="w">      </span><span class="nl">path:</span><span class="w"> </span><span class="s2">&quot;/login&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nl">redirect:</span><span class="w"> </span><span class="n">unAuthRouteGuard</span><span class="p">,</span>
+<span class="w">      </span><span class="nl">pageBuilder:</span><span class="w"> </span><span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">__</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">FadeTransitionPage</span><span class="p">(</span><span class="nl">child:</span><span class="w"> </span><span class="n">LoginPage</span><span class="p">()),</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">    </span><span class="n">GoRoute</span><span class="p">(</span>
+<span class="w">      </span><span class="nl">path:</span><span class="w"> </span><span class="s2">&quot;/register&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nl">redirect:</span><span class="w"> </span><span class="n">unAuthRouteGuard</span><span class="p">,</span>
+<span class="w">      </span><span class="nl">pageBuilder:</span><span class="w"> </span><span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">__</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">FadeTransitionPage</span><span class="p">(</span><span class="nl">child:</span><span class="w"> </span><span class="n">RegisterPage</span><span class="p">()),</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">    </span><span class="n">GoRoute</span><span class="p">(</span>
+<span class="w">      </span><span class="nl">path:</span><span class="w"> </span><span class="s2">&quot;/profile&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nl">redirect:</span><span class="w"> </span><span class="n">authRouteGuard</span><span class="p">,</span>
+<span class="w">      </span><span class="nl">pageBuilder:</span><span class="w"> </span><span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">__</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">FadeTransitionPage</span><span class="p">(</span><span class="nl">child:</span><span class="w"> </span><span class="n">ProfilePage</span><span class="p">()),</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">  </span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="getauthnavtabs">🧭 getAuthNavTabs<a class="headerlink" href="#getauthnavtabs" title="Permanent link">&para;</a></h4>
+<p>Defines tabs to be injected into the adaptive layout.</p>
+<div class="highlight"><pre><span></span><code><span class="n">List</span><span class="o">&lt;</span><span class="n">AdaptiveDestination</span><span class="o">&gt;</span><span class="w"> </span><span class="n">getAuthNavTabs</span><span class="p">(</span><span class="n">BuildContext</span><span class="w"> </span><span class="n">context</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="o">&lt;</span><span class="n">AdaptiveDestination</span><span class="o">&gt;</span><span class="p">[</span>
+<span class="w">    </span><span class="n">AdaptiveDestination</span><span class="p">(</span>
+<span class="w">      </span><span class="nl">title:</span><span class="w"> </span><span class="n">context</span><span class="p">.</span><span class="n">tr</span><span class="p">(</span><span class="s1">&#39;layoutPage.profile&#39;</span><span class="p">),</span>
+<span class="w">      </span><span class="nl">icon:</span><span class="w"> </span><span class="n">Icons</span><span class="p">.</span><span class="n">person</span><span class="p">,</span>
+<span class="w">      </span><span class="nl">route:</span><span class="w"> </span><span class="s1">&#39;/profile&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nl">navTab:</span><span class="w"> </span><span class="n">AuthNavTab</span><span class="p">.</span><span class="n">profile</span><span class="p">,</span>
+<span class="w">      </span><span class="nl">order:</span><span class="w"> </span><span class="m">30</span><span class="p">,</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">  </span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<p>✅ Summary</p>
+<p>The auth module is a fully isolated feature that follows clean architecture principles with clearly defined layers:</p>
+<ul>
+<li>Domain Layer defines the core business logic and contracts (entities, usecases, repositories).</li>
+<li>Data Layer implements those contracts using external systems like APIs and local storage.</li>
+<li>Global Bloc (AuthBloc) listens to authentication state changes and provides app-wide reactive auth state.</li>
+<li>Features Layer contains UI-specific logic such as login, register, and profile screens with their own BLoCs.</li>
+<li>Modular Registration allows the module to be independently initialized and plugged into navigation and DI.</li>
+</ul>
+<p>This structure ensures:</p>
+<p>✔️ Easy testability and mockability<br />
+✔️ Scalable and maintainable codebase<br />
+✔️ Independent development and replacement of auth flows<br />
+✔️ Centralized user session management via AuthBloc<br />
+✔️ Contextual tab and route registration with GoRouter  </p>
+<p>This modular approach empowers teams to build and scale large apps while keeping features decoupled and cohesive.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top", "navigation.indexes", "content.code.copy", "content.action.edit", "search.highlight", "search.suggest", "toc.integrate", "header.autohide"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

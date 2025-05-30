@@ -1,6 +1,7 @@
 site_name: Flutter Clean Starter
 site_description: A production-ready Flutter starter template using Clean Architecture
-site_author: Your Name
+site_author: Biruk Mekonnen
+site_url: https://BrockMekonnen.github.io/flutter_clean_starter/
 repo_url: https://github.com/BrockMekonnen/flutter_clean_starter
 repo_name: BrockMekonnen/flutter_clean_starter
 docs_dir: docs
