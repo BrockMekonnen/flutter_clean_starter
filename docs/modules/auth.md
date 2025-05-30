@@ -253,6 +253,147 @@ class UserModel extends User {
 }
 ```
 
+
+---
+
+## 🔐 Global Authentication Bloc
+
+Unlike other feature-specific BLoCs, the AuthBloc is a globally scoped bloc responsible for managing the authenticated user and session status. It persists throughout the entire app lifecycle.
+
+This bloc listens to a User stream exposed by the AuthRepository and emits high-level authentication states.
+
+#### 📁 Path: modules/auth/bloc/auth_bloc.dart
+
+Auth Status Enum
+```dart
+enum AuthStatus {
+  unknown,
+  authenticated,
+  unauthenticated,
+  unverified,
+}
+```
+
+AuthState
+```dart
+class AuthState extends Equatable {
+  final AuthStatus status;
+  final User user;
+
+  const AuthState({
+    this.status = AuthStatus.unknown,
+    this.user = User.empty,
+  });
+
+  AuthState copyWith({AuthStatus? status, User? user}) => AuthState(
+    status: status ?? this.status,
+    user: user ?? this.user,
+  );
+
+  @override
+  List<Object> get props => [status, user];
+}
+```
+
+Auth Events
+```dart
+abstract class AuthEvent extends Equatable {
+  const AuthEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+class AppLoaded extends AuthEvent {}
+
+class AuthStatusSubscriptionRequested extends AuthEvent {}
+
+class AuthLogoutRequested extends AuthEvent {}
+```
+AuthBloc Overview
+```dart
+class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  final AuthUsecases _userUsecase;
+
+  AuthBloc({required AuthUsecases userUsecase})
+      : _userUsecase = userUsecase,
+        super(const AuthState()) {
+    on<AppLoaded>(_appLoaded);
+    on<AuthStatusSubscriptionRequested>(_onAuthSubscriptionRequested);
+    on<AuthLogoutRequested>(_onAuthLogoutRequested);
+  }
+
+  Future<void> _appLoaded(...) async {
+    await _userUsecase.isAuthenticated();
+  }
+
+  Future<void> _onAuthSubscriptionRequested(...) async {
+    await _userUsecase.isAuthenticated();
+    await emit.forEach<User>(
+      _userUsecase.getUserStream(),
+      onData: (user) => user == User.empty
+        ? state.copyWith(status: AuthStatus.unauthenticated)
+        : state.copyWith(status: AuthStatus.authenticated, user: user),
+      onError: (_, __) => state.copyWith(status: AuthStatus.unauthenticated),
+    );
+  }
+
+  void _onAuthLogoutRequested(...) {
+    _userUsecase.logout();
+  }
+
+  @override
+  Future<void> close() {
+    _userUsecase.dispose();
+    return super.close();
+  }
+}
+```
+
+---
+
+🧩 Bloc Registration
+
+The AuthBloc is registered globally via GetIt in auth_module.dart:
+```dart
+di.registerLazySingleton(
+  () => AuthBloc(userUsecase: di())..add(AuthStatusSubscriptionRequested()),
+);
+```
+This dispatch ensures the bloc begins listening to authentication status as soon as the app starts.
+
+---
+
+### 🌍 Global Injection in App
+
+Inside app.dart, AuthBloc is injected into the root widget using MultiBlocProvider, ensuring it’s available app-wide:
+```dart
+class App extends StatelessWidget {
+  const App({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ThemeModeCubit>(create: (context) => di()),
+        BlocProvider<AuthBloc>(create: (context) => di()),
+      ],
+      child: const AppView(),
+    );
+  }
+}
+```
+
+---
+
+✅ This global architecture ensures that:
+
+- User state is accessible anywhere in the app.
+- Authentication state changes (login, logout, load from cache) automatically update UI and route protections.
+- Lifecycle of AuthBloc matches the app lifecycle — initialized on startup and disposed only when the app exits.
+
+---
+
 ## 🎨 Features Layer
 
 The features/ directory holds UI-related logic and presentation for the authentication module. It is organized into feature-specific subfolders:
@@ -266,7 +407,7 @@ features/
 
 ### 🔐 Login Flow Example
 
-#### 📂 features/login/bloc/login_bloc.dart
+#### features/login/bloc/login_bloc.dart
 
 Handles login logic by invoking the AuthUsecases.login(...) method and emitting states based on the result.
 
@@ -297,7 +438,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 }
 ```
 
-#### 📄 features/login/page/login_page.dart
+#### features/login/page/login_page.dart
 
 Wraps the login form with a BlocProvider and injects LoginBloc from the dependency injector (di()).
 
@@ -317,7 +458,7 @@ class LoginPage extends StatelessWidget {
 }
 ```
 
-#### 🧩 features/login/widgets/login_button.dart
+#### features/login/widgets/login_button.dart
 
 Button that triggers the login submission after validating form data:
 
@@ -417,7 +558,7 @@ List<GoRoute> authRoutes() {
 }
 ````
 
-### 🧭 getAuthNavTabs
+#### 🧭 getAuthNavTabs
 
 Defines tabs to be injected into the adaptive layout.
 
@@ -434,3 +575,25 @@ List<AdaptiveDestination> getAuthNavTabs(BuildContext context) {
   ];
 }
 ````
+
+---
+
+✅ Summary
+
+The auth module is a fully isolated feature that follows clean architecture principles with clearly defined layers:
+
+- Domain Layer defines the core business logic and contracts (entities, usecases, repositories).
+- Data Layer implements those contracts using external systems like APIs and local storage.
+- Global Bloc (AuthBloc) listens to authentication state changes and provides app-wide reactive auth state.
+- Features Layer contains UI-specific logic such as login, register, and profile screens with their own BLoCs.
+- Modular Registration allows the module to be independently initialized and plugged into navigation and DI.
+
+This structure ensures:
+
+✔️ Easy testability and mockability  
+✔️ Scalable and maintainable codebase  
+✔️ Independent development and replacement of auth flows  
+✔️ Centralized user session management via AuthBloc  
+✔️ Contextual tab and route registration with GoRouter  
+
+This modular approach empowers teams to build and scale large apps while keeping features decoupled and cohesive.
