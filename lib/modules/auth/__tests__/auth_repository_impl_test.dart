@@ -144,7 +144,7 @@ void main() {
           statusCode: 200,
           requestOptions: RequestOptions(path: '/users/me')));
 
-      final result = await repository.getUser();
+      final result = await repository.getMe();
 
       expect(result.isRight(), true);
 
@@ -157,7 +157,7 @@ void main() {
       when(() => mockDio.get(any()))
           .thenThrow(DioException(requestOptions: RequestOptions(path: '/users/me')));
 
-      final result = await repository.getUser();
+      final result = await repository.getMe();
 
       expect(result.isLeft(), true);
       result.fold((failure) => expect(failure, isA<ServerFailure>()), (_) => null);

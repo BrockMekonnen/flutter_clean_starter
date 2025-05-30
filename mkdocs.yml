@@ -9,6 +9,7 @@ theme:
   name: material
   language: en
   favicon: img/favicon.ico
+  
   features:
     - navigation.tabs
     - navigation.top
@@ -55,17 +56,16 @@ nav:
   - Folder Structure: folder_structure.md
   - Core:
       - Overview: _core/overview.md
+      - Bootstrap: _core/bootstrap.md
+      - Init Modules: _core/init_modules.md
       - Router: _core/app_router.md
       - Dependency Injection: _core/di.md
       - HTTP Client: _core/http_client.md
+      - Database: _core/database.md
       - Theme: _core/theme.md
-  - Shared:
-      - Overview: _shared/overview.md
-      - Blocs: _shared/blocs.md
-      - Widgets: _shared/widgets.md
-      - Utils: _shared/utils.md
   - Modules:
       - Overview: modules/overview.md
+      - Shared Module: modules/shared.md
       - Auth Module: modules/auth.md
-      - Post Module: modules/post.md
+      # - Post Module: modules/post.md
   - Contributing: contributing.md

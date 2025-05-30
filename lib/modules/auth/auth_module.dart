@@ -28,8 +28,8 @@ Future<void> registerAuthModule() async {
   //* inject blocs
   di.registerLazySingleton(
       () => AuthBloc(userUsecase: di())..add(AuthStatusSubscriptionRequested()));
-  di.registerFactory(() => LoginBloc(authRepository: di()));
-  di.registerFactory(() => RegisterBloc(authRepository: di()));
+  di.registerFactory(() => LoginBloc(authUsecases: di()));
+  di.registerFactory(() => RegisterBloc(authUsecases: di()));
 
   //* register routes and nav tabs
   di<List<RouteBase>>(instanceName: Constants.mainRouesDiKey).addAll(authRoutes());

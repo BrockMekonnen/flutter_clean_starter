@@ -73,7 +73,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       await _cacheToken(token);
 
-      final user = await _getUser();
+      final user = await _getMe();
       await _cacheUser(user);
 
       _userController.add(user);
@@ -119,9 +119,9 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, User?>> getUser() async {
+  Future<Either<Failure, User?>> getMe() async {
     try {
-      var user = await _getUser();
+      var user = await _getMe();
       _userController.add(user);
       return Right(user);
     } catch (error) {
@@ -133,7 +133,7 @@ class AuthRepositoryImpl implements AuthRepository {
     }
   }
 
-  Future<UserModel> _getUser() async {
+  Future<UserModel> _getMe() async {
     String path = '/users/me';
     final response = await dio.get(path);
     var user = UserModel.fromJson(response.data['data']);

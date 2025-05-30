@@ -10,7 +10,7 @@ abstract class AuthRepository {
   Future<Either<Failure, void>> isAuthenticated();
   Future<Either<Failure, void>> logout();
   Future<Either<Failure, void>> login({required String email, required String password});
-  Future<Either<Failure, User?>> getUser();
+  Future<Either<Failure, User?>> getMe();
 
   Future<Either<Failure, void>> register({
     required String firstName,

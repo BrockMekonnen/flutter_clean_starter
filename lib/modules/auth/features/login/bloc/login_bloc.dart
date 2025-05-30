@@ -1,27 +1,27 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../domain/auth_repository.dart';
+import '../../../domain/auth_usecases.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc({
-    required AuthRepository authRepository,
-  })  : _authRepository = authRepository,
+    required AuthUsecases authUsecases,
+  })  : _authUsecases = authUsecases,
         super(LoginInitial()) {
     on<LoginSubmitted>(_onSubmitted);
   }
 
-  final AuthRepository _authRepository;
+  final AuthUsecases _authUsecases;
 
   Future<void> _onSubmitted(
     LoginSubmitted event,
     Emitter<LoginState> emit,
   ) async {
     emit(LoginLoading());
-    var result = await _authRepository.login(
+    var result = await _authUsecases.login(
       email: event.email,
       password: event.password,
     );
