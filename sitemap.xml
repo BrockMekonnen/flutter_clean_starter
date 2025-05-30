@@ -1,71 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://BrockMekonnen.github.io/flutter-clean-starter/</loc>
+         <loc>https://BrockMekonnen.github.io/flutter_clean_starter/</loc>
          <lastmod>2025-05-30</lastmod>
     </url>
     <url>
-         <loc>https://BrockMekonnen.github.io/flutter-clean-starter/architecture/</loc>
+         <loc>https://BrockMekonnen.github.io/flutter_clean_starter/architecture/</loc>
          <lastmod>2025-05-30</lastmod>
     </url>
     <url>
-         <loc>https://BrockMekonnen.github.io/flutter-clean-starter/contributing/</loc>
+         <loc>https://BrockMekonnen.github.io/flutter_clean_starter/contributing/</loc>
          <lastmod>2025-05-30</lastmod>
     </url>
     <url>
-         <loc>https://BrockMekonnen.github.io/flutter-clean-starter/folder_structure/</loc>
+         <loc>https://BrockMekonnen.github.io/flutter_clean_starter/folder_structure/</loc>
          <lastmod>2025-05-30</lastmod>
     </url>
     <url>
-         <loc>https://BrockMekonnen.github.io/flutter-clean-starter/getting_started/</loc>
+         <loc>https://BrockMekonnen.github.io/flutter_clean_starter/getting_started/</loc>
          <lastmod>2025-05-30</lastmod>
     </url>
     <url>
-         <loc>https://BrockMekonnen.github.io/flutter-clean-starter/_core/app_router/</loc>
+         <loc>https://BrockMekonnen.github.io/flutter_clean_starter/_core/app_router/</loc>
          <lastmod>2025-05-30</lastmod>
     </url>
     <url>
-         <loc>https://BrockMekonnen.github.io/flutter-clean-starter/_core/bootstrap/</loc>
+         <loc>https://BrockMekonnen.github.io/flutter_clean_starter/_core/bootstrap/</loc>
          <lastmod>2025-05-30</lastmod>
     </url>
     <url>
-         <loc>https://BrockMekonnen.github.io/flutter-clean-starter/_core/database/</loc>
+         <loc>https://BrockMekonnen.github.io/flutter_clean_starter/_core/database/</loc>
          <lastmod>2025-05-30</lastmod>
     </url>
     <url>
-         <loc>https://BrockMekonnen.github.io/flutter-clean-starter/_core/di/</loc>
+         <loc>https://BrockMekonnen.github.io/flutter_clean_starter/_core/di/</loc>
          <lastmod>2025-05-30</lastmod>
     </url>
     <url>
-         <loc>https://BrockMekonnen.github.io/flutter-clean-starter/_core/http_client/</loc>
+         <loc>https://BrockMekonnen.github.io/flutter_clean_starter/_core/http_client/</loc>
          <lastmod>2025-05-30</lastmod>
     </url>
     <url>
-         <loc>https://BrockMekonnen.github.io/flutter-clean-starter/_core/init_modules/</loc>
+         <loc>https://BrockMekonnen.github.io/flutter_clean_starter/_core/init_modules/</loc>
          <lastmod>2025-05-30</lastmod>
     </url>
     <url>
-         <loc>https://BrockMekonnen.github.io/flutter-clean-starter/_core/overview/</loc>
+         <loc>https://BrockMekonnen.github.io/flutter_clean_starter/_core/overview/</loc>
          <lastmod>2025-05-30</lastmod>
     </url>
     <url>
-         <loc>https://BrockMekonnen.github.io/flutter-clean-starter/_core/theme/</loc>
+         <loc>https://BrockMekonnen.github.io/flutter_clean_starter/_core/theme/</loc>
          <lastmod>2025-05-30</lastmod>
     </url>
     <url>
-         <loc>https://BrockMekonnen.github.io/flutter-clean-starter/modules/auth/</loc>
+         <loc>https://BrockMekonnen.github.io/flutter_clean_starter/modules/auth/</loc>
          <lastmod>2025-05-30</lastmod>
     </url>
     <url>
-         <loc>https://BrockMekonnen.github.io/flutter-clean-starter/modules/overview/</loc>
+         <loc>https://BrockMekonnen.github.io/flutter_clean_starter/modules/overview/</loc>
          <lastmod>2025-05-30</lastmod>
     </url>
     <url>
-         <loc>https://BrockMekonnen.github.io/flutter-clean-starter/modules/post/</loc>
+         <loc>https://BrockMekonnen.github.io/flutter_clean_starter/modules/post/</loc>
          <lastmod>2025-05-30</lastmod>
     </url>
     <url>
-         <loc>https://BrockMekonnen.github.io/flutter-clean-starter/modules/shared/</loc>
+         <loc>https://BrockMekonnen.github.io/flutter_clean_starter/modules/shared/</loc>
          <lastmod>2025-05-30</lastmod>
     </url>
 </urlset>
